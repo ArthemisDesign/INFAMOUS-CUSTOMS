@@ -37,7 +37,15 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!mainContentRef.current) return;
+      
       const { scrollTop, scrollHeight, clientHeight } = mainContentRef.current;
+
+      // Icon rotation logic
+      const rotationValue = -(scrollTop / 10);
+      setRotation(rotationValue);
+      
+      // Subsection selection logic
       const scrollBottom = scrollTop + clientHeight;
       
       // Check if scrolled to the very bottom
@@ -173,16 +181,14 @@ function App() {
           </div>
 
           {/* Middle Column */}
-          <div className="w-20 h-full border-r border-white flex flex-col items-center justify-between py-24">
-              <div className="transform -rotate-90 whitespace-nowrap">
+          <div className="w-20 h-full border-r border-white relative">
+              <div className="absolute top-40 left-1/2 transform -translate-x-1/2 -rotate-90 whitespace-nowrap">
                   <span className="text-sm tracking-[0.3em]">INFAMOUS CUSTOMS</span>
               </div>
               
-              <div className="w-12 h-12 text-white" style={{ transform: `rotate(${rotation}deg)` }}>
+              <div className="absolute top-1/2 left-1/2 w-12 h-12 text-white" style={{ transform: `translate(-50%, -50%) rotate(${rotation}deg)` }}>
                   <img src="/scroll.svg" alt="Infamous Customs Logo" />
               </div>
-
-              <div></div>
           </div>
 
           {/* Rightmost Column */}
