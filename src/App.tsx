@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Globe2, Menu, X } from 'lucide-react';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [rotation, setRotation] = useState(0);
 
   const navigationItems = [
     { name: 'ABOUT', href: '#about' },
@@ -10,16 +11,30 @@ function App() {
     { name: 'CONTACT', href: '#contact' }
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const rotationValue = -(scrollY / 10);
+      setRotation(rotationValue);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-64 bg-black text-white transform transition-transform duration-300 ease-in-out ${
+      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-48 bg-black text-white transform transition-transform duration-300 ease-in-out ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0`}>
         
         <div className="flex h-full">
           {/* Left Column */}
-          <div className="w-24 h-full border-l border-r border-white flex flex-col items-center justify-center relative">
+          <div className="w-28 h-full border-l border-r border-white flex flex-col items-center justify-center relative">
             <div className="absolute top-16 w-1 h-12 bg-white"></div>
             <nav>
                 <div className="space-y-24">
@@ -38,12 +53,12 @@ function App() {
           </div>
 
           {/* Right Column */}
-          <div className="flex-1 h-full border-r border-white flex flex-col items-center justify-between py-16">
+          <div className="w-20 h-full border-r border-white flex flex-col items-center justify-between py-24">
               <div className="transform -rotate-90 whitespace-nowrap">
                   <span className="text-sm tracking-[0.3em]">INFAMOUS CUSTOMS</span>
               </div>
               
-              <div className="w-24 h-24 text-white">
+              <div className="w-12 h-12 text-white" style={{ transform: `rotate(${rotation}deg)` }}>
                   <img src="/scroll.svg" alt="Infamous Customs Logo" />
               </div>
 
