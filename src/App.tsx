@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Globe2, Menu, X } from 'lucide-react';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [activePage, setActivePage] = useState('about');
+  const [activeSubsection, setActiveSubsection] = useState('');
+  const mainContentRef = useRef(null);
 
   const navigationItems = [
     { name: 'ABOUT', page: 'about', align: 'start' },
@@ -23,8 +25,63 @@ function App() {
       { name: 'sv-hermes', href: '#sv-hermes' },
       { name: 'RR-Bolshoi', href: '#rr-bolshoi' }
     ],
-    contact: []
+    contact: [
+      { name: 'client form', href: '#client-form' }
+    ]
   };
+
+  useEffect(() => {
+    const subsection = pageSubsections[activePage][0];
+    setActiveSubsection(subsection ? subsection.href : '');
+  }, [activePage]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = mainContentRef.current;
+      const scrollBottom = scrollTop + clientHeight;
+      
+      // Check if scrolled to the very bottom
+      if (scrollBottom >= scrollHeight - 5) { // 5px threshold
+        const lastSubsection = pageSubsections[activePage][pageSubsections[activePage].length - 1];
+        if (lastSubsection) {
+          setActiveSubsection(lastSubsection.href);
+        }
+        return;
+      }
+
+      let currentSubsection = '';
+      const threshold = window.innerHeight / 3;
+
+      for (const subsection of pageSubsections[activePage]) {
+        const element = document.querySelector(subsection.href);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= threshold) {
+            currentSubsection = subsection.href;
+          }
+        }
+      }
+
+      if (currentSubsection) {
+        setActiveSubsection(currentSubsection);
+      } else if (pageSubsections[activePage].length > 0) {
+        setActiveSubsection(pageSubsections[activePage][0].href);
+      }
+    };
+
+    const scrollContainer = mainContentRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [activePage, pageSubsections]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,15 +113,6 @@ function App() {
                   </div>
                 </div>
               </header>
-              <section className="h-screen bg-black text-white flex items-center justify-center">
-                <div className="text-center">
-                  <h2 className="text-5xl md:text-7xl font-light tracking-widest">
-                    welcome to
-                    <br />
-                    <span className="font-bold">INFAMOUS CUSTOMS</span>
-                  </h2>
-                </div>
-              </section>
             </div>
             {/* "gallery" subsection */}
             <section id="gallery" className="h-screen bg-black text-white flex items-center justify-center">
@@ -92,8 +140,10 @@ function App() {
         );
       case 'contact':
         return (
-          <section id="contact" className="h-screen bg-black text-white flex items-center justify-center">
-            <h2 className="text-5xl md:text-7xl font-bold">Contact</h2>
+          <section id="contact">
+            <div id="client-form" className="h-screen bg-black text-white flex items-center justify-center">
+              <h2 className="text-5xl md:text-7xl font-bold">Client Form</h2>
+            </div>
           </section>
         );
       default:
@@ -140,12 +190,16 @@ function App() {
             <div className="absolute top-24 left-1/2 -translate-x-1/2 w-24 h-24 text-white">
                 <img src="/Loggo.svg" alt="Infamous Customs Logo" />
             </div>
-            <div>
-              {pageSubsections[activePage].map((item, index) => (
+            <div className="space-y-6">
+              {pageSubsections[activePage].map((item) => (
                 <a 
                   key={item.name} 
                   href={item.href} 
-                  className={`block ${index === 0 ? 'text-lg font-semibold text-white border-b-2 border-white pb-1' : 'mt-6 text-md text-gray-400 hover:text-white'}`}
+                  className={`block transition-all duration-300 pb-1 border-b-2 ${
+                    item.href === activeSubsection 
+                      ? 'text-lg font-semibold text-white border-white' 
+                      : 'text-md text-gray-400 hover:text-white border-transparent'
+                  }`}
                 >
                   {item.name}
                 </a>
@@ -172,7 +226,7 @@ function App() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col bg-black lg:ml-80">
+      <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto">
         {/* Top bar */}
         <div className="bg-black border-b border-white/20 px-6 py-4 flex items-center justify-between lg:hidden">
           <button
