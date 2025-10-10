@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-48 bg-black text-white transform transition-transform duration-300 ease-in-out ${
+      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 bg-black text-white transform transition-transform duration-300 ease-in-out ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0`}>
         
@@ -46,7 +46,7 @@ function App() {
             </nav>
           </div>
 
-          {/* Right Column */}
+          {/* Middle Column */}
           <div className="w-20 h-full border-r border-white flex flex-col items-center justify-between py-24">
               <div className="transform -rotate-90 whitespace-nowrap">
                   <span className="text-sm tracking-[0.3em]">INFAMOUS CUSTOMS</span>
@@ -57,6 +57,18 @@ function App() {
               </div>
 
               <div></div>
+          </div>
+
+          {/* Rightmost Column */}
+          <div className="flex-1 h-full border-r border-white flex flex-col items-center justify-center text-center relative py-24">
+            <div className="absolute top-24 left-1/2 -translate-x-1/2 w-24 h-24 text-white">
+                <img src="/Loggo.svg" alt="Infamous Customs Logo" />
+            </div>
+            <div>
+              <a href="#about-me" className="text-lg font-semibold text-white border-b-2 border-white pb-1">about me</a>
+              <a href="#gallery" className="block mt-6 text-md text-gray-400 hover:text-white">gallery</a>
+              <a href="#videos" className="block mt-4 text-md text-gray-400 hover:text-white">videos</a>
+            </div>
           </div>
         </div>
 
@@ -78,7 +90,7 @@ function App() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col bg-black lg:ml-64">
+      <div className="flex-1 flex flex-col bg-black lg:ml-80">
         {/* Top bar */}
         <div className="bg-black border-b border-white/20 px-6 py-4 flex items-center justify-between lg:hidden">
           <button
