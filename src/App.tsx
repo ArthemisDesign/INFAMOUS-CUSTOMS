@@ -13,52 +13,51 @@ function App() {
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-80 bg-transparent text-white transform transition-transform duration-300 ease-in-out ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-black text-white transform transition-transform duration-300 ease-in-out ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0 lg:static lg:inset-0`}>
-        {/* Three vertical lines */}
-        <div className="absolute left-0 top-0 bottom-0 w-full flex">
-          {/* Left line */}
-          <div className="w-1 bg-white"></div>
-          
-          {/* Middle line - main sidebar content */}
-          <div className="w-16 bg-transparent relative">
-            {/* Company name rotated */}
-            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 -rotate-90 origin-center">
-              <span className="text-sm font-bold tracking-wider">INFAMOUS CUSTOMS</span>
-            </div>
-            
-            {/* Winged logo */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div className="w-12 h-12 border border-white relative">
-                {/* Winged creature logo */}
-                <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent"></div>
-                <div className="absolute top-1 right-1/2 transform translate-x-1/2 w-0 h-0 border-r-[8px] border-r-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent"></div>
-                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-white border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent"></div>
-                <div className="absolute bottom-1 right-1/2 transform translate-x-1/2 w-0 h-0 border-r-[6px] border-r-white border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent"></div>
-              </div>
-            </div>
-            
-            {/* Navigation items - centered vertically and aligned right */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-24">
-              {navigationItems.map((item, index) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90 origin-center ${
-                    index === 0 ? 'border-b border-white pb-1' : ''
-                  }`}
-                >
-                  {item.name.toLowerCase()}
-                </a>
-              ))}
+        
+        <div className="flex h-full">
+          {/* Left Column */}
+          <div className="w-24 h-full border-l border-r border-white flex flex-col items-center justify-center relative">
+            <div className="absolute top-16 w-1 h-12 bg-white"></div>
+            <nav>
+                <div className="space-y-24">
+                    {navigationItems.map((item) => (
+                        <a key={item.name} href={item.href} className="block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90">
+                            {item.name.toLowerCase()}
+                        </a>
+                    ))}
+                </div>
+            </nav>
+            <div className="absolute bottom-16 w-8 h-8 rounded-full border border-white flex items-center justify-center">
+                <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 4l10 6-10 6V4z" />
+                </svg>
             </div>
           </div>
-          
-          {/* Right line - content separator */}
-          <div className="w-1 bg-white"></div>
+
+          {/* Right Column */}
+          <div className="flex-1 h-full border-r border-white flex flex-col items-center justify-between py-16">
+              <div className="transform -rotate-90 whitespace-nowrap">
+                  <span className="text-sm tracking-[0.3em]">INFAMOUS CUSTOMS</span>
+              </div>
+              
+              <div className="w-24 h-24 text-white">
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1">
+                      <path d="M32 2 C16 20, 16 50, 32 62 C48 50, 48 20, 32 2 Z"></path>
+                      <path d="M32 12 C24 25, 24 45, 32 52 C40 45, 40 25, 32 12 Z"></path>
+                      <path d="M26 48 C28 42, 36 42, 38 48"></path>
+                      <path d="M32 52 C30 56, 34 56, 32 52"></path>
+                      <path d="M28 20 C24 28, 26 36, 32 38"></path>
+                      <path d="M36 20 C40 28, 38 36, 32 38"></path>
+                  </svg>
+              </div>
+
+              <div></div>
+          </div>
         </div>
-        
+
         {/* Mobile close button */}
         <button
           onClick={() => setSidebarOpen(false)}
