@@ -13,9 +13,9 @@ function App() {
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-black text-white transform transition-transform duration-300 ease-in-out ${
+      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-64 bg-black text-white transform transition-transform duration-300 ease-in-out ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0 lg:static lg:inset-0`}>
+      } lg:translate-x-0`}>
         
         <div className="flex h-full">
           {/* Left Column */}
@@ -44,14 +44,7 @@ function App() {
               </div>
               
               <div className="w-24 h-24 text-white">
-                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1">
-                      <path d="M32 2 C16 20, 16 50, 32 62 C48 50, 48 20, 32 2 Z"></path>
-                      <path d="M32 12 C24 25, 24 45, 32 52 C40 45, 40 25, 32 12 Z"></path>
-                      <path d="M26 48 C28 42, 36 42, 38 48"></path>
-                      <path d="M32 52 C30 56, 34 56, 32 52"></path>
-                      <path d="M28 20 C24 28, 26 36, 32 38"></path>
-                      <path d="M36 20 C40 28, 38 36, 32 38"></path>
-                  </svg>
+                  <img src="/scroll.svg" alt="Infamous Customs Logo" />
               </div>
 
               <div></div>
@@ -76,7 +69,7 @@ function App() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col bg-black">
+      <div className="flex-1 flex flex-col bg-black lg:ml-64">
         {/* Top bar */}
         <div className="bg-black border-b border-white/20 px-6 py-4 flex items-center justify-between lg:hidden">
           <button
@@ -102,6 +95,17 @@ function App() {
             </div>
           </div>
         </header>
+
+        {/* Welcome Section */}
+        <section className="h-screen bg-black text-white flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-5xl md:text-7xl font-light tracking-widest">
+              welcome to
+              <br />
+              <span className="font-bold">INFAMOUS CUSTOMS</span>
+            </h2>
+          </div>
+        </section>
       </div>
     </div>
   );
