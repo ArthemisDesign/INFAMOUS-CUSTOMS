@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'TT Runs Trial';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./assets/fonts/TT Runs Trial Regular.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'TT Runs Trial';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./assets/fonts/TT Runs Trial Bold.ttf') format('truetype');
+  }
+  body {
+    font-family: 'TT Runs Trial', sans-serif;
+  }
+}

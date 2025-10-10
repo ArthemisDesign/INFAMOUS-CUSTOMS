@@ -34,8 +34,7 @@ function App() {
         
         <div className="flex h-full">
           {/* Left Column */}
-          <div className="w-28 h-full border-l border-r border-white flex flex-col items-center justify-center relative">
-            <div className="absolute top-16 w-1 h-12 bg-white"></div>
+          <div className="w-28 h-full border-r border-white flex flex-col items-center justify-center relative">
             <nav>
                 <div className="space-y-24">
                     {navigationItems.map((item) => (
@@ -45,11 +44,6 @@ function App() {
                     ))}
                 </div>
             </nav>
-            <div className="absolute bottom-16 w-8 h-8 rounded-full border border-white flex items-center justify-center">
-                <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 4l10 6-10 6V4z" />
-                </svg>
-            </div>
           </div>
 
           {/* Right Column */}
