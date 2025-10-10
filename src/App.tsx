@@ -4,12 +4,27 @@ import { ArrowRight, Globe2, Menu, X } from 'lucide-react';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rotation, setRotation] = useState(0);
+  const [activePage, setActivePage] = useState('about');
 
   const navigationItems = [
-    { name: 'ABOUT', href: '#about' },
-    { name: 'VISUALIZING', href: '#visualizing' },
-    { name: 'CONTACT', href: '#contact' }
+    { name: 'ABOUT', page: 'about', align: 'start' },
+    { name: 'VISUALIZING', page: 'visualizing', align: 'center' },
+    { name: 'CONTACT', page: 'contact', align: 'end' }
   ];
+
+  const pageSubsections = {
+    about: [
+      { name: 'about me', href: '#about-me' },
+      { name: 'gallery', href: '#gallery' },
+      { name: 'videos', href: '#videos' }
+    ],
+    visualizing: [
+      { name: 'spyder', href: '#spyder' },
+      { name: 'sv-hermes', href: '#sv-hermes' },
+      { name: 'RR-Bolshoi', href: '#rr-bolshoi' }
+    ],
+    contact: []
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +40,67 @@ function App() {
     };
   }, []);
 
+  const renderContent = () => {
+    switch (activePage) {
+      case 'about':
+        return (
+          <section id="about">
+            {/* "about me" subsection */}
+            <div id="about-me">
+              <header className="bg-black text-white h-screen flex flex-col">
+                <div className="container mx-auto px-6 flex-1 flex items-center justify-center">
+                  <div className="text-center">
+                    <h1 className="text-6xl md:text-8xl font-bold">
+                      INFAMOUS CUSTOMS
+                    </h1>
+                  </div>
+                </div>
+              </header>
+              <section className="h-screen bg-black text-white flex items-center justify-center">
+                <div className="text-center">
+                  <h2 className="text-5xl md:text-7xl font-light tracking-widest">
+                    welcome to
+                    <br />
+                    <span className="font-bold">INFAMOUS CUSTOMS</span>
+                  </h2>
+                </div>
+              </section>
+            </div>
+            {/* "gallery" subsection */}
+            <section id="gallery" className="h-screen bg-black text-white flex items-center justify-center">
+              <h2 className="text-5xl md:text-7xl font-bold">Gallery</h2>
+            </section>
+            {/* "videos" subsection */}
+            <section id="videos" className="h-screen bg-black text-white flex items-center justify-center">
+              <h2 className="text-5xl md:text-7xl font-bold">Videos</h2>
+            </section>
+          </section>
+        );
+      case 'visualizing':
+        return (
+          <section id="visualizing" className="min-h-screen bg-black text-white">
+            <div id="spyder" className="h-screen flex items-center justify-center">
+              <h2 className="text-5xl md:text-7xl font-bold">spyder</h2>
+            </div>
+            <div id="sv-hermes" className="h-screen flex items-center justify-center">
+              <h2 className="text-5xl md:text-7xl font-bold">sv-hermes</h2>
+            </div>
+            <div id="rr-bolshoi" className="h-screen flex items-center justify-center">
+              <h2 className="text-5xl md:text-7xl font-bold">RR-Bolshoi</h2>
+            </div>
+          </section>
+        );
+      case 'contact':
+        return (
+          <section id="contact" className="h-screen bg-black text-white flex items-center justify-center">
+            <h2 className="text-5xl md:text-7xl font-bold">Contact</h2>
+          </section>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
@@ -34,13 +110,13 @@ function App() {
         
         <div className="flex h-full">
           {/* Left Column */}
-          <div className="w-28 h-full border-r border-white flex flex-col items-center justify-center relative">
+          <div className="w-28 h-full border-r border-white flex flex-col justify-center relative">
             <nav>
-                <div className="space-y-24">
+                <div className="space-y-24 flex flex-col">
                     {navigationItems.map((item) => (
-                        <a key={item.name} href={item.href} className="block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90">
+                        <button key={item.name} onClick={() => setActivePage(item.page)} className={`self-${item.align} block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90 bg-transparent border-none`}>
                             {item.name.toLowerCase()}
-                        </a>
+                        </button>
                     ))}
                 </div>
             </nav>
@@ -65,9 +141,15 @@ function App() {
                 <img src="/Loggo.svg" alt="Infamous Customs Logo" />
             </div>
             <div>
-              <a href="#about-me" className="text-lg font-semibold text-white border-b-2 border-white pb-1">about me</a>
-              <a href="#gallery" className="block mt-6 text-md text-gray-400 hover:text-white">gallery</a>
-              <a href="#videos" className="block mt-4 text-md text-gray-400 hover:text-white">videos</a>
+              {pageSubsections[activePage].map((item, index) => (
+                <a 
+                  key={item.name} 
+                  href={item.href} 
+                  className={`block ${index === 0 ? 'text-lg font-semibold text-white border-b-2 border-white pb-1' : 'mt-6 text-md text-gray-400 hover:text-white'}`}
+                >
+                  {item.name}
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -106,27 +188,8 @@ function App() {
           <div></div>
         </div>
 
-        {/* Hero Section */}
-        <header className="bg-black text-white h-screen flex flex-col">
-          <div className="container mx-auto px-6 flex-1 flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="text-6xl md:text-8xl font-bold">
-                INFAMOUS CUSTOMS
-              </h1>
-            </div>
-          </div>
-        </header>
+        {renderContent()}
 
-        {/* Welcome Section */}
-        <section className="h-screen bg-black text-white flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-5xl md:text-7xl font-light tracking-widest">
-              welcome to
-              <br />
-              <span className="font-bold">INFAMOUS CUSTOMS</span>
-            </h2>
-          </div>
-        </section>
       </div>
     </div>
   );
