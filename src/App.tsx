@@ -207,7 +207,12 @@ function App() {
         );
       case 'visualizing':
         const activeVisualizingIndex = pageSubsections.visualizing.findIndex(item => item.href === activeSubsection);
-        const activeContentKey = activeSubsection.substring(1) || 'spyder';
+        
+        const possibleKeys = Object.keys(visualizingContent);
+        let activeContentKey = activeSubsection.substring(1);
+        if (!possibleKeys.includes(activeContentKey)) {
+            activeContentKey = 'spyder';
+        }
         const activeContent = visualizingContent[activeContentKey];
 
         return (
@@ -245,7 +250,7 @@ function App() {
                         ))}
                     </div>
                     {/* Subtitle and Button Below */}
-                    <div className="text-center mt-4 pointer-events-auto flex-shrink-0">
+                    <div className="text-center -mt-24 pointer-events-auto flex-shrink-0">
                         <p className="text-lg">{activeContent.subtitle}</p>
                         <button className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors">
                             LEARN MORE
