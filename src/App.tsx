@@ -34,22 +34,25 @@ function App() {
 
   const visualizingContent = {
     spyder: {
-      title: ['SPYDER'],
+      title: 'SPYDER',
       subtitle: 'Turquoise Spyder — Designed 12/09/2025',
       image: '/SPYDER/spyder_title.png',
-      number: '00.05'
+      number: '00.05',
+      titleClassName: 'text-9xl',
     },
     'sv-hermes': {
-      title: ['SV-', 'HERMES'],
+      title: 'SV-HERMES',
       subtitle: 'SV-Hermes — Designed 10/15/2024',
       image: '/SV/sv.png',
-      number: '00.06'
+      number: '00.06',
+      titleClassName: 'text-8xl',
     },
     'rr-bolshoi': {
-      title: ['RR-', 'BOLSHOI'],
+      title: 'RR-BOLSHOI',
       subtitle: 'RR-Bolshoi — Designed 08/21/2023',
       image: '/RR/RR.png',
-      number: '00.07'
+      number: '00.07',
+      titleClassName: 'text-8xl',
     },
   };
 
@@ -221,22 +224,25 @@ function App() {
               <div className="w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center">
                 <div className="w-full h-full flex flex-col items-center justify-center">
                     <div className="w-full flex-grow relative">
-                        {/* Fading Images */}
                         {Object.entries(visualizingContent).map(([key, content]) => (
-                            <img key={key} src={content.image} alt={content.title} className={`absolute inset-0 w-full h-full object-contain rounded-3xl transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}/>
-                        ))}
-                        {/* Fading Titles */}
-                        <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
-                            {Object.entries(visualizingContent).map(([key, content]) => (
-                                <div key={key} className={`absolute text-center transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}>
-                                    {content.title.map((line, index) => (
-                                        <h2 key={index} className="text-9xl font-bold tracking-tighter text-white leading-[0.9]">
-                                            {line}
+                            <div 
+                                key={key} 
+                                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
+                            >
+                                <figure className="relative max-w-full max-h-full">
+                                    <img 
+                                        src={content.image} 
+                                        alt={content.title} 
+                                        className="block max-w-full max-h-full object-contain rounded-3xl" 
+                                    />
+                                    <figcaption className="absolute bottom-8 left-8 pointer-events-none">
+                                        <h2 className={`${content.titleClassName} font-bold tracking-tighter text-white leading-none`}>
+                                            {content.title}
                                         </h2>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        ))}
                     </div>
                     {/* Subtitle and Button Below */}
                     <div className="text-center mt-4 pointer-events-auto flex-shrink-0">
