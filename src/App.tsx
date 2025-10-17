@@ -7,6 +7,8 @@ function App() {
   const [rotation, setRotation] = useState(0);
   const [activePage, setActivePage] = useState('about');
   const [activeSubsection, setActiveSubsection] = useState('');
+  const [view, setView] = useState('main'); // 'main' or 'detail'
+  const [selectedCar, setSelectedCar] = useState(null); // e.g. 'spyder'
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
@@ -33,6 +35,13 @@ function App() {
     ]
   };
 
+  const carDetailSubsections = [
+    { name: 'Look', href: '#look' },
+    { name: 'Exterior', href: '#exterior' },
+    { name: 'Interior', href: '#interior' },
+    { name: 'Accessories', href: '#accessories' },
+  ];
+
   const visualizingContent = {
     spyder: {
       title: 'SPYDER',
@@ -40,6 +49,8 @@ function App() {
       image: '/SPYDER/spyder_title.png',
       number: '00.05',
       titleClassName: 'text-9xl',
+      detailNumber: '01/',
+      detailTotal: '/04',
     },
     'sv-hermes': {
       title: 'SV-HERMES',
@@ -57,8 +68,18 @@ function App() {
     },
   };
 
+  const handleCarSelect = (carKey) => {
+    setSelectedCar(carKey);
+    setView('detail');
+  };
+
+  const currentSubsections =
+    view === 'detail' && selectedCar
+      ? carDetailSubsections
+      : pageSubsections[activePage];
+
   useEffect(() => {
-    if (activePage !== 'visualizing') return;
+    if (activePage !== 'visualizing' || view === 'detail') return;
 
     const scrollContainer = mainContentRef.current;
     if (!scrollContainer || !lenisRef.current) return;
@@ -91,7 +112,7 @@ function App() {
         
         wheelTimeout = setTimeout(() => {
           isWheeling = false;
-        }, 400); // Lenis duration is now 0.4s
+        }, 1500); // Match Lenis duration
       }
     };
     
@@ -102,7 +123,7 @@ function App() {
       clearTimeout(wheelTimeout);
     };
 
-  }, [activePage, activeSubsection]);
+  }, [activePage, activeSubsection, view]);
 
   useEffect(() => {
     if (subsectionNavRef.current) {
@@ -124,14 +145,14 @@ function App() {
 
   useEffect(() => {
     // Set initial subsection
-    const subsection = pageSubsections[activePage][0];
+    const subsection = currentSubsections[0];
     setActiveSubsection(subsection ? subsection.href : '');
 
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       wrapper: mainContentRef.current,
-      duration: 0.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.5,
+      easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t), // A gentler ease-out
     });
     lenisRef.current = lenis;
 
@@ -150,7 +171,7 @@ function App() {
 
       // Check if scrolled to the very bottom
       if (scrollBottom >= scrollHeight - 5) { // 5px threshold
-        const lastSubsection = pageSubsections[activePage][pageSubsections[activePage].length - 1];
+        const lastSubsection = currentSubsections[currentSubsections.length - 1];
         if (lastSubsection) {
           setActiveSubsection(lastSubsection.href);
         }
@@ -160,7 +181,7 @@ function App() {
       let currentSubsection = '';
       const threshold = window.innerHeight / 3;
 
-      for (const subsection of pageSubsections[activePage]) {
+      for (const subsection of currentSubsections) {
         const element = document.querySelector(subsection.href);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -172,8 +193,8 @@ function App() {
 
       if (currentSubsection) {
         setActiveSubsection(currentSubsection);
-      } else if (pageSubsections[activePage].length > 0) {
-        setActiveSubsection(pageSubsections[activePage][0].href);
+      } else if (currentSubsections.length > 0) {
+        setActiveSubsection(currentSubsections[0].href);
       }
     };
     
@@ -195,7 +216,47 @@ function App() {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [activePage]);
+  }, [activePage, view, selectedCar]);
+
+  const renderCarDetailPage = () => {
+    if (!selectedCar) return null;
+    const carData = visualizingContent[selectedCar];
+
+    return (
+      <section id="car-detail">
+        <div id="look" className="h-screen bg-black text-white flex flex-col p-8 relative">
+          <div 
+            className="absolute inset-0 w-full h-full opacity-5 pointer-events-none"
+            style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
+          />
+          <div className="container mx-auto flex flex-col h-full z-10 flex-grow">
+            <header className="text-center pt-16 flex-shrink-0">
+              <h1 className="text-9xl font-bold tracking-tighter">{carData.title}</h1>
+              <div className="flex justify-between items-center max-w-3xl mx-auto mt-4 text-lg text-gray-300 px-4">
+                <span>{carData.detailNumber}</span>
+                <span className="text-white">{carData.subtitle}</span>
+                <span>{carData.detailTotal}</span>
+              </div>
+            </header>
+            <main className="flex-grow flex items-center justify-center py-8 min-h-0">
+              <div className="bg-white w-full h-full rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+            </main>
+          </div>
+        </div>
+        <div id="exterior" className="h-screen bg-gray-800 text-white flex items-center justify-center">
+          <h2 className="text-5xl md:text-7xl font-bold">Exterior</h2>
+        </div>
+        <div id="interior" className="h-screen bg-black text-white flex items-center justify-center">
+          <h2 className="text-5xl md:text-7xl font-bold">Interior</h2>
+        </div>
+        <div id="accessories" className="h-screen bg-gray-800 text-white flex items-center justify-center">
+          <h2 className="text-5xl md:text-7xl font-bold">Accessories</h2>
+        </div>
+      </section>
+    );
+  };
 
   const renderContent = () => {
     switch (activePage) {
@@ -257,8 +318,9 @@ function App() {
               
               {/* Left Column: Number and Line */}
               <div className="w-[12.5%] flex-shrink-0 flex flex-col items-center justify-start pt-64 pointer-events-auto">
-                <span className="text-lg">{activeContent.number}</span>
-                <div className="w-full h-px bg-white mt-1"></div>
+                <div className="w-full text-center pb-1 border-b border-white">
+                    <span className="text-lg">{activeContent.number}</span>
+                </div>
               </div>
 
               {/* Center Column: Photo and Content */}
@@ -268,7 +330,8 @@ function App() {
                         {Object.entries(visualizingContent).map(([key, content]) => (
                             <div 
                                 key={key} 
-                                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
+                                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out cursor-pointer ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
+                                onClick={() => handleCarSelect(key)}
                             >
                                 <figure className="relative max-w-full max-h-full">
                                     <img 
@@ -289,7 +352,10 @@ function App() {
                 {/* Subtitle and Button Below */}
                 <div className="absolute bottom-24 inset-x-0 text-center pointer-events-auto">
                     <p className="text-lg">{activeContent.subtitle}</p>
-                    <button className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors">
+                    <button 
+                      onClick={() => handleCarSelect(activeContentKey)}
+                      className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
+                    >
                         LEARN MORE
                     </button>
                 </div>
@@ -348,7 +414,11 @@ function App() {
             <nav>
                 <div className="space-y-24 flex flex-col">
                     {navigationItems.map((item) => (
-                        <button key={item.name} onClick={() => setActivePage(item.page)} className={`self-${item.align} block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90 bg-transparent border-none`}>
+                        <button key={item.name} onClick={() => {
+                          setActivePage(item.page);
+                          setView('main');
+                          setSelectedCar(null);
+                        }} className={`self-${item.align} block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90 bg-transparent border-none`}>
                             {item.name.toLowerCase()}
                         </button>
                     ))}
@@ -373,7 +443,7 @@ function App() {
                 <img src="/Loggo.svg" alt="Infamous Customs Logo" />
             </div>
             <div ref={subsectionNavRef} className="space-y-6 overflow-y-auto scrollbar-hide py-12" style={{ maxHeight: 'calc(100% - 12rem)'}}>
-              {pageSubsections[activePage].map((item) => (
+              {currentSubsections.map((item) => (
                 <a 
                   key={item.name} 
                   href={item.href}
@@ -434,7 +504,7 @@ function App() {
           <div></div>
         </div>
 
-        {renderContent()}
+        {view === 'detail' && selectedCar ? renderCarDetailPage() : renderContent()}
 
       </div>
     </div>
