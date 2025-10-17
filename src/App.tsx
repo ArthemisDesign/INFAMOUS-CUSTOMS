@@ -36,6 +36,7 @@ function App() {
   };
 
   const carDetailSubsections = [
+    { name: 'Intro', href: '#intro' },
     { name: 'Look', href: '#look' },
     { name: 'Exterior', href: '#exterior' },
     { name: 'Interior', href: '#interior' },
@@ -51,6 +52,42 @@ function App() {
       titleClassName: 'text-9xl',
       detailNumber: '01/',
       detailTotal: '/04',
+      look: {
+        title: 'THE LOOK',
+        page: '01/',
+        subtitle: 'THE look',
+        totalPages: '/02',
+        description1_title: 'The Spyder',
+        description1_text: 'The Spyder sat untouched in an underground garage for almost two years after its owner passed away, collecting dust. It was more than a car — it was a piece of his passion, frozen in time. When his wife gave us the chance to bring it back to life, We knew this was about more than restoration — it was about honoring his legacy.',
+        description2_title: 'The Spyder',
+        description2_text: 'Our goal was to keep his vision alive. We left his original choices untouched, making only changes that complemented his work.',
+        description3_title: 'The Spyder',
+        description3_text: 'What you see now isn’t a transformation but a rebirth — a revived machine that carries the spirit of its first owner while beginning a new chapter without forgetting the past.'
+      },
+      exterior: {
+        title: 'Exterior',
+        page: '01/',
+        subtitle: 'Exterior',
+        totalPages: '/02',
+        description_title: '',
+        description_text: 'Being able to adapt to the car’s original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.'
+      },
+      interior: {
+        title: 'Interior',
+        page: '02/',
+        subtitle: 'Interior',
+        totalPages: '/03',
+        description_title: '',
+        description_text: 'What you see now isn’t a transformation but a rebirth — a revived machine that carries the spirit of its first owner while beginning a new chapter without forgetting the past.'
+      },
+      accessories: {
+        title: 'Accessories',
+        page: '01/',
+        subtitle: 'Accessories',
+        totalPages: '/02',
+        description_title: '',
+        description_text: 'Being able to adapt to the car’s original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.'
+      }
     },
     'sv-hermes': {
       title: 'SV-HERMES',
@@ -224,7 +261,7 @@ function App() {
 
     return (
       <section id="car-detail">
-        <div id="look" className="h-screen bg-black text-white flex flex-col p-8 relative">
+        <div id="intro" className="h-screen bg-black text-white flex flex-col p-8 relative">
           <div 
             className="absolute inset-0 w-full h-full opacity-5 pointer-events-none"
             style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
@@ -248,14 +285,143 @@ function App() {
             </main>
           </div>
         </div>
-        <div id="exterior" className="h-screen bg-gray-800 text-white flex items-center justify-center">
-          <h2 className="text-5xl md:text-7xl font-bold">Exterior</h2>
+        <div id="look" className="min-h-screen bg-black text-white p-8">
+          <div className="container mx-auto">
+            <header className="py-8">
+              <h1 className="text-8xl font-bold tracking-tighter">{carData.look.title}</h1>
+              <div className="border-b border-white mt-4"></div>
+              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
+                <span>{carData.look.page}</span>
+                <span className='text-white'>{carData.look.subtitle}</span>
+                <span>{carData.look.totalPages}</span>
+              </div>
+            </header>
+            <main className="py-16 space-y-24">
+              <div className="grid grid-cols-4 gap-8 items-start">
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-semibold">{carData.look.description1_title}</h3>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    {carData.look.description1_text}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+              <div className="grid grid-cols-4 gap-8 items-start">
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-semibold">{carData.look.description2_title}</h3>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    {carData.look.description2_text}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+              <div className="grid grid-cols-4 gap-8 items-start">
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-semibold">{carData.look.description3_title}</h3>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    {carData.look.description3_text}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+            </main>
+          </div>
         </div>
-        <div id="interior" className="h-screen bg-black text-white flex items-center justify-center">
-          <h2 className="text-5xl md:text-7xl font-bold">Interior</h2>
+        <div id="exterior" className="min-h-screen bg-black text-white p-8">
+          <div className="container mx-auto">
+            <header className="py-8">
+              <h1 className="text-8xl font-bold tracking-tighter">{carData.exterior.title}</h1>
+              <div className="border-b border-white mt-4"></div>
+              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
+                <span>{carData.exterior.page}</span>
+                <span className='text-white'>{carData.exterior.subtitle}</span>
+                <span>{carData.exterior.totalPages}</span>
+              </div>
+            </header>
+            <main className="py-16 space-y-24">
+              <div className="grid grid-cols-4 gap-8 items-start">
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-semibold">{carData.exterior.description_title}</h3>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    {carData.exterior.description_text}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+            </main>
+          </div>
         </div>
-        <div id="accessories" className="h-screen bg-gray-800 text-white flex items-center justify-center">
-          <h2 className="text-5xl md:text-7xl font-bold">Accessories</h2>
+        <div id="interior" className="min-h-screen bg-black text-white p-8">
+          <div className="container mx-auto">
+            <header className="py-8">
+              <h1 className="text-8xl font-bold tracking-tighter">{carData.interior.title}</h1>
+              <div className="border-b border-white mt-4"></div>
+              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
+                <span>{carData.interior.page}</span>
+                <span className='text-white'>{carData.interior.subtitle}</span>
+                <span>{carData.interior.totalPages}</span>
+              </div>
+            </header>
+            <main className="py-16 space-y-24">
+              <div className="grid grid-cols-4 gap-8 items-start">
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-semibold">{carData.interior.description_title}</h3>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    {carData.interior.description_text}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+            </main>
+          </div>
+        </div>
+        <div id="accessories" className="min-h-screen bg-black text-white p-8">
+          <div className="container mx-auto">
+            <header className="py-8">
+              <h1 className="text-8xl font-bold tracking-tighter">{carData.accessories.title}</h1>
+              <div className="border-b border-white mt-4"></div>
+              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
+                <span>{carData.accessories.page}</span>
+                <span className='text-white'>{carData.accessories.subtitle}</span>
+                <span>{carData.accessories.totalPages}</span>
+              </div>
+            </header>
+            <main className="py-16 space-y-24">
+              <div className="grid grid-cols-4 gap-8 items-start">
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-semibold">{carData.accessories.description_title}</h3>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    {carData.accessories.description_text}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+            </main>
+          </div>
         </div>
       </section>
     );
