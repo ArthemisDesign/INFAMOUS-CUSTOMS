@@ -9,6 +9,7 @@ function App() {
   const [activeSubsection, setActiveSubsection] = useState('');
   const [view, setView] = useState('main'); // 'main' or 'detail'
   const [selectedCar, setSelectedCar] = useState(null); // e.g. 'spyder'
+  const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
@@ -104,6 +105,22 @@ function App() {
       titleClassName: 'text-8xl',
     },
   };
+
+  const galleryItems = Object.values(visualizingContent).map(car => ({
+    key: car.title.toLowerCase().replace(/ /g, '-'),
+    title: car.title,
+    subtitle: car.subtitle,
+    image: car.image,
+  }));
+
+  useEffect(() => {
+    if (activePage === 'about') {
+        const timer = setTimeout(() => {
+            setActiveGallerySlide(prev => (prev + 1) % galleryItems.length);
+        }, 3000); // Change slide every 3 seconds
+        return () => clearTimeout(timer);
+    }
+  }, [activeGallerySlide, activePage, galleryItems.length]);
 
   const handleCarSelect = (carKey) => {
     setSelectedCar(carKey);
@@ -445,8 +462,81 @@ function App() {
               </header>
             </div>
             {/* "gallery" subsection */}
-            <section id="gallery" className="h-screen bg-black text-white flex items-center justify-center">
-              <h2 className="text-5xl md:text-7xl font-bold">Gallery</h2>
+            <section id="gallery" className="h-screen bg-black text-white flex flex-col items-center justify-center relative overflow-hidden">
+              <div className="text-center z-30 mb-8">
+                  <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
+                      {galleryItems[activeGallerySlide]?.title}
+                  </h2>
+                  <p className="text-lg mt-2">{galleryItems[activeGallerySlide]?.subtitle}</p>
+              </div>
+
+              <div className="w-full h-[60vh] relative flex items-center justify-center">
+                  <div className="absolute w-[25%] h-full">
+                      {galleryItems.map((item, index) => {
+                          const isActive = index === activeGallerySlide;
+                          const isPrev = index === (activeGallerySlide - 1 + galleryItems.length) % galleryItems.length;
+                          const isNext = index === (activeGallerySlide + 1) % galleryItems.length;
+                          
+                          let classes = 'absolute inset-0 transition-all duration-700 ease-in-out ';
+                          let styles = {};
+
+                          if (isActive) {
+                              classes += 'opacity-100 z-20';
+                              styles.transform = 'translateX(0) scale(1)';
+                              styles.filter = 'grayscale(0%)';
+                          } else if (isPrev) {
+                              classes += 'opacity-50 z-10';
+                              styles.transform = 'translateX(-80%) scale(0.8)';
+                              styles.filter = 'grayscale(100%)';
+                          } else if (isNext) {
+                              classes += 'opacity-50 z-10';
+                              styles.transform = 'translateX(80%) scale(0.8)';
+                              styles.filter = 'grayscale(100%)';
+                          } else {
+                              classes += 'opacity-0 z-0';
+                              styles.transform = 'scale(0.7)';
+                          }
+
+                          return (
+                              <div key={item.key} className={classes} style={styles}>
+                                  <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
+                              </div>
+                          );
+                      })}
+                  </div>
+              </div>
+              
+              <div className="text-center z-30 mt-8">
+                  <button 
+                      className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
+                      onClick={() => handleCarSelect(galleryItems[activeGallerySlide]?.key)}
+                  >
+                      learn more
+                  </button>
+                  <div className="flex justify-center items-end space-x-4 mt-6">
+                      {galleryItems.map((_, index) => {
+                          const isActive = index === activeGallerySlide;
+                          return (
+                              <div
+                                  key={index}
+                                  className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'bg-gray-700' : 'bg-gray-600'}`}
+                                  style={{
+                                      height: isActive ? '2.5rem' : '1.5rem',
+                                      width: '2px',
+                                  }}
+                              >
+                                  {isActive && (
+                                      <div
+                                          key={activeGallerySlide}
+                                          className="absolute bottom-0 left-0 w-full bg-white"
+                                          style={{ animation: 'fill-up 3s linear' }}
+                                      />
+                                  )}
+                              </div>
+                          );
+                      })}
+                  </div>
+              </div>
             </section>
             {/* "videos" subsection */}
             <section id="videos" className="h-screen bg-black text-white flex items-center justify-center">

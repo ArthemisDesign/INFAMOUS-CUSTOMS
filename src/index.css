@@ -19,3 +19,16 @@
     font-family: 'TT Runs Trial', sans-serif;
   }
 }
+
+@keyframes fill-up {
+  from { height: 0%; }
+  to { height: 100%; }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
