@@ -247,13 +247,13 @@ function App() {
                 />
               ))}
               <div 
-                className="absolute inset-0 w-full h-full opacity-5 pointer-events-none"
+                className="absolute inset-0 w-full h-full opacity-10 pointer-events-none"
                 style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
               />
             </div>
 
             {/* Main Sticky Content */}
-            <div className="h-screen w-full sticky top-0 flex items-stretch pointer-events-none p-8 z-10">
+            <div className="h-screen w-full sticky top-0 flex items-stretch pointer-events-none py-8 z-10">
               
               {/* Left Column: Number and Line */}
               <div className="w-[12.5%] flex-shrink-0 flex flex-col items-center justify-start pt-64 pointer-events-auto">
