@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Globe2, Menu, X } from 'lucide-react';
+import Lenis from 'lenis';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,24 +31,37 @@ function App() {
     ]
   };
 
-  useEffect(() => {
-    const subsection = pageSubsections[activePage][0];
-    setActiveSubsection(subsection ? subsection.href : '');
-  }, [activePage]);
+  const visualizingImages = {
+    '#spyder': '/SPYDER/spyder_title.png',
+    '#sv-hermes': '/SV/sv.png',
+    '#rr-bolshoi': '/RR/RR.png'
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
+    // Set initial subsection
+    const subsection = pageSubsections[activePage][0];
+    setActiveSubsection(subsection ? subsection.href : '');
+
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      wrapper: mainContentRef.current,
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    const handleScroll = (e) => {
       if (!mainContentRef.current) return;
-      
-      const { scrollTop, scrollHeight, clientHeight } = mainContentRef.current;
+
+      const { scrollHeight, clientHeight } = mainContentRef.current;
+      const scrollTop = e.scroll;
 
       // Icon rotation logic
       const rotationValue = -(scrollTop / 10);
       setRotation(rotationValue);
-      
+
       // Subsection selection logic
       const scrollBottom = scrollTop + clientHeight;
-      
+
       // Check if scrolled to the very bottom
       if (scrollBottom >= scrollHeight - 5) { // 5px threshold
         const lastSubsection = pageSubsections[activePage][pageSubsections[activePage].length - 1];
@@ -76,34 +90,25 @@ function App() {
         setActiveSubsection(pageSubsections[activePage][0].href);
       }
     };
+    
+    lenis.on('scroll', handleScroll);
 
-    const scrollContainer = mainContentRef.current;
-    if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-      handleScroll(); // Initial check
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+    
+    // Initial check
+    if (mainContentRef.current) {
+        handleScroll({ scroll: mainContentRef.current.scrollTop });
     }
 
     return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      }
+      lenis.destroy();
     };
-  }, [activePage, pageSubsections]);
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const rotationValue = -(scrollY / 10);
-      setRotation(rotationValue);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  }, [activePage]);
 
   const renderContent = () => {
     switch (activePage) {
@@ -133,16 +138,52 @@ function App() {
           </section>
         );
       case 'visualizing':
+        const activeVisualizingIndex = pageSubsections.visualizing.findIndex(item => item.href === activeSubsection);
         return (
-          <section id="visualizing" className="min-h-screen bg-black text-white">
-            <div id="spyder" className="h-screen flex items-center justify-center">
-              <h2 className="text-5xl md:text-7xl font-bold">spyder</h2>
+          <section id="visualizing" className="bg-black text-white">
+            {/* Sticky container for image and selector */}
+            <div className="h-screen w-full sticky top-0 flex items-center justify-center pointer-events-none">
+              <div className="w-3/4 h-3/4 flex items-center justify-center space-x-8">
+                {/* Image Container */}
+                <div className="w-full h-full relative">
+                  {Object.entries(visualizingImages).map(([href, src]) =>
+                    src && (
+                      <img
+                        key={src}
+                        src={src}
+                        alt={href.substring(1)}
+                        className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ease-in-out ${activeSubsection === href ? 'opacity-100' : 'opacity-0'}`}
+                      />
+                    )
+                  )}
+                </div>
+                {/* Selector */}
+                <div className="flex flex-col space-y-4 pointer-events-auto">
+                  {pageSubsections.visualizing.map((item, index) => (
+                    <button
+                      key={item.href}
+                      onClick={() => {
+                        const element = document.querySelector(item.href);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className={`h-0.5 rounded-full transition-all duration-500 ease-in-out ${
+                        index === activeVisualizingIndex
+                          ? 'w-24 bg-white'
+                          : 'w-16 bg-gray-600 hover:bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
-            <div id="sv-hermes" className="h-screen flex items-center justify-center">
-              <h2 className="text-5xl md:text-7xl font-bold">sv-hermes</h2>
-            </div>
-            <div id="rr-bolshoi" className="h-screen flex items-center justify-center">
-              <h2 className="text-5xl md:text-7xl font-bold">RR-Bolshoi</h2>
+
+            {/* Scrollable content */}
+            <div className="relative">
+              <div id="spyder" className="h-screen" />
+              <div id="sv-hermes" className="h-screen" />
+              <div id="rr-bolshoi" className="h-screen" />
             </div>
           </section>
         );
