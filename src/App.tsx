@@ -8,6 +8,7 @@ function App() {
   const [activePage, setActivePage] = useState('about');
   const [activeSubsection, setActiveSubsection] = useState('');
   const mainContentRef = useRef(null);
+  const lenisRef = useRef(null);
 
   const navigationItems = [
     { name: 'ABOUT', page: 'about', align: 'start' },
@@ -38,6 +39,53 @@ function App() {
   };
 
   useEffect(() => {
+    if (activePage !== 'visualizing') return;
+
+    const scrollContainer = mainContentRef.current;
+    if (!scrollContainer || !lenisRef.current) return;
+
+    let isWheeling = false;
+    let wheelTimeout;
+
+    const handleWheel = (e) => {
+      e.preventDefault();
+      if (isWheeling) {
+        return;
+      }
+
+      const subsections = pageSubsections.visualizing;
+      const currentIndex = subsections.findIndex(s => s.href === activeSubsection);
+      
+      let nextIndex = currentIndex;
+      if (e.deltaY > 1) { // Scroll down
+        nextIndex = Math.min(currentIndex + 1, subsections.length - 1);
+      } else if (e.deltaY < -1) { // Scroll up
+        nextIndex = Math.max(currentIndex - 1, 0);
+      }
+
+      if (nextIndex !== currentIndex) {
+        isWheeling = true;
+        const nextElement = document.querySelector(subsections[nextIndex].href);
+        if (nextElement) {
+          lenisRef.current?.scrollTo(nextElement);
+        }
+        
+        wheelTimeout = setTimeout(() => {
+          isWheeling = false;
+        }, 400); // Lenis duration is now 0.4s
+      }
+    };
+    
+    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      scrollContainer.removeEventListener('wheel', handleWheel);
+      clearTimeout(wheelTimeout);
+    };
+
+  }, [activePage, activeSubsection]);
+
+  useEffect(() => {
     // Set initial subsection
     const subsection = pageSubsections[activePage][0];
     setActiveSubsection(subsection ? subsection.href : '');
@@ -45,9 +93,10 @@ function App() {
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       wrapper: mainContentRef.current,
-      duration: 1.2,
+      duration: 0.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
+    lenisRef.current = lenis;
 
     const handleScroll = (e) => {
       if (!mainContentRef.current) return;
@@ -107,6 +156,7 @@ function App() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, [activePage]);
 
