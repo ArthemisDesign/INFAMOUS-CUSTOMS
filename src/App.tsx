@@ -229,17 +229,20 @@ function App() {
             className="absolute inset-0 w-full h-full opacity-5 pointer-events-none"
             style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
           />
-          <div className="container mx-auto flex flex-col h-full z-10 flex-grow">
-            <header className="text-center pt-16 flex-shrink-0">
-              <h1 className="text-9xl font-bold tracking-tighter">{carData.title}</h1>
-              <div className="flex justify-between items-center max-w-3xl mx-auto mt-4 text-lg text-gray-300 px-4">
-                <span>{carData.detailNumber}</span>
-                <span className="text-white">{carData.subtitle}</span>
-                <span>{carData.detailTotal}</span>
+          <div className="w-full flex flex-col h-full z-10 flex-grow">
+            <header className="w-full flex justify-end pt-16 flex-shrink-0">
+              <div className="w-full max-w-4xl">
+                <h1 className="text-9xl font-bold tracking-tighter text-left">{carData.title}</h1>
+                <div className="border-b border-white my-4"></div>
+                <div className="flex justify-between items-center text-lg text-gray-300">
+                  <span>{carData.detailNumber}</span>
+                  <span className="text-white">{carData.subtitle}</span>
+                  <span>{carData.detailTotal}</span>
+                </div>
               </div>
             </header>
             <main className="flex-grow flex items-center justify-center py-8 min-h-0">
-              <div className="bg-white w-full h-full rounded-3xl">
+              <div className="bg-white w-full h-full max-w-6xl max-h-[60vh] rounded-3xl">
                 {/* Image placeholder */}
               </div>
             </main>
