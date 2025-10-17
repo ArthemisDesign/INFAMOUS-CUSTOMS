@@ -9,6 +9,7 @@ function App() {
   const [activeSubsection, setActiveSubsection] = useState('');
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
+  const subsectionNavRef = useRef(null);
 
   const navigationItems = [
     { name: 'ABOUT', page: 'about', align: 'start' },
@@ -102,6 +103,24 @@ function App() {
     };
 
   }, [activePage, activeSubsection]);
+
+  useEffect(() => {
+    if (subsectionNavRef.current) {
+      const activeElement = subsectionNavRef.current.querySelector('.active-subsection');
+      if (activeElement) {
+        const navHeight = subsectionNavRef.current.offsetHeight;
+        const itemHeight = activeElement.offsetHeight;
+        const itemTop = activeElement.offsetTop;
+        
+        const scrollTop = itemTop - (navHeight / 2) + (itemHeight / 2);
+        
+        subsectionNavRef.current.scrollTo({
+          top: scrollTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [activeSubsection]);
 
   useEffect(() => {
     // Set initial subsection
@@ -220,7 +239,7 @@ function App() {
             <div className="h-screen w-full sticky top-0 flex items-stretch pointer-events-none py-8">
               
               {/* Left Column: Number and Line */}
-              <div className="w-[12.5%] flex-shrink-0 flex flex-col items-center justify-center pointer-events-auto">
+              <div className="w-[12.5%] flex-shrink-0 flex flex-col items-center justify-start pt-64 pointer-events-auto">
                 <span className="text-lg">{activeContent.number}</span>
                 <div className="w-full h-px bg-white mt-1"></div>
               </div>
@@ -336,14 +355,24 @@ function App() {
             <div className="absolute top-24 left-1/2 -translate-x-1/2 w-24 h-24 text-white">
                 <img src="/Loggo.svg" alt="Infamous Customs Logo" />
             </div>
-            <div className="space-y-6">
+            <div ref={subsectionNavRef} className="space-y-6 overflow-y-auto scrollbar-hide py-12" style={{ maxHeight: 'calc(100% - 12rem)'}}>
               {pageSubsections[activePage].map((item) => (
                 <a 
                   key={item.name} 
-                  href={item.href} 
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.querySelector(item.href);
+                    if (element) {
+                      lenisRef.current?.scrollTo(element, { 
+                        duration: 1.2,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                      });
+                    }
+                  }}
                   className={`block transition-all duration-300 pb-1 border-b-2 ${
                     item.href === activeSubsection 
-                      ? 'text-lg font-semibold text-white border-white' 
+                      ? 'active-subsection text-lg font-semibold text-white border-white' 
                       : 'text-md text-gray-400 hover:text-white border-transparent'
                   }`}
                 >
