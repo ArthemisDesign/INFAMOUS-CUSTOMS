@@ -245,7 +245,7 @@ function App() {
               </div>
 
               {/* Center Column: Photo and Content */}
-              <div className="w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center">
+              <div className="w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center relative">
                 <div className="w-full h-full flex flex-col items-center justify-center">
                     <div className="w-full flex-grow relative">
                         {Object.entries(visualizingContent).map(([key, content]) => (
@@ -268,13 +268,13 @@ function App() {
                             </div>
                         ))}
                     </div>
-                    {/* Subtitle and Button Below */}
-                    <div className="text-center -mt-24 pointer-events-auto flex-shrink-0">
-                        <p className="text-lg">{activeContent.subtitle}</p>
-                        <button className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors">
-                            LEARN MORE
-                        </button>
-                    </div>
+                </div>
+                {/* Subtitle and Button Below */}
+                <div className="absolute bottom-24 inset-x-0 text-center pointer-events-auto">
+                    <p className="text-lg">{activeContent.subtitle}</p>
+                    <button className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors">
+                        LEARN MORE
+                    </button>
                 </div>
               </div>
 
