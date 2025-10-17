@@ -32,10 +32,25 @@ function App() {
     ]
   };
 
-  const visualizingImages = {
-    '#spyder': '/SPYDER/spyder_title.png',
-    '#sv-hermes': '/SV/sv.png',
-    '#rr-bolshoi': '/RR/RR.png'
+  const visualizingContent = {
+    spyder: {
+      title: ['SPYDER'],
+      subtitle: 'Turquoise Spyder — Designed 12/09/2025',
+      image: '/SPYDER/spyder_title.png',
+      number: '00.05'
+    },
+    'sv-hermes': {
+      title: ['SV-', 'HERMES'],
+      subtitle: 'SV-Hermes — Designed 10/15/2024',
+      image: '/SV/sv.png',
+      number: '00.06'
+    },
+    'rr-bolshoi': {
+      title: ['RR-', 'BOLSHOI'],
+      subtitle: 'RR-Bolshoi — Designed 08/21/2023',
+      image: '/RR/RR.png',
+      number: '00.07'
+    },
   };
 
   useEffect(() => {
@@ -189,44 +204,67 @@ function App() {
         );
       case 'visualizing':
         const activeVisualizingIndex = pageSubsections.visualizing.findIndex(item => item.href === activeSubsection);
+        const activeContentKey = activeSubsection.substring(1) || 'spyder';
+        const activeContent = visualizingContent[activeContentKey];
+
         return (
           <section id="visualizing" className="bg-black text-white">
-            {/* Sticky container for image and selector */}
-            <div className="h-screen w-full sticky top-0 flex items-center justify-center pointer-events-none">
-              <div className="w-3/4 h-3/4 flex items-center justify-center space-x-8">
-                {/* Image Container */}
-                <div className="w-full h-full relative">
-                  {Object.entries(visualizingImages).map(([href, src]) =>
-                    src && (
-                      <img
-                        key={src}
-                        src={src}
-                        alt={href.substring(1)}
-                        className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ease-in-out ${activeSubsection === href ? 'opacity-100' : 'opacity-0'}`}
-                      />
-                    )
-                  )}
+            <div className="h-screen w-full sticky top-0 flex items-stretch pointer-events-none py-8">
+              
+              {/* Left Column: Number and Line */}
+              <div className="w-[12.5%] flex-shrink-0 flex flex-col items-center justify-center pointer-events-auto">
+                <span className="text-lg">{activeContent.number}</span>
+                <div className="w-full h-px bg-white mt-1"></div>
+              </div>
+
+              {/* Center Column: Photo and Content */}
+              <div className="w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center">
+                <div className="w-full h-full flex flex-col items-center justify-center">
+                    <div className="w-full flex-grow relative">
+                        {/* Fading Images */}
+                        {Object.entries(visualizingContent).map(([key, content]) => (
+                            <img key={key} src={content.image} alt={content.title} className={`absolute inset-0 w-full h-full object-contain rounded-3xl transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}/>
+                        ))}
+                        {/* Fading Titles */}
+                        <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
+                            {Object.entries(visualizingContent).map(([key, content]) => (
+                                <div key={key} className={`absolute text-center transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}>
+                                    {content.title.map((line, index) => (
+                                        <h2 key={index} className="text-9xl font-bold tracking-tighter text-white leading-[0.9]">
+                                            {line}
+                                        </h2>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    {/* Subtitle and Button Below */}
+                    <div className="text-center mt-4 pointer-events-auto flex-shrink-0">
+                        <p className="text-lg">{activeContent.subtitle}</p>
+                        <button className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors">
+                            LEARN MORE
+                        </button>
+                    </div>
                 </div>
-                {/* Selector */}
-                <div className="flex flex-col space-y-4 pointer-events-auto">
+              </div>
+
+              {/* Right Column: Selector */}
+              <div className="w-[12.5%] flex-shrink-0 flex items-center justify-center pointer-events-auto">
+                <div className="flex flex-col space-y-4">
                   {pageSubsections.visualizing.map((item, index) => (
-                    <button
-                      key={item.href}
-                      onClick={() => {
-                        const element = document.querySelector(item.href);
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth' });
-                        }
+                      <button key={item.href} onClick={() => {
+                          const element = document.querySelector(item.href);
+                          if (element) { lenisRef.current?.scrollTo(element); }
                       }}
                       className={`h-0.5 rounded-full transition-all duration-500 ease-in-out ${
-                        index === activeVisualizingIndex
-                          ? 'w-24 bg-white'
-                          : 'w-16 bg-gray-600 hover:bg-gray-400'
-                      }`}
-                    />
+                          index === activeVisualizingIndex
+                              ? 'w-16 bg-white'
+                              : 'w-10 bg-gray-600 hover:bg-gray-400'
+                      }`}/>
                   ))}
                 </div>
               </div>
+
             </div>
 
             {/* Scrollable content */}
