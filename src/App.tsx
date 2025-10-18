@@ -48,7 +48,7 @@ function App() {
     spyder: {
       title: 'SPYDER',
       subtitle: 'Turquoise Spyder — Designed 12/09/2025',
-      image: '/SPYDER/spyder_title.png',
+      image: `${import.meta.env.BASE_URL}SPYDER/spyder_title.png`,
       number: '00.05',
       titleClassName: 'text-9xl',
       detailNumber: '01/',
@@ -93,7 +93,7 @@ function App() {
     'sv-hermes': {
       title: 'SV-HERMES',
       subtitle: 'SV-Hermes — Designed 10/15/2024',
-      image: '/SV/sv.png',
+      image: `${import.meta.env.BASE_URL}SV/sv.png`,
       number: '00.06',
       titleClassName: 'text-8xl',
       detailNumber: '02/',
@@ -138,7 +138,7 @@ function App() {
     'rr-bolshoi': {
       title: 'RR-BOLSHOI',
       subtitle: 'RR-Bolshoi — Designed 08/21/2023',
-      image: '/RR/RR.png',
+      image: `${import.meta.env.BASE_URL}RR/RR.png`,
       number: '00.07',
       titleClassName: 'text-8xl',
       detailNumber: '03/',
@@ -769,14 +769,14 @@ function App() {
               </div>
               
               <div className="absolute top-1/2 left-1/2 w-12 h-12 text-white" style={{ transform: `translate(-50%, -50%) rotate(${rotation}deg)` }}>
-                  <img src="/scroll.svg" alt="Infamous Customs Logo" />
+                  <img src={`${import.meta.env.BASE_URL}scroll.svg`} alt="Infamous Customs Logo" />
               </div>
           </div>
 
           {/* Rightmost Column */}
           <div className="flex-1 h-full border-r border-white flex flex-col items-center justify-center text-center relative py-24">
             <div className="absolute top-24 left-1/2 -translate-x-1/2 w-24 h-24 text-white">
-                <img src="/Loggo.svg" alt="Infamous Customs Logo" />
+                <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
             </div>
             <div ref={subsectionNavRef} className="space-y-6 overflow-y-auto scrollbar-hide py-12" style={{ maxHeight: 'calc(100% - 12rem)'}}>
               {currentSubsections.map((item) => (
