@@ -11,6 +11,7 @@ function App() {
   const [selectedCar, setSelectedCar] = useState(null); // e.g. 'spyder'
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [activeVisualizingIndex, setActiveVisualizingIndex] = useState(0);
+  const [activeInteriorSlides, setActiveInteriorSlides] = useState([]);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
@@ -73,7 +74,44 @@ function App() {
         subtitle: 'Interior',
         totalPages: '/03',
         description_title: '',
-        description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.'
+        description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
+        sliders: [
+          {
+            colors: [
+              'bg-yellow-500',
+              'bg-red-500'
+            ],
+            text: 'Карбон как материя, тактильность как задача'
+          },
+          {
+            colors: [
+              'bg-blue-500',
+              'bg-green-500'
+            ],
+            text: 'Руль полностью перешит — добавлены элементы из кованого карбона и кожи, собранные в заводскую геометрию'
+          },
+          {
+            colors: [
+              'bg-purple-500',
+              'bg-pink-500'
+            ],
+            text: 'Коврики выполнены в миксе карбона и кастомного рисунка под фирменную эстетику проекта, покрытый в защитную пленку'
+          },
+          {
+            colors: [
+              'bg-indigo-500',
+              'bg-cyan-500'
+            ],
+            text: 'Панель приборов — пластик заменён на кованный карбон с точной подгонкой под заводской стандарт'
+          },
+          {
+            colors: [
+              'bg-teal-500',
+              'bg-lime-500'
+            ],
+            text: 'Ремни были подобраны в цвет кузова'
+          }
+        ]
       },
       exterior: {
         title: 'Exterior',
@@ -81,7 +119,7 @@ function App() {
         subtitle: 'Exterior',
         totalPages: '/02',
         description_title: '',
-        description_text: 'Being able to adapt to the car’s original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.'
+        description_text: 'Цвет кузова — первичен, золото — вторично'
       },
       accessories: {
         title: 'Accessories',
@@ -214,6 +252,12 @@ function App() {
       setActiveSubsection(pageSubsections.visualizing[activeVisualizingIndex].href);
     }
   }, [activeVisualizingIndex, activePage, view]);
+
+  useEffect(() => {
+    if (selectedCar && visualizingContent[selectedCar].interior.sliders) {
+      setActiveInteriorSlides(new Array(visualizingContent[selectedCar].interior.sliders.length).fill(0));
+    }
+  }, [selectedCar]);
 
   const handleCarSelect = (carKey) => {
     lenisRef.current?.scrollTo(0, { immediate: true });
@@ -427,9 +471,35 @@ function App() {
                   </p>
                 </div>
               </div>
-              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
-              </div>
+              
+              {carData.interior.sliders?.map((slider, sliderIndex) => (
+                <div key={sliderIndex} className="space-y-8 text-center">
+                  <div className="relative w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
+                    {slider.colors.map((colorClass, colorIndex) => (
+                      <div
+                        key={colorIndex}
+                        className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${colorClass} ${
+                          activeInteriorSlides[sliderIndex] === colorIndex ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      />
+                    ))}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
+                      {slider.colors.map((_, colorIndex) => (
+                        <button 
+                          key={colorIndex}
+                          onClick={() => {
+                            const newSlides = [...activeInteriorSlides];
+                            newSlides[sliderIndex] = colorIndex;
+                            setActiveInteriorSlides(newSlides);
+                          }} 
+                          className={`w-3 h-3 rounded-full transition-colors ${activeInteriorSlides[sliderIndex] === colorIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-lg text-gray-300">{slider.text}</p>
+                </div>
+              ))}
             </main>
           </div>
         </div>
