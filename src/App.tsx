@@ -497,139 +497,153 @@ function App() {
     switch (activePage) {
       case 'about':
         return (
-          <section id="about">
-            {/* "about me" subsection */}
-            <div id="about-me">
-              <header className="bg-black text-white h-screen flex flex-col">
-                <div className="container mx-auto px-6 flex-1 flex items-center justify-center">
-                  <div className="text-center">
-                    <h1 className="text-6xl md:text-8xl font-bold">
-                      INFAMOUS CUSTOMS
-                    </h1>
-                  </div>
-                </div>
-              </header>
+          <>
+            <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
+              <img
+                src={`${import.meta.env.BASE_URL}background.png`}
+                alt="Backstage background"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 w-full h-full bg-black/75" />
+              <div 
+                className="absolute inset-0 w-full h-full opacity-20"
+                style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
+              />
             </div>
-            {/* "gallery" subsection */}
-            <section id="gallery" className="h-screen bg-black text-white flex flex-col items-center justify-center relative overflow-hidden">
-              <div className="text-center z-30 mb-8">
-                  <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
-                      {galleryItems[activeGallerySlide]?.title}
-                  </h2>
-                  <p className="text-lg mt-2">{galleryItems[activeGallerySlide]?.subtitle}</p>
-              </div>
-
-              <div className="w-full h-[60vh] relative flex items-center justify-center">
-                  <div className="absolute w-[25%] h-full">
-                      {galleryItems.map((item, index) => {
-                          const isActive = index === activeGallerySlide;
-                          const isPrev = index === (activeGallerySlide - 1 + galleryItems.length) % galleryItems.length;
-                          const isNext = index === (activeGallerySlide + 1) % galleryItems.length;
-                          
-                          let classes = 'absolute inset-0 transition-all duration-700 ease-in-out ';
-                          let styles = {};
-
-                          if (isActive) {
-                              classes += 'opacity-100 z-20';
-                              styles.transform = 'translateX(0) scale(1)';
-                              styles.filter = 'grayscale(0%)';
-                          } else if (isPrev) {
-                              classes += 'opacity-50 z-10';
-                              styles.transform = 'translateX(-80%) scale(0.8)';
-                              styles.filter = 'grayscale(100%)';
-                          } else if (isNext) {
-                              classes += 'opacity-50 z-10';
-                              styles.transform = 'translateX(80%) scale(0.8)';
-                              styles.filter = 'grayscale(100%)';
-                          } else {
-                              classes += 'opacity-0 z-0';
-                              styles.transform = 'scale(0.7)';
-                          }
-
-                          return (
-                              <div key={item.key} className={classes} style={styles}>
-                                  <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
-                              </div>
-                          );
-                      })}
-                  </div>
-              </div>
-              
-              <div className="text-center z-30 mt-8">
-                  <button 
-                      className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
-                      onClick={() => handleCarSelect(galleryItems[activeGallerySlide]?.key)}
-                  >
-                      learn more
-                  </button>
-                  <div className="flex justify-center items-end space-x-4 mt-6">
-                      {galleryItems.map((_, index) => {
-                          const isActive = index === activeGallerySlide;
-                          return (
-                              <div
-                                  key={index}
-                                  className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'bg-gray-700' : 'bg-gray-600'}`}
-                                  style={{
-                                      height: isActive ? '2.5rem' : '1.5rem',
-                                      width: '3px',
-                                  }}
-                              >
-                                  {isActive && (
-                                      <div
-                                          key={activeGallerySlide}
-                                          className="absolute bottom-0 left-0 w-full bg-white"
-                                          style={{ animation: 'fill-up 3s linear' }}
-                                      />
-                                  )}
-                              </div>
-                          );
-                      })}
-                  </div>
-              </div>
-            </section>
-            {/* "videos" subsection */}
-            <section id="videos" className="h-screen bg-black text-white flex flex-col items-center justify-center p-8">
-              <div className="w-full max-w-5xl mx-auto text-center">
-                <p className="text-sm tracking-[0.3em] uppercase mb-4">INFAMOUS CUSTOMS backstage</p>
-                <h2 className="text-7xl md:text-8xl font-bold mb-12">COMING SOON</h2>
-                
-                <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-3xl aspect-video w-full relative flex items-center justify-center p-6">
-                  <button className="text-white">
-                    <Play className="w-16 h-16 fill-white" />
-                  </button>
-                  
-                  <div className="absolute bottom-6 left-6 right-6 flex items-center space-x-4">
-                    <span className="text-sm font-mono">00:00</span>
-                    <div className="flex-grow bg-white/20 h-1 rounded-full relative">
-                      <div className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full" style={{ left: '0%' }}></div>
+            <section id="about" className="relative z-10">
+              {/* "about me" subsection */}
+              <div id="about-me">
+                <header className="bg-transparent text-white h-screen flex flex-col">
+                  <div className="container mx-auto px-6 flex-1 flex items-center justify-center">
+                    <div className="text-center">
+                      <h1 className="text-6xl md:text-8xl font-bold">
+                        INFAMOUS CUSTOMS
+                      </h1>
                     </div>
                   </div>
+                </header>
+              </div>
+              {/* "gallery" subsection */}
+              <section id="gallery" className="h-screen bg-transparent text-white flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="text-center z-30 mb-8">
+                    <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
+                        {galleryItems[activeGallerySlide]?.title}
+                    </h2>
+                    <p className="text-lg mt-2">{galleryItems[activeGallerySlide]?.subtitle}</p>
                 </div>
 
-                <div className="flex justify-center items-end space-x-4 mt-12">
-                  {Array.from({ length: 9 }).map((_, index) => (
-                    <div key={index} 
-                      className={`transition-all duration-500 ease-in-out ${index === 4 ? 'bg-white' : 'bg-gray-600'}`}
-                      style={{
-                        height: index === 4 ? '2.5rem' : '1.5rem',
-                        width: '3px',
-                      }}
-                    />
-                  ))}
+                <div className="w-full h-[60vh] relative flex items-center justify-center">
+                    <div className="absolute w-[25%] h-full">
+                        {galleryItems.map((item, index) => {
+                            const isActive = index === activeGallerySlide;
+                            const isPrev = index === (activeGallerySlide - 1 + galleryItems.length) % galleryItems.length;
+                            const isNext = index === (activeGallerySlide + 1) % galleryItems.length;
+                            
+                            let classes = 'absolute inset-0 transition-all duration-700 ease-in-out ';
+                            let styles = {};
+
+                            if (isActive) {
+                                classes += 'opacity-100 z-20';
+                                styles.transform = 'translateX(0) scale(1)';
+                                styles.filter = 'grayscale(0%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
+                            } else if (isPrev) {
+                                classes += 'opacity-100 z-10';
+                                styles.transform = 'translateX(-80%) scale(0.8)';
+                                styles.filter = 'grayscale(100%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
+                            } else if (isNext) {
+                                classes += 'opacity-100 z-10';
+                                styles.transform = 'translateX(80%) scale(0.8)';
+                                styles.filter = 'grayscale(100%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
+                            } else {
+                                classes += 'opacity-0 z-0';
+                                styles.transform = 'scale(0.7)';
+                            }
+
+                            return (
+                                <div key={item.key} className={classes} style={styles}>
+                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
-              </div>
+                
+                <div className="text-center z-30 mt-8">
+                    <button 
+                        className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
+                        onClick={() => handleCarSelect(galleryItems[activeGallerySlide]?.key)}
+                    >
+                        learn more
+                    </button>
+                    <div className="flex justify-center items-end space-x-4 mt-6">
+                        {galleryItems.map((_, index) => {
+                            const isActive = index === activeGallerySlide;
+                            return (
+                                <div
+                                    key={index}
+                                    className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'bg-gray-700' : 'bg-gray-600'}`}
+                                    style={{
+                                        height: isActive ? '2.5rem' : '1.5rem',
+                                        width: '3px',
+                                    }}
+                                >
+                                    {isActive && (
+                                        <div
+                                            key={activeGallerySlide}
+                                            className="absolute bottom-0 left-0 w-full bg-white"
+                                            style={{ animation: 'fill-up 3s linear' }}
+                                        />
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+              </section>
+              {/* "videos" subsection */}
+              <section id="videos" className="h-screen bg-transparent text-white flex flex-col items-center justify-center p-8">
+                <div className="w-full max-w-5xl mx-auto text-center">
+                  <p className="text-sm tracking-[0.3em] uppercase mb-4">INFAMOUS CUSTOMS backstage</p>
+                  <h2 className="text-7xl md:text-8xl font-bold mb-12">COMING SOON</h2>
+                  
+                  <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-3xl aspect-video w-full relative flex items-center justify-center p-6">
+                    <button className="text-white">
+                      <Play className="w-16 h-16 fill-white" />
+                    </button>
+                    
+                    <div className="absolute bottom-6 left-6 right-6 flex items-center space-x-4">
+                      <span className="text-sm font-mono">00:00</span>
+                      <div className="flex-grow bg-white/20 h-1 rounded-full relative">
+                        <div className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full" style={{ left: '0%' }}></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center items-end space-x-4 mt-12">
+                    {Array.from({ length: 9 }).map((_, index) => (
+                      <div key={index} 
+                        className={`transition-all duration-500 ease-in-out ${index === 4 ? 'bg-white' : 'bg-gray-600'}`}
+                        style={{
+                          height: index === 4 ? '2.5rem' : '1.5rem',
+                          width: '3px',
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </section>
             </section>
-          </section>
+          </>
         );
       case 'visualizing':
-        const activeVisualizingIndex = pageSubsections.visualizing.findIndex(item => item.href === activeSubsection);
+        const activeContentKey = activeSubsection.substring(1) as keyof typeof visualizingContent;
         
         const possibleKeys = Object.keys(visualizingContent);
-        let activeContentKey = activeSubsection.substring(1);
-        if (!possibleKeys.includes(activeContentKey)) {
-            activeContentKey = 'spyder';
+        let activeContentKeyForRender = activeContentKey;
+        if (!possibleKeys.includes(activeContentKeyForRender)) {
+            activeContentKeyForRender = 'spyder';
         }
-        const activeContent = visualizingContent[activeContentKey];
+        const activeContent = visualizingContent[activeContentKeyForRender];
 
         return (
           <section id="visualizing" className="bg-black text-white h-screen flex flex-col">
@@ -640,7 +654,7 @@ function App() {
                   key={key} 
                   src={content.image} 
                   alt=""
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-20' : 'opacity-0'} blur-sm`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-20' : 'opacity-0'} blur-sm grayscale`}
                 />
               ))}
               <div 
@@ -689,7 +703,7 @@ function App() {
                 <div className="absolute bottom-24 inset-x-0 text-center pointer-events-auto">
                     <p className="text-lg">{activeContent.subtitle}</p>
                     <button 
-                      onClick={() => handleCarSelect(activeContentKey)}
+                      onClick={() => handleCarSelect(activeContentKeyForRender)}
                       className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
                     >
                         LEARN MORE
@@ -706,7 +720,7 @@ function App() {
                           <button
                               key={item.href}
                               onClick={() => setActiveVisualizingIndex(index)}
-                              className={`relative h-0.5 rounded-full overflow-hidden transition-all duration-500 ease-in-out ${
+                              className={`relative h-1 rounded-full overflow-hidden transition-all duration-500 ease-in-out ${
                                   isActive
                                       ? 'w-16 bg-gray-700'
                                       : 'w-10 bg-gray-600 hover:bg-gray-400'
@@ -744,9 +758,9 @@ function App() {
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 bg-black/20 backdrop-blur-md text-white transform transition-transform duration-300 ease-in-out ${
+      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white transform transition-transform duration-300 ease-in-out ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0`}>
+      } lg:translate-x-0 ${activePage === 'about' ? '' : 'bg-black/20 backdrop-blur-md'}`}>
         
         <div className="flex h-full">
           {/* Left Column */}
