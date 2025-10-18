@@ -96,6 +96,44 @@ function App() {
       image: '/SV/sv.png',
       number: '00.06',
       titleClassName: 'text-8xl',
+      detailNumber: '02/',
+      detailTotal: '/04',
+      look: {
+        title: 'THE LOOK',
+        page: '01/',
+        subtitle: 'THE look',
+        totalPages: '/02',
+        description1_title: 'SV-Hermes',
+        description1_text: 'Placeholder text for SV-Hermes look description.',
+        description2_title: 'SV-Hermes',
+        description2_text: 'Placeholder text for SV-Hermes look description.',
+        description3_title: 'SV-Hermes',
+        description3_text: 'Placeholder text for SV-Hermes look description.'
+      },
+      exterior: {
+        title: 'Exterior',
+        page: '01/',
+        subtitle: 'Exterior',
+        totalPages: '/02',
+        description_title: '',
+        description_text: 'Placeholder text for SV-Hermes exterior description.'
+      },
+      interior: {
+        title: 'Interior',
+        page: '02/',
+        subtitle: 'Interior',
+        totalPages: '/03',
+        description_title: '',
+        description_text: 'Placeholder text for SV-Hermes interior description.'
+      },
+      accessories: {
+        title: 'Accessories',
+        page: '01/',
+        subtitle: 'Accessories',
+        totalPages: '/02',
+        description_title: '',
+        description_text: 'Placeholder text for SV-Hermes accessories description.'
+      }
     },
     'rr-bolshoi': {
       title: 'RR-BOLSHOI',
@@ -103,6 +141,44 @@ function App() {
       image: '/RR/RR.png',
       number: '00.07',
       titleClassName: 'text-8xl',
+      detailNumber: '03/',
+      detailTotal: '/04',
+      look: {
+        title: 'THE LOOK',
+        page: '01/',
+        subtitle: 'THE look',
+        totalPages: '/02',
+        description1_title: 'RR-Bolshoi',
+        description1_text: 'Placeholder text for RR-Bolshoi look description.',
+        description2_title: 'RR-Bolshoi',
+        description2_text: 'Placeholder text for RR-Bolshoi look description.',
+        description3_title: 'RR-Bolshoi',
+        description3_text: 'Placeholder text for RR-Bolshoi look description.'
+      },
+      exterior: {
+        title: 'Exterior',
+        page: '01/',
+        subtitle: 'Exterior',
+        totalPages: '/02',
+        description_title: '',
+        description_text: 'Placeholder text for RR-Bolshoi exterior description.'
+      },
+      interior: {
+        title: 'Interior',
+        page: '02/',
+        subtitle: 'Interior',
+        totalPages: '/03',
+        description_title: '',
+        description_text: 'Placeholder text for RR-Bolshoi interior description.'
+      },
+      accessories: {
+        title: 'Accessories',
+        page: '01/',
+        subtitle: 'Accessories',
+        totalPages: '/02',
+        description_title: '',
+        description_text: 'Placeholder text for RR-Bolshoi accessories description.'
+      }
     },
   };
 
@@ -123,6 +199,7 @@ function App() {
   }, [activeGallerySlide, activePage, galleryItems.length]);
 
   const handleCarSelect = (carKey) => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
     setSelectedCar(carKey);
     setView('detail');
   };
@@ -522,7 +599,7 @@ function App() {
                                   className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'bg-gray-700' : 'bg-gray-600'}`}
                                   style={{
                                       height: isActive ? '2.5rem' : '1.5rem',
-                                      width: '2px',
+                                      width: '3px',
                                   }}
                               >
                                   {isActive && (
