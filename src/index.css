@@ -25,6 +25,11 @@
   to { height: 100%; }
 }
 
+@keyframes fill-up-width {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

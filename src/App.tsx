@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Globe2, Menu, X } from 'lucide-react';
+import { ArrowRight, Globe2, Menu, X, Play } from 'lucide-react';
 import Lenis from 'lenis';
 
 function App() {
@@ -10,9 +10,11 @@ function App() {
   const [view, setView] = useState('main'); // 'main' or 'detail'
   const [selectedCar, setSelectedCar] = useState(null); // e.g. 'spyder'
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
+  const [activeVisualizingIndex, setActiveVisualizingIndex] = useState(0);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
+  const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
     { name: 'ABOUT', page: 'about', align: 'start' },
@@ -198,6 +200,21 @@ function App() {
     }
   }, [activeGallerySlide, activePage, galleryItems.length]);
 
+  useEffect(() => {
+    if (activePage === 'visualizing' && view === 'main') {
+      const timer = setTimeout(() => {
+        setActiveVisualizingIndex(prev => (prev + 1) % pageSubsections.visualizing.length);
+      }, VISUALIZING_SLIDESHOW_DURATION);
+      return () => clearTimeout(timer);
+    }
+  }, [activeVisualizingIndex, activePage, view]);
+
+  useEffect(() => {
+    if (activePage === 'visualizing' && view === 'main') {
+      setActiveSubsection(pageSubsections.visualizing[activeVisualizingIndex].href);
+    }
+  }, [activeVisualizingIndex, activePage, view]);
+
   const handleCarSelect = (carKey) => {
     lenisRef.current?.scrollTo(0, { immediate: true });
     setSelectedCar(carKey);
@@ -208,53 +225,6 @@ function App() {
     view === 'detail' && selectedCar
       ? carDetailSubsections
       : pageSubsections[activePage];
-
-  useEffect(() => {
-    if (activePage !== 'visualizing' || view === 'detail') return;
-
-    const scrollContainer = mainContentRef.current;
-    if (!scrollContainer || !lenisRef.current) return;
-
-    let isWheeling = false;
-    let wheelTimeout;
-
-    const handleWheel = (e) => {
-      e.preventDefault();
-      if (isWheeling) {
-        return;
-      }
-
-      const subsections = pageSubsections.visualizing;
-      const currentIndex = subsections.findIndex(s => s.href === activeSubsection);
-      
-      let nextIndex = currentIndex;
-      if (e.deltaY > 1) { // Scroll down
-        nextIndex = Math.min(currentIndex + 1, subsections.length - 1);
-      } else if (e.deltaY < -1) { // Scroll up
-        nextIndex = Math.max(currentIndex - 1, 0);
-      }
-
-      if (nextIndex !== currentIndex) {
-        isWheeling = true;
-        const nextElement = document.querySelector(subsections[nextIndex].href);
-        if (nextElement) {
-          lenisRef.current?.scrollTo(nextElement);
-        }
-        
-        wheelTimeout = setTimeout(() => {
-          isWheeling = false;
-        }, 1500); // Match Lenis duration
-      }
-    };
-    
-    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
-
-    return () => {
-      scrollContainer.removeEventListener('wheel', handleWheel);
-      clearTimeout(wheelTimeout);
-    };
-
-  }, [activePage, activeSubsection, view]);
 
   useEffect(() => {
     if (subsectionNavRef.current) {
@@ -312,12 +282,14 @@ function App() {
       let currentSubsection = '';
       const threshold = window.innerHeight / 3;
 
-      for (const subsection of currentSubsections) {
-        const element = document.querySelector(subsection.href);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= threshold) {
-            currentSubsection = subsection.href;
+      if (activePage !== 'visualizing') {
+        for (const subsection of currentSubsections) {
+          const element = document.querySelector(subsection.href);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= threshold) {
+              currentSubsection = subsection.href;
+            }
           }
         }
       }
@@ -616,8 +588,36 @@ function App() {
               </div>
             </section>
             {/* "videos" subsection */}
-            <section id="videos" className="h-screen bg-black text-white flex items-center justify-center">
-              <h2 className="text-5xl md:text-7xl font-bold">Videos</h2>
+            <section id="videos" className="h-screen bg-black text-white flex flex-col items-center justify-center p-8">
+              <div className="w-full max-w-5xl mx-auto text-center">
+                <p className="text-sm tracking-[0.3em] uppercase mb-4">INFAMOUS CUSTOMS backstage</p>
+                <h2 className="text-7xl md:text-8xl font-bold mb-12">COMING SOON</h2>
+                
+                <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-3xl aspect-video w-full relative flex items-center justify-center p-6">
+                  <button className="text-white">
+                    <Play className="w-16 h-16 fill-white" />
+                  </button>
+                  
+                  <div className="absolute bottom-6 left-6 right-6 flex items-center space-x-4">
+                    <span className="text-sm font-mono">00:00</span>
+                    <div className="flex-grow bg-white/20 h-1 rounded-full relative">
+                      <div className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full" style={{ left: '0%' }}></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-center items-end space-x-4 mt-12">
+                  {Array.from({ length: 9 }).map((_, index) => (
+                    <div key={index} 
+                      className={`transition-all duration-500 ease-in-out ${index === 4 ? 'bg-white' : 'bg-gray-600'}`}
+                      style={{
+                        height: index === 4 ? '2.5rem' : '1.5rem',
+                        width: '3px',
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
             </section>
           </section>
         );
@@ -632,7 +632,7 @@ function App() {
         const activeContent = visualizingContent[activeContentKey];
 
         return (
-          <section id="visualizing" className="bg-black text-white">
+          <section id="visualizing" className="bg-black text-white h-screen flex flex-col">
             {/* Fading Background Images & Noise */}
             <div className="fixed inset-0 w-full h-full">
               {Object.entries(visualizingContent).map(([key, content]) => (
@@ -649,8 +649,8 @@ function App() {
               />
             </div>
 
-            {/* Main Sticky Content */}
-            <div className="h-screen w-full sticky top-0 flex items-stretch pointer-events-none py-8 z-10">
+            {/* Main Content */}
+            <div className="h-full w-full flex items-stretch py-8 z-10">
               
               {/* Left Column: Number and Line */}
               <div className="w-[12.5%] flex-shrink-0 flex flex-col items-center justify-start pt-64 pointer-events-auto">
@@ -671,7 +671,7 @@ function App() {
                             >
                                 <figure className="relative max-w-full max-h-full">
                                     <img 
-                                        src={content.image} 
+                                        src={content.image}
                                         alt={content.title} 
                                         className="block max-w-full max-h-full object-contain rounded-3xl" 
                                     />
@@ -700,27 +700,31 @@ function App() {
               {/* Right Column: Selector */}
               <div className="w-[12.5%] flex-shrink-0 flex items-center justify-center pointer-events-auto">
                 <div className="flex flex-col space-y-4">
-                  {pageSubsections.visualizing.map((item, index) => (
-                      <button key={item.href} onClick={() => {
-                          const element = document.querySelector(item.href);
-                          if (element) { lenisRef.current?.scrollTo(element); }
-                      }}
-                      className={`h-0.5 rounded-full transition-all duration-500 ease-in-out ${
-                          index === activeVisualizingIndex
-                              ? 'w-16 bg-white'
-                              : 'w-10 bg-gray-600 hover:bg-gray-400'
-                      }`}/>
-                  ))}
+                  {pageSubsections.visualizing.map((item, index) => {
+                      const isActive = index === activeVisualizingIndex;
+                      return (
+                          <button
+                              key={item.href}
+                              onClick={() => setActiveVisualizingIndex(index)}
+                              className={`relative h-0.5 rounded-full overflow-hidden transition-all duration-500 ease-in-out ${
+                                  isActive
+                                      ? 'w-16 bg-gray-700'
+                                      : 'w-10 bg-gray-600 hover:bg-gray-400'
+                              }`}
+                          >
+                              {isActive && (
+                                  <div
+                                      key={activeVisualizingIndex}
+                                      className="absolute top-0 left-0 h-full bg-white"
+                                      style={{ animation: `fill-up-width ${VISUALIZING_SLIDESHOW_DURATION}ms linear` }}
+                                  />
+                              )}
+                          </button>
+                      )
+                  })}
                 </div>
               </div>
 
-            </div>
-
-            {/* Scrollable content */}
-            <div className="relative">
-              <div id="spyder" className="h-screen" />
-              <div id="sv-hermes" className="h-screen" />
-              <div id="rr-bolshoi" className="h-screen" />
             </div>
           </section>
         );
