@@ -61,27 +61,27 @@ function App() {
         subtitle: 'THE look',
         totalPages: '/02',
         description1_title: 'The Spyder',
-        description1_text: 'The Spyder sat untouched in an underground garage for almost two years after its owner passed away, collecting dust. It was more than a car — it was a piece of his passion, frozen in time. When his wife gave us the chance to bring it back to life, We knew this was about more than restoration — it was about honoring his legacy.',
+        description1_text: 'Спайдер простоял в подземном гараже почти два года после смерти владельца, покрываясь слоем пыли. Это был больше, чем просто автомобиль — это был застывший во времени фрагмент его страсти. Когда его жена доверила нам возможность вернуть машину к жизни, мы поняли, что речь идёт не просто о реставрации — мы чтим его наследие.',
         description2_title: 'The Spyder',
-        description2_text: 'Our goal was to keep his vision alive. We left his original choices untouched, making only changes that complemented his work.',
+        description2_text: 'Наша цель была сохранить его замысел. Мы оставили его исходный выбор без изменений, внося лишь те доработки, которые дополняли его работу.',
         description3_title: 'The Spyder',
-        description3_text: 'What you see now isn’t a transformation but a rebirth — a revived machine that carries the spirit of its first owner while beginning a new chapter without forgetting the past.'
+        description3_text: 'То, что вы видите сейчас, — это не переделка, а перерождение: автомобиль получил новую жизнь, сохранив связь с прошлым и открывая новую главу.'
+      },
+      interior: {
+        title: 'Interior',
+        page: '01/',
+        subtitle: 'Interior',
+        totalPages: '/03',
+        description_title: '',
+        description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.'
       },
       exterior: {
         title: 'Exterior',
-        page: '01/',
+        page: '02/',
         subtitle: 'Exterior',
         totalPages: '/02',
         description_title: '',
         description_text: 'Being able to adapt to the car’s original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.'
-      },
-      interior: {
-        title: 'Interior',
-        page: '02/',
-        subtitle: 'Interior',
-        totalPages: '/03',
-        description_title: '',
-        description_text: 'What you see now isn’t a transformation but a rebirth — a revived machine that carries the spirit of its first owner while beginning a new chapter without forgetting the past.'
       },
       accessories: {
         title: 'Accessories',
@@ -405,34 +405,6 @@ function App() {
             </main>
           </div>
         </div>
-        <div id="exterior" className="min-h-screen bg-black text-white p-8">
-          <div className="container mx-auto">
-            <header className="py-8">
-              <h1 className="text-8xl font-bold tracking-tighter">{carData.exterior.title}</h1>
-              <div className="border-b border-white mt-4"></div>
-              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
-                <span>{carData.exterior.page}</span>
-                <span className='text-white'>{carData.exterior.subtitle}</span>
-                <span>{carData.exterior.totalPages}</span>
-              </div>
-            </header>
-            <main className="py-16 space-y-24">
-              <div className="grid grid-cols-4 gap-8 items-start">
-                <div className="col-span-1">
-                  <h3 className="text-2xl font-semibold">{carData.exterior.description_title}</h3>
-                </div>
-                <div className="col-span-3">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    {carData.exterior.description_text}
-                  </p>
-                </div>
-              </div>
-              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
-              </div>
-            </main>
-          </div>
-        </div>
         <div id="interior" className="min-h-screen bg-black text-white p-8">
           <div className="container mx-auto">
             <header className="py-8">
@@ -452,6 +424,34 @@ function App() {
                 <div className="col-span-3">
                   <p className="text-xl text-gray-300 leading-relaxed">
                     {carData.interior.description_text}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                {/* Image placeholder */}
+              </div>
+            </main>
+          </div>
+        </div>
+        <div id="exterior" className="min-h-screen bg-black text-white p-8">
+          <div className="container mx-auto">
+            <header className="py-8">
+              <h1 className="text-8xl font-bold tracking-tighter">{carData.exterior.title}</h1>
+              <div className="border-b border-white mt-4"></div>
+              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
+                <span>{carData.exterior.page}</span>
+                <span className='text-white'>{carData.exterior.subtitle}</span>
+                <span>{carData.exterior.totalPages}</span>
+              </div>
+            </header>
+            <main className="py-16 space-y-24">
+              <div className="grid grid-cols-4 gap-8 items-start">
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-semibold">{carData.exterior.description_title}</h3>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    {carData.exterior.description_text}
                   </p>
                 </div>
               </div>
