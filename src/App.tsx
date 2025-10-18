@@ -547,13 +547,13 @@ function App() {
                                 styles.transform = 'translateX(0) scale(1)';
                                 styles.filter = 'grayscale(0%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
                             } else if (isPrev) {
-                                classes += 'opacity-100 z-10';
+                                classes += 'opacity-75 z-10';
                                 styles.transform = 'translateX(-80%) scale(0.8)';
-                                styles.filter = 'grayscale(100%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
+                                styles.filter = 'drop-shadow(0 8px 12px rgba(0,0,0,0.4)) saturate(0.5)';
                             } else if (isNext) {
-                                classes += 'opacity-100 z-10';
+                                classes += 'opacity-75 z-10';
                                 styles.transform = 'translateX(80%) scale(0.8)';
-                                styles.filter = 'grayscale(100%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
+                                styles.filter = 'drop-shadow(0 8px 12px rgba(0,0,0,0.4)) saturate(0.5)';
                             } else {
                                 classes += 'opacity-0 z-0';
                                 styles.transform = 'scale(0.7)';
