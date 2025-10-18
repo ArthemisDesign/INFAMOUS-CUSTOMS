@@ -12,6 +12,7 @@ function App() {
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [activeVisualizingIndex, setActiveVisualizingIndex] = useState(0);
   const [activeInteriorSlides, setActiveInteriorSlides] = useState([]);
+  const [showComingSoon, setShowComingSoon] = useState(true);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
@@ -259,6 +260,22 @@ function App() {
     }
   }, [selectedCar]);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === '1') {
+        setShowComingSoon(false);
+      }
+    };
+
+    if (showComingSoon) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showComingSoon]);
+
   const handleCarSelect = (carKey) => {
     lenisRef.current?.scrollTo(0, { immediate: true });
     setSelectedCar(carKey);
@@ -289,6 +306,7 @@ function App() {
   }, [activeSubsection]);
 
   useEffect(() => {
+    if (showComingSoon) return;
     // Set initial subsection
     const subsection = currentSubsections[0];
     setActiveSubsection(subsection ? subsection.href : '');
@@ -363,7 +381,7 @@ function App() {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [activePage, view, selectedCar]);
+  }, [activePage, view, selectedCar, showComingSoon]);
 
   const renderCarDetailPage = () => {
     if (!selectedCar) return null;
@@ -824,6 +842,27 @@ function App() {
         return null;
     }
   };
+
+  if (showComingSoon) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center relative">
+        <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
+          <img
+            src={`${import.meta.env.BASE_URL}background.png`}
+            alt="Coming soon background"
+            className="w-full h-full object-cover blur-sm"
+          />
+          <div 
+            className="absolute inset-0 w-full h-full opacity-20"
+            style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
+          />
+        </div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-6xl md:text-8xl font-bold text-white">Coming Soon</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black flex">
