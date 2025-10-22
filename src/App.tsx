@@ -43,9 +43,9 @@ function App() {
   const carDetailSubsections = [
     { name: 'Intro', href: '#intro' },
     { name: 'Look', href: '#look' },
-    { name: 'Exterior', href: '#exterior' },
     { name: 'Interior', href: '#interior' },
-    { name: 'Accessories', href: '#accessories' },
+    { name: 'Exterior', href: '#exterior' },
+    { name: 'Wheels', href: '#wheels' },
   ];
 
   const visualizingContent = {
@@ -119,8 +119,24 @@ function App() {
         page: '02/',
         subtitle: 'Exterior',
         totalPages: '/02',
-        description_title: '',
-        description_text: 'Цвет кузова — первичен, золото — вторично'
+        description_title: 'The Spyder',
+        descriptions: [
+            'Цвет кузова — первичен, золото — вторично',
+            'Установлено аккуратное вердугдо, окрашенное в цвет кузова для визуальной цельности.',
+            'Золотые вставки выстроены в тон дискам — создают связку дизайна через весь силуэт.',
+            'От спойлера до переднего логотипа проходит итальянский флаг на белом основании — строгая осевая линия, подчёркивающая динамику.'
+        ]
+      },
+      wheels: {
+        title: 'Wheels',
+        page: '04/',
+        subtitle: 'Wheels',
+        totalPages: '/02',
+        description_title: 'Wheels',
+        descriptions: [
+          'Вдохновение Countach. \nДвухслойное золото.',
+          'Колёса выполнены по концепции дисков Lamborghini Countach LPI 800-4 — сложный двухслойный золотой оттенок, поданный как главный визуальный акцент проекта.'
+        ]
       },
       accessories: {
         title: 'Accessories',
@@ -533,47 +549,55 @@ function App() {
               </div>
             </header>
             <main className="py-16 space-y-24">
+              {(carData.exterior.descriptions || [carData.exterior.description_text]).map((text, index) => (
+                <React.Fragment key={index}>
               <div className="grid grid-cols-4 gap-8 items-start">
                 <div className="col-span-1">
                   <h3 className="text-2xl font-semibold">{carData.exterior.description_title}</h3>
                 </div>
                 <div className="col-span-3">
                   <p className="text-xl text-gray-300 leading-relaxed">
-                    {carData.exterior.description_text}
+                        {text}
                   </p>
                 </div>
               </div>
               <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
                 {/* Image placeholder */}
               </div>
+                </React.Fragment>
+              ))}
             </main>
-          </div>
-        </div>
-        <div id="accessories" className="min-h-screen bg-black text-white p-8">
+                </div>
+                </div>
+        <div id="wheels" className="min-h-screen bg-black text-white p-8">
           <div className="container mx-auto">
             <header className="py-8">
-              <h1 className="text-8xl font-bold tracking-tighter">{carData.accessories.title}</h1>
+              <h1 className="text-8xl font-bold tracking-tighter">{carData.wheels.title}</h1>
               <div className="border-b border-white mt-4"></div>
               <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
-                <span>{carData.accessories.page}</span>
-                <span className='text-white'>{carData.accessories.subtitle}</span>
-                <span>{carData.accessories.totalPages}</span>
+                <span>{carData.wheels.page}</span>
+                <span className='text-white'>{carData.wheels.subtitle}</span>
+                <span>{carData.wheels.totalPages}</span>
               </div>
             </header>
             <main className="py-16 space-y-24">
+              {(carData.wheels.descriptions).map((text, index) => (
+                <React.Fragment key={index}>
               <div className="grid grid-cols-4 gap-8 items-start">
                 <div className="col-span-1">
-                  <h3 className="text-2xl font-semibold">{carData.accessories.description_title}</h3>
+                      <h3 className="text-2xl font-semibold">{carData.wheels.description_title}</h3>
                 </div>
                 <div className="col-span-3">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    {carData.accessories.description_text}
+                      <p className="text-xl text-gray-300 leading-relaxed whitespace-pre-line">
+                        {text}
                   </p>
                 </div>
               </div>
               <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
                 {/* Image placeholder */}
               </div>
+                </React.Fragment>
+              ))}
             </main>
           </div>
         </div>
