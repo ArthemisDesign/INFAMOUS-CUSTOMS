@@ -53,22 +53,11 @@ function App() {
       title: 'SPYDER',
       subtitle: 'Turquoise Spyder — Designed 12/09/2025',
       image: `${import.meta.env.BASE_URL}SPYDER/spyder_title.png`,
+      introImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
       number: '00.05',
       titleClassName: 'text-9xl',
       detailNumber: '01/',
       detailTotal: '/04',
-      look: {
-        title: 'THE LOOK',
-        page: '01/',
-        subtitle: 'THE look',
-        totalPages: '/02',
-        description1_title: 'The Spyder',
-        description1_text: 'Спайдер простоял в подземном гараже почти два года после смерти владельца, покрываясь слоем пыли. Это был больше, чем просто автомобиль — это был застывший во времени фрагмент его страсти. Когда его жена доверила нам возможность вернуть машину к жизни, мы поняли, что речь идёт не просто о реставрации — мы чтим его наследие.',
-        description2_title: 'The Spyder',
-        description2_text: 'Наша цель была сохранить его замысел. Мы оставили его исходный выбор без изменений, внося лишь те доработки, которые дополняли его работу.',
-        description3_title: 'The Spyder',
-        description3_text: 'То, что вы видите сейчас, — это не переделка, а перерождение: автомобиль получил новую жизнь, сохранив связь с прошлым и открывая новую главу.'
-      },
       interior: {
         title: 'Interior',
         page: '01/',
@@ -78,37 +67,36 @@ function App() {
         description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
         sliders: [
           {
-            colors: [
-              'bg-yellow-500',
-              'bg-red-500'
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.2.png`
             ],
             text: 'Карбон как материя, тактильность как задача'
           },
           {
-            colors: [
-              'bg-blue-500',
-              'bg-green-500'
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.2.png`
             ],
             text: 'Руль полностью перешит — добавлены элементы из кованого карбона и кожи, собранные в заводскую геометрию'
           },
           {
-            colors: [
-              'bg-purple-500',
-              'bg-pink-500'
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.2.png`
             ],
             text: 'Коврики выполнены в миксе карбона и кастомного рисунка под фирменную эстетику проекта, покрытый в защитную пленку'
           },
           {
-            colors: [
-              'bg-indigo-500',
-              'bg-cyan-500'
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.2.png`
             ],
             text: 'Панель приборов — пластик заменён на кованный карбон с точной подгонкой под заводской стандарт'
           },
           {
-            colors: [
-              'bg-teal-500',
-              'bg-lime-500'
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/6.png`
             ],
             text: 'Ремни были подобраны в цвет кузова'
           }
@@ -121,10 +109,10 @@ function App() {
         totalPages: '/02',
         description_title: 'The Spyder',
         descriptions: [
-            'Цвет кузова — первичен, золото — вторично',
-            'Установлено аккуратное вердугдо, окрашенное в цвет кузова для визуальной цельности.',
-            'Золотые вставки выстроены в тон дискам — создают связку дизайна через весь силуэт.',
-            'От спойлера до переднего логотипа проходит итальянский флаг на белом основании — строгая осевая линия, подчёркивающая динамику.'
+          { text: 'Цвет кузова — первичен, золото — вторично', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/7.png` },
+          { text: 'Установлено аккуратное вердугдо, окрашенное в цвет кузова для визуальной цельности.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/8.png` },
+          { text: 'Золотые вставки выстроены в тон дискам — создают связку дизайна через весь силуэт.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/9.png` },
+          { text: 'От спойлера до переднего логотипа проходит итальянский флаг на белом основании — строгая осевая линия, подчёркивающая динамику.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/10.png` }
         ]
       },
       wheels: {
@@ -134,8 +122,8 @@ function App() {
         totalPages: '/02',
         description_title: 'Wheels',
         descriptions: [
-          'Вдохновение Countach. \nДвухслойное золото.',
-          'Колёса выполнены по концепции дисков Lamborghini Countach LPI 800-4 — сложный двухслойный золотой оттенок, поданный как главный визуальный акцент проекта.'
+          { text: 'Вдохновение Countach. \nДвухслойное золото.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/11.png` },
+          { text: 'Колёса выполнены по концепции дисков Lamborghini Countach LPI 800-4 — сложный двухслойный золотой оттенок, поданный как главный визуальный акцент проекта.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/12.png` }
         ]
       },
       accessories: {
@@ -277,6 +265,31 @@ function App() {
   }, [selectedCar]);
 
   useEffect(() => {
+    if (view === 'detail' && selectedCar && visualizingContent[selectedCar].interior.sliders) {
+      const sliders = visualizingContent[selectedCar].interior.sliders;
+      const timers = sliders.map((slider, sliderIndex) => {
+        const numItems = slider.images?.length || slider.colors?.length || 0;
+        if (numItems > 1) {
+          return setInterval(() => {
+            setActiveInteriorSlides(prevSlides => {
+              const newSlides = [...prevSlides];
+              newSlides[sliderIndex] = (newSlides[sliderIndex] + 1) % numItems;
+              return newSlides;
+            });
+          }, 3000); // Change every 3 seconds
+        }
+        return null;
+      });
+
+      return () => {
+        timers.forEach(timer => {
+          if (timer) clearInterval(timer);
+        });
+      };
+    }
+  }, [view, selectedCar]);
+
+  useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === '1') {
         setShowComingSoon(false);
@@ -300,7 +313,12 @@ function App() {
 
   const currentSubsections =
     view === 'detail' && selectedCar
-      ? carDetailSubsections
+      ? carDetailSubsections.filter(subsection => {
+        if (subsection.href === '#look') {
+          return !!visualizingContent[selectedCar].look;
+        }
+        return true;
+      })
       : pageSubsections[activePage];
 
   useEffect(() => {
@@ -423,66 +441,74 @@ function App() {
               </div>
             </header>
             <main className="flex-grow flex items-center justify-center py-8 min-h-0">
-              <div className="bg-white w-full h-full max-w-6xl max-h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
+              <div className="w-full h-full max-w-6xl max-h-[119vh] rounded-3xl overflow-hidden">
+                {carData.introImage ? (
+                  <img src={carData.introImage} alt={`${carData.title} intro`} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="bg-white w-full h-full">
+                    {/* Image placeholder */}
+                  </div>
+                )}
               </div>
             </main>
           </div>
         </div>
-        <div id="look" className="min-h-screen bg-black text-white p-8">
-          <div className="container mx-auto">
-            <header className="py-8">
-              <h1 className="text-8xl font-bold tracking-tighter">{carData.look.title}</h1>
-              <div className="border-b border-white mt-4"></div>
-              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
-                <span>{carData.look.page}</span>
-                <span className='text-white'>{carData.look.subtitle}</span>
-                <span>{carData.look.totalPages}</span>
-              </div>
-            </header>
-            <main className="py-16 space-y-24">
-              <div className="grid grid-cols-4 gap-8 items-start">
-                <div className="col-span-1">
-                  <h3 className="text-2xl font-semibold">{carData.look.description1_title}</h3>
+        {carData.look && (
+          <div id="look" className="min-h-screen bg-black text-white p-8">
+            <div className="container mx-auto">
+              <header className="py-8">
+                <h1 className="text-8xl font-bold tracking-tighter">{carData.look.title}</h1>
+                <div className="border-b border-white mt-4"></div>
+                <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
+                  <span>{carData.look.page}</span>
+                  <span className='text-white'>{carData.look.subtitle}</span>
+                  <span>{carData.look.totalPages}</span>
                 </div>
-                <div className="col-span-3">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    {carData.look.description1_text}
-                  </p>
+              </header>
+              <main className="py-16 space-y-24">
+                <div className="grid grid-cols-4 gap-8 items-start">
+                  <div className="col-span-1">
+                    <h3 className="text-2xl font-semibold">{carData.look.description1_title}</h3>
+                  </div>
+                  <div className="col-span-3">
+                    <p className="text-xl text-gray-300 leading-relaxed">
+                      {carData.look.description1_text}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
-              </div>
-              <div className="grid grid-cols-4 gap-8 items-start">
-                <div className="col-span-1">
-                  <h3 className="text-2xl font-semibold">{carData.look.description2_title}</h3>
+                <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                  {/* Image placeholder */}
                 </div>
-                <div className="col-span-3">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    {carData.look.description2_text}
-                  </p>
+                <div className="grid grid-cols-4 gap-8 items-start">
+                  <div className="col-span-1">
+                    <h3 className="text-2xl font-semibold">{carData.look.description2_title}</h3>
+                  </div>
+                  <div className="col-span-3">
+                    <p className="text-xl text-gray-300 leading-relaxed">
+                      {carData.look.description2_text}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
-              </div>
-              <div className="grid grid-cols-4 gap-8 items-start">
-                <div className="col-span-1">
-                  <h3 className="text-2xl font-semibold">{carData.look.description3_title}</h3>
+                <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                  {/* Image placeholder */}
                 </div>
-                <div className="col-span-3">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    {carData.look.description3_text}
-                  </p>
+                <div className="grid grid-cols-4 gap-8 items-start">
+                  <div className="col-span-1">
+                    <h3 className="text-2xl font-semibold">{carData.look.description3_title}</h3>
+                  </div>
+                  <div className="col-span-3">
+                    <p className="text-xl text-gray-300 leading-relaxed">
+                      {carData.look.description3_text}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
-              </div>
-            </main>
+                <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
+                  {/* Image placeholder */}
+                </div>
+              </main>
+            </div>
           </div>
-        </div>
+        )}
         <div id="interior" className="min-h-screen bg-black text-white p-8">
           <div className="container mx-auto">
             <header className="py-8">
@@ -509,24 +535,37 @@ function App() {
               {carData.interior.sliders?.map((slider, sliderIndex) => (
                 <div key={sliderIndex} className="space-y-8 text-center">
                   <div className="relative w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
-                    {slider.colors.map((colorClass, colorIndex) => (
-                      <div
-                        key={colorIndex}
-                        className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${colorClass} ${
-                          activeInteriorSlides[sliderIndex] === colorIndex ? 'opacity-100' : 'opacity-0'
-                        }`}
-                      />
-                    ))}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
-                      {slider.colors.map((_, colorIndex) => (
-                        <button 
+                    {slider.images ? (
+                      slider.images.map((imageSrc, imageIndex) => (
+                        <img
+                          key={imageIndex}
+                          src={imageSrc}
+                          alt={`${slider.text} ${imageIndex + 1}`}
+                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+                            activeInteriorSlides[sliderIndex] === imageIndex ? 'opacity-100' : 'opacity-0'
+                          }`}
+                        />
+                      ))
+                    ) : (
+                      slider.colors.map((colorClass, colorIndex) => (
+                        <div
                           key={colorIndex}
+                          className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${colorClass} ${
+                            activeInteriorSlides[sliderIndex] === colorIndex ? 'opacity-100' : 'opacity-0'
+                          }`}
+                        />
+                      ))
+                    )}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
+                      {(slider.images?.length > 1 || slider.colors?.length > 1) && (slider.images || slider.colors).map((_, itemIndex) => (
+                        <button 
+                          key={itemIndex}
                           onClick={() => {
                             const newSlides = [...activeInteriorSlides];
-                            newSlides[sliderIndex] = colorIndex;
+                            newSlides[sliderIndex] = itemIndex;
                             setActiveInteriorSlides(newSlides);
                           }} 
-                          className={`w-3 h-3 rounded-full transition-colors ${activeInteriorSlides[sliderIndex] === colorIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
+                          className={`w-3 h-3 rounded-full transition-colors ${activeInteriorSlides[sliderIndex] === itemIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
                         />
                       ))}
                     </div>
@@ -549,23 +588,34 @@ function App() {
               </div>
             </header>
             <main className="py-16 space-y-24">
-              {(carData.exterior.descriptions || [carData.exterior.description_text]).map((text, index) => (
-                <React.Fragment key={index}>
-              <div className="grid grid-cols-4 gap-8 items-start">
-                <div className="col-span-1">
-                  <h3 className="text-2xl font-semibold">{carData.exterior.description_title}</h3>
-                </div>
-                <div className="col-span-3">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                        {text}
-                  </p>
-                </div>
-              </div>
-              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
-              </div>
-                </React.Fragment>
-              ))}
+              {(carData.exterior.descriptions || (carData.exterior.description_text ? [carData.exterior.description_text] : [])).map((item, index) => {
+                const text = typeof item === 'string' ? item : item.text;
+                const image = typeof item === 'string' ? null : item.image;
+
+                return (
+                  <React.Fragment key={index}>
+                    <div className="grid grid-cols-4 gap-8 items-start">
+                      <div className="col-span-1">
+                        <h3 className="text-2xl font-semibold">{carData.exterior.description_title}</h3>
+                      </div>
+                      <div className="col-span-3">
+                        <p className="text-xl text-gray-300 leading-relaxed">
+                          {text}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
+                      {image ? (
+                        <img src={image} alt={`Exterior detail ${index + 1}`} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="bg-white w-full h-full">
+                          {/* Image placeholder */}
+                        </div>
+                      )}
+                    </div>
+                  </React.Fragment>
+                );
+              })}
             </main>
                 </div>
                 </div>
@@ -581,23 +631,34 @@ function App() {
               </div>
             </header>
             <main className="py-16 space-y-24">
-              {(carData.wheels.descriptions).map((text, index) => (
-                <React.Fragment key={index}>
-              <div className="grid grid-cols-4 gap-8 items-start">
-                <div className="col-span-1">
-                      <h3 className="text-2xl font-semibold">{carData.wheels.description_title}</h3>
-                </div>
-                <div className="col-span-3">
-                      <p className="text-xl text-gray-300 leading-relaxed whitespace-pre-line">
-                        {text}
-                  </p>
-                </div>
-              </div>
-              <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                {/* Image placeholder */}
-              </div>
-                </React.Fragment>
-              ))}
+              {(carData.wheels.descriptions).map((item, index) => {
+                const text = typeof item === 'string' ? item : item.text;
+                const image = typeof item === 'string' ? null : item.image;
+
+                return (
+                  <React.Fragment key={index}>
+                    <div className="grid grid-cols-4 gap-8 items-start">
+                      <div className="col-span-1">
+                            <h3 className="text-2xl font-semibold">{carData.wheels.description_title}</h3>
+                      </div>
+                      <div className="col-span-3">
+                            <p className="text-xl text-gray-300 leading-relaxed whitespace-pre-line">
+                              {text}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
+                      {image ? (
+                        <img src={image} alt={`Wheels detail ${index + 1}`} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="bg-white w-full h-full">
+                          {/* Image placeholder */}
+                        </div>
+                      )}
+                    </div>
+                  </React.Fragment>
+                );
+              })}
             </main>
           </div>
         </div>
