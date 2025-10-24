@@ -138,7 +138,8 @@ function App() {
     'sv-hermes': {
       title: 'SV-HERMES',
       subtitle: 'SV-Hermes — Designed 10/15/2024',
-      image: `${import.meta.env.BASE_URL}SV/sv.png`,
+      image: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
+      introImage: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
       number: '00.06',
       titleClassName: 'text-8xl',
       detailNumber: '02/',
@@ -183,7 +184,8 @@ function App() {
     'rr-bolshoi': {
       title: 'RR-BOLSHOI',
       subtitle: 'RR-Bolshoi — Designed 08/21/2023',
-      image: `${import.meta.env.BASE_URL}RR/RR.png`,
+      image: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
+      introImage: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
       number: '00.07',
       titleClassName: 'text-8xl',
       detailNumber: '03/',
@@ -314,11 +316,12 @@ function App() {
   const currentSubsections =
     view === 'detail' && selectedCar
       ? carDetailSubsections.filter(subsection => {
-        if (subsection.href === '#look') {
-          return !!visualizingContent[selectedCar].look;
-        }
-        return true;
-      })
+          const sectionKey = subsection.href.substring(1);
+          if (sectionKey === 'intro') {
+            return true;
+          }
+          return Object.prototype.hasOwnProperty.call(visualizingContent[selectedCar], sectionKey);
+        })
       : pageSubsections[activePage];
 
   useEffect(() => {
@@ -378,7 +381,7 @@ function App() {
       let currentSubsection = '';
       const threshold = window.innerHeight / 3;
 
-      if (activePage !== 'visualizing') {
+      if (activePage !== 'visualizing' || view === 'detail') {
         for (const subsection of currentSubsections) {
           const element = document.querySelector(subsection.href);
           if (element) {
@@ -509,7 +512,7 @@ function App() {
             </div>
           </div>
         )}
-        <div id="interior" className="min-h-screen bg-black text-white p-8">
+        {carData.interior && <div id="interior" className="min-h-screen bg-black text-white p-8">
           <div className="container mx-auto">
             <header className="py-8">
               <h1 className="text-8xl font-bold tracking-tighter">{carData.interior.title}</h1>
@@ -575,8 +578,8 @@ function App() {
               ))}
             </main>
           </div>
-        </div>
-        <div id="exterior" className="min-h-screen bg-black text-white p-8">
+        </div>}
+        {carData.exterior && <div id="exterior" className="min-h-screen bg-black text-white p-8">
           <div className="container mx-auto">
             <header className="py-8">
               <h1 className="text-8xl font-bold tracking-tighter">{carData.exterior.title}</h1>
@@ -618,8 +621,8 @@ function App() {
               })}
             </main>
                 </div>
-                </div>
-        <div id="wheels" className="min-h-screen bg-black text-white p-8">
+                </div>}
+        {carData.wheels && <div id="wheels" className="min-h-screen bg-black text-white p-8">
           <div className="container mx-auto">
             <header className="py-8">
               <h1 className="text-8xl font-bold tracking-tighter">{carData.wheels.title}</h1>
@@ -661,7 +664,7 @@ function App() {
               })}
             </main>
           </div>
-        </div>
+        </div>}
       </section>
     );
   };
@@ -966,6 +969,9 @@ function App() {
                           setActivePage(item.page);
                           setView('main');
                           setSelectedCar(null);
+                          if (item.page === 'visualizing') {
+                            setActiveVisualizingIndex(0);
+                          }
                         }} className={`self-${item.align} block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90 bg-transparent border-none`}>
                             {item.name.toLowerCase()}
                         </button>
