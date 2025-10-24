@@ -144,33 +144,42 @@ function App() {
       titleClassName: 'text-8xl',
       detailNumber: '02/',
       detailTotal: '/04',
-      look: {
-        title: 'THE LOOK',
+      interior: {
+        title: 'Interior',
         page: '01/',
-        subtitle: 'THE look',
-        totalPages: '/02',
-        description1_title: 'SV-Hermes',
-        description1_text: 'Placeholder text for SV-Hermes look description.',
-        description2_title: 'SV-Hermes',
-        description2_text: 'Placeholder text for SV-Hermes look description.',
-        description3_title: 'SV-Hermes',
-        description3_text: 'Placeholder text for SV-Hermes look description.'
+        subtitle: 'Interior',
+        totalPages: '/04',
+        description_title: '',
+        description_text: 'Эксклюзивный интерьер в стиле Hermes, с уникальным паттерном и роскошными материалами.',
+        sliders: [
+          {
+            colors: ['bg-gray-300', 'bg-gray-400', 'bg-gray-500'],
+            text: 'Руль (заменена окантовка в белый глянец)'
+          },
+          {
+            colors: ['bg-slate-300', 'bg-slate-400'],
+            text: 'Коврики - деревянные двухцветные в защитном лаке - в сочетании с  салоном - точечно вырезанный для всех посадочных мест индивидуально'
+          },
+          {
+            colors: ['bg-zinc-300', 'bg-zinc-400', 'bg-zinc-500'],
+            text: 'Hermes лошади - Эксклюзивный интерьер в стиле Hermes, паттерн.\\nЛошадок сделали под серебро, чтобы они переливались, появлялись и исчезали в зависимости от освещения и угла зрения. Все под глянцевым лаком.'
+          },
+          {
+            colors: ['bg-neutral-300', 'bg-neutral-400'],
+            text: 'Деревянный багажный коврик -выполненный в том же стиле, что и салонные коврики, с единственным отличием — металлическая наклейка с инициалами владельца'
+          }
+        ]
       },
       exterior: {
         title: 'Exterior',
-        page: '01/',
+        page: '02/',
         subtitle: 'Exterior',
         totalPages: '/02',
         description_title: '',
-        description_text: 'Placeholder text for SV-Hermes exterior description.'
-      },
-      interior: {
-        title: 'Interior',
-        page: '02/',
-        subtitle: 'Interior',
-        totalPages: '/03',
-        description_title: '',
-        description_text: 'Placeholder text for SV-Hermes interior description.'
+        descriptions: [
+          { text: 'Оригинальный цвет глянца затянут в матовый', image: null },
+          { text: 'Вверх обклеен белой глянцевой пленкой', image: null }
+        ]
       },
       accessories: {
         title: 'Accessories',
