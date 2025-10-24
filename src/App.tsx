@@ -139,7 +139,7 @@ function App() {
       title: 'SV-HERMES',
       subtitle: 'SV-Hermes — Designed 10/15/2024',
       image: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
-      introImage: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
+      introImage: `${import.meta.env.BASE_URL}SV/SV_details/intro.png`,
       number: '00.06',
       titleClassName: 'text-8xl',
       detailNumber: '02/',
@@ -148,25 +148,53 @@ function App() {
         title: 'Interior',
         page: '01/',
         subtitle: 'Interior',
-        totalPages: '/04',
+        totalPages: '/06',
         description_title: '',
         description_text: 'Эксклюзивный интерьер в стиле Hermes, с уникальным паттерном и роскошными материалами.',
         sliders: [
           {
-            colors: ['bg-gray-300', 'bg-gray-400', 'bg-gray-500'],
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/3.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/4.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/4.2.png`
+            ],
             text: 'Руль (заменена окантовка в белый глянец)'
           },
           {
-            colors: ['bg-slate-300', 'bg-slate-400'],
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/4.2.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/3.2.png`
+            ],
             text: 'Коврики - деревянные двухцветные в защитном лаке - в сочетании с  салоном - точечно вырезанный для всех посадочных мест индивидуально'
           },
           {
-            colors: ['bg-zinc-300', 'bg-zinc-400', 'bg-zinc-500'],
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/6.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/6.2.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/6.3.png`
+            ],
             text: 'Hermes лошади - Эксклюзивный интерьер в стиле Hermes, паттерн.\\nЛошадок сделали под серебро, чтобы они переливались, появлялись и исчезали в зависимости от освещения и угла зрения. Все под глянцевым лаком.'
           },
           {
-            colors: ['bg-neutral-300', 'bg-neutral-400'],
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/7.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/7.2.png`
+            ],
             text: 'Деревянный багажный коврик -выполненный в том же стиле, что и салонные коврики, с единственным отличием — металлическая наклейка с инициалами владельца'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/8.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/8.2.png`
+            ],
+            text: 'С полосками тоже было непросто — толщина полосок строго 0,8 мм, а сами детали были шпонированные, рельефные. Пришлось долго их готовить, шпаклевать, грунтовать, выравнивать, чтобы не было просадок и глянец сохранился надолго.'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/10.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/10.2.png`
+            ],
+            text: 'Placeholder for new slider description.'
           }
         ]
       },
@@ -177,8 +205,8 @@ function App() {
         totalPages: '/02',
         description_title: '',
         descriptions: [
-          { text: 'Оригинальный цвет глянца затянут в матовый', image: null },
-          { text: 'Вверх обклеен белой глянцевой пленкой', image: null }
+          { text: 'Оригинальный цвет глянца затянут в матовый', image: `${import.meta.env.BASE_URL}SV/SV_details/1.png` },
+          { text: 'Вверх обклеен белой глянцевой пленкой', image: `${import.meta.env.BASE_URL}SV/SV_details/2.png` }
         ]
       },
       accessories: {
