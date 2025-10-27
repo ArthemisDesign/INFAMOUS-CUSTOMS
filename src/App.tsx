@@ -911,6 +911,21 @@ function App() {
                   </div>
                 </header>
               </div>
+              <div className="md:hidden bg-transparent text-white py-20 px-6">
+                <div className="max-w-md mx-auto text-left text-sm space-y-4">
+                  <p>
+                    Мы — INFAMOUS CUSTOMS, первая компания в СНГ, специализирующаяся на модификации и кастомизации автомобилей класса люкс.
+                  </p>
+                  <div className="border-b border-white/50"></div>
+                  <p>
+                    Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря “у наших партнеров дешевле” и мы не только предоставляем но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично чтобы вы убидились в качестве.
+                  </p>
+                  <div className="border-b border-white/50"></div>
+                  <p>
+                    [p.s ваш бюджет который вы предоставляете служит вашей же гарантией на все установленные дивайсы включающие технику].
+                  </p>
+                </div>
+              </div>
               {/* "gallery" subsection */}
               <section id="gallery" className="h-screen bg-transparent text-white flex flex-col items-center justify-center relative overflow-hidden">
                 {/* Desktop Version */}
@@ -922,7 +937,7 @@ function App() {
                       <p className="text-lg mt-2">{galleryItems[activeGallerySlide]?.subtitle}</p>
                   </div>
                   <div className="w-full h-[60vh] relative flex items-center justify-center">
-                      <div className="absolute w-[25%] h-full">
+                      <div className="absolute w-[45vh] h-[45vh]">
                           {galleryItems.map((item, index) => {
                               const isActive = index === activeGallerySlide;
                               const isPrev = index === (activeGallerySlide - 1 + galleryItems.length) % galleryItems.length;
@@ -991,7 +1006,7 @@ function App() {
 
                 {/* Mobile Version */}
                 <div className="lg:hidden flex flex-col items-center justify-between w-full h-full pt-20 pb-28">
-                  <div className="flex justify-center items-end space-x-2">
+                  <div className="flex justify-center items-end space-x-2 mb-4">
                     {galleryItems.map((_, index) => (
                       <div
                         key={index}
@@ -1035,7 +1050,7 @@ function App() {
                     </div>
                   </div>
 
-                  <div className="text-center z-30">
+                  <div className="text-center z-30 mt-4">
                     <h2 className="text-5xl font-bold tracking-tighter text-white leading-none">
                       {galleryItems[activeGallerySlide]?.title}
                     </h2>
