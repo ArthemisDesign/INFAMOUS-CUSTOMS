@@ -12,6 +12,7 @@ function App() {
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [activeVisualizingIndex, setActiveVisualizingIndex] = useState(0);
   const [activeInteriorSlides, setActiveInteriorSlides] = useState([]);
+  const [activeExteriorSlides, setActiveExteriorSlides] = useState([]);
   const [showComingSoon, setShowComingSoon] = useState(true);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
@@ -228,7 +229,7 @@ function App() {
       title: 'RR-BOLSHOI',
       subtitle: 'RR-Bolshoi — Designed 08/21/2023',
       image: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
-      introImage: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
+      introImage: `${import.meta.env.BASE_URL}RR/RR_details/1.png`,
       number: '00.07',
       titleClassName: 'text-8xl',
       detailNumber: '03/',
@@ -237,17 +238,80 @@ function App() {
         title: 'Exterior',
         page: '01/',
         subtitle: 'Exterior',
-        totalPages: '/02',
-        description_title: '',
-        description_text: 'Placeholder text for RR-Bolshoi exterior description.'
+        totalPages: '/03',
+        descriptions: [
+          {
+            image: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
+            text: "Кузов оформлен в светлом балансе металла и золота.\nКапот оклеен серебристой плёнкой с золотыми контрастными деталями",
+            left_title: 'Кузов'
+          },
+          {
+            image: `${import.meta.env.BASE_URL}RR/RR_details/4.png`,
+            text: 'Диски выточенны и установлены идивидуаьно по макетам заказика',
+            left_title: 'Диски'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}RR/RR_details/5.1.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/5.2.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/5.3.png`
+            ],
+            text: 'Багажник для крыши выполнен в виде полноценной палубной конструкции с полностью функционирующим механизмом складывания, заключённым в натуральный деревянный корпус',
+            left_title: 'Багажник'
+          }
+        ]
       },
       interior: {
         title: 'Interior',
         page: '02/',
         subtitle: 'Interior',
-        totalPages: '/03',
+        totalPages: '/05',
         description_title: '',
-        description_text: 'Placeholder text for RR-Bolshoi interior description.'
+        description_text: '',
+        sliders: [
+          {
+            images: [
+              `${import.meta.env.BASE_URL}RR/RR_details/6.1.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/6.2.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/6.3.png`
+            ],
+            text: 'Решено было вдохновиться стилем Zenith и подчеркнуть индивидуальность автомобиля.',
+            left_title: 'Салон'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}RR/RR_details/7.png`
+            ],
+            text: 'Применена оригинальная кожа, подобранная по текстуре и тактильным ощущениям. Передние сиденья перетянуты натуральной кожей с разработанной нами перфорацией.',
+            left_title: 'Салон'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}RR/RR_details/8.1.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/8.2.png`
+            ],
+            text: 'Руль полностью перешит, дополнен деревянными вставками и отделкой из синей кожи',
+            left_title: 'Руль'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}RR/RR_details/9.1.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/9.2.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/9.3.png`
+            ],
+            text: 'Тиковые Коврики выполнены из тикового дерева с кожаными вставками и защищены прозрачными полиуретановыми покрытиями',
+            left_title: 'Коврики'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}RR/RR_details/10.1.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/10.2.png`,
+              `${import.meta.env.BASE_URL}RR/RR_details/10.3.png`
+            ],
+            text: 'Чехол выполнен из тикового дерева с кожаными вставками и защищены прозрачными полиуретановыми покрытиями',
+            left_title: 'Чехол'
+          }
+        ]
       },
       accessories: {
         title: 'Accessories',
@@ -292,8 +356,13 @@ function App() {
   }, [activeVisualizingIndex, activePage, view]);
 
   useEffect(() => {
-    if (selectedCar && visualizingContent[selectedCar].interior.sliders) {
-      setActiveInteriorSlides(new Array(visualizingContent[selectedCar].interior.sliders.length).fill(0));
+    if (selectedCar) {
+      if (visualizingContent[selectedCar].interior.sliders) {
+        setActiveInteriorSlides(new Array(visualizingContent[selectedCar].interior.sliders.length).fill(0));
+      }
+      if (visualizingContent[selectedCar].exterior?.descriptions) {
+        setActiveExteriorSlides(new Array(visualizingContent[selectedCar].exterior.descriptions.length).fill(0));
+      }
     }
   }, [selectedCar]);
 
@@ -307,6 +376,31 @@ function App() {
             setActiveInteriorSlides(prevSlides => {
               const newSlides = [...prevSlides];
               newSlides[sliderIndex] = (newSlides[sliderIndex] + 1) % numItems;
+              return newSlides;
+            });
+          }, 3000); // Change every 3 seconds
+        }
+        return null;
+      });
+
+      return () => {
+        timers.forEach(timer => {
+          if (timer) clearInterval(timer);
+        });
+      };
+    }
+  }, [view, selectedCar]);
+
+  useEffect(() => {
+    if (view === 'detail' && selectedCar && visualizingContent[selectedCar].exterior?.descriptions) {
+      const descriptions = visualizingContent[selectedCar].exterior.descriptions;
+      const timers = descriptions.map((item, itemIndex) => {
+        const numItems = item.images?.length || 0;
+        if (numItems > 1) {
+          return setInterval(() => {
+            setActiveExteriorSlides(prevSlides => {
+              const newSlides = [...prevSlides];
+              newSlides[itemIndex] = (newSlides[itemIndex] + 1) % numItems;
               return newSlides;
             });
           }, 3000); // Change every 3 seconds
@@ -638,21 +732,48 @@ function App() {
               {(carData.exterior.descriptions || (carData.exterior.description_text ? [carData.exterior.description_text] : [])).map((item, index) => {
                 const text = typeof item === 'string' ? item : item.text;
                 const image = typeof item === 'string' ? null : item.image;
+                const images = typeof item === 'object' ? item.images : null;
 
                 return (
                   <React.Fragment key={index}>
                     <div className="grid grid-cols-4 gap-8 items-start">
                       <div className="col-span-1">
-                        <h3 className="text-2xl font-semibold">{carData.exterior.description_title}</h3>
+                        <h3 className="text-2xl font-semibold">{typeof item === 'object' && item.left_title ? item.left_title : carData.exterior.description_title}</h3>
                       </div>
                       <div className="col-span-3">
-                        <p className="text-xl text-gray-300 leading-relaxed">
+                        <p className="text-xl text-gray-300 leading-relaxed whitespace-pre-line">
                           {text}
                         </p>
                       </div>
                     </div>
-                    <div className="w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
-                      {image ? (
+                    <div className="w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden relative">
+                      {images ? (
+                        <>
+                          {images.map((imageSrc, imageIndex) => (
+                            <img
+                              key={imageIndex}
+                              src={imageSrc}
+                              alt={`${text} ${imageIndex + 1}`}
+                              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+                                activeExteriorSlides[index] === imageIndex ? 'opacity-100' : 'opacity-0'
+                              }`}
+                            />
+                          ))}
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
+                            {images.length > 1 && images.map((_, itemIndex) => (
+                              <button
+                                key={itemIndex}
+                                onClick={() => {
+                                  const newSlides = [...activeExteriorSlides];
+                                  newSlides[index] = itemIndex;
+                                  setActiveExteriorSlides(newSlides);
+                                }}
+                                className={`w-3 h-3 rounded-full transition-colors ${activeExteriorSlides[index] === itemIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      ) : image ? (
                         <img src={image} alt={`Exterior detail ${index + 1}`} className="w-full h-full object-cover" />
                       ) : (
                         <div className="bg-white w-full h-full">
