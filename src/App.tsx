@@ -32,14 +32,17 @@ function App() {
       { name: 'videos', href: '#videos' }
     ],
     visualizing: [
-      { name: 'spyder', href: '#spyder' },
+      { name: 'RR-Bolshoi', href: '#rr-bolshoi' },
       { name: 'sv-hermes', href: '#sv-hermes' },
-      { name: 'RR-Bolshoi', href: '#rr-bolshoi' }
+      { name: 'spyder', href: '#spyder' }
     ],
     contact: [
       { name: 'client form', href: '#client-form' }
     ]
   };
+
+  const activePageIndex = navigationItems.findIndex(item => item.page === activePage);
+  const pageIndicator = `0${activePageIndex + 1}//0${navigationItems.length}`;
 
   const carDetailSubsections = [
     { name: 'Intro', href: '#intro' },
@@ -57,8 +60,8 @@ function App() {
       introImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
       number: '00.05',
       titleClassName: 'text-9xl',
-      detailNumber: '01/',
-      detailTotal: '/04',
+      detailNumber: '03/',
+      detailTotal: '/03',
       interior: {
         title: 'Interior',
         page: '01/',
@@ -150,7 +153,7 @@ function App() {
       number: '00.06',
       titleClassName: 'text-8xl',
       detailNumber: '02/',
-      detailTotal: '/04',
+      detailTotal: ' /03',
       interior: {
         title: 'Interior',
         page: '01/',
@@ -239,8 +242,8 @@ function App() {
       introImage: `${import.meta.env.BASE_URL}RR/RR_details/1.png`,
       number: '00.07',
       titleClassName: 'text-8xl',
-      detailNumber: '03/',
-      detailTotal: '/04',
+      detailNumber: '01/',
+      detailTotal: '/03',
       exterior: {
         title: 'Exterior',
         page: '01/',
@@ -270,7 +273,7 @@ function App() {
       },
       interior: {
         title: 'Interior',
-        page: '02/',
+        page: '01/',
         subtitle: 'Interior',
         totalPages: '/05',
         description_title: '',
@@ -865,6 +868,7 @@ function App() {
   const renderContent = () => {
     switch (activePage) {
       case 'about':
+        const currentSubsectionInfo = currentSubsections.find(item => item.href === activeSubsection);
         return (
           <>
             <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
@@ -882,12 +886,27 @@ function App() {
             <section id="about" className="relative z-10">
               {/* "about me" subsection */}
               <div id="about-me">
-                <header className="bg-transparent text-white h-screen flex flex-col">
+                <header className="bg-transparent text-white h-screen flex flex-col relative">
+                  
                   <div className="container mx-auto px-6 flex-1 flex items-center justify-center">
                     <div className="text-center">
-                      <h1 className="text-6xl md:text-8xl font-bold">
-                        INFAMOUS CUSTOMS
+                      <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold">
+                        INFAMOUS<br className="md:hidden" /> CUSTOMS
                       </h1>
+                    </div>
+                  </div>
+
+                  {/* Mobile Footer */}
+                  <div className="lg:hidden absolute bottom-0 left-0 right-0 w-full px-6 py-4 pointer-events-none">
+                    <a href={currentSubsectionInfo?.href || '#about-me'} className="text-lg text-transparent">{currentSubsectionInfo?.name || 'about me'}</a>
+                    <div className="border-b border-transparent w-full mt-1"></div>
+                    <div className="flex justify-center w-full mt-4 opacity-0">
+                        <img 
+                          src={`${import.meta.env.BASE_URL}scroll.svg`} 
+                          alt="Infamous Customs Logo" 
+                          className="w-12 h-12"
+                          style={{ transform: `rotate(${rotation}deg)` }}
+                        />
                     </div>
                   </div>
                 </header>
@@ -1002,6 +1021,25 @@ function App() {
                 </div>
               </section>
             </section>
+            {/* Mobile Footer */}
+            <div className="fixed bottom-0 left-0 right-0 w-full lg:hidden z-30 text-white bg-black/20 backdrop-blur-md">
+              <div
+                className="absolute inset-0 w-full h-full opacity-20 pointer-events-none"
+                style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
+              />
+              <div className="relative px-6 py-4">
+                <a href={currentSubsectionInfo?.href || '#about-me'} className="text-lg">{currentSubsectionInfo?.name || 'about me'}</a>
+                <div className="border-b border-white w-full mt-1"></div>
+                <div className="flex justify-center w-full mt-4">
+                    <img
+                      src={`${import.meta.env.BASE_URL}scroll.svg`}
+                      alt="Infamous Customs Logo"
+                      className="w-12 h-12"
+                      style={{ transform: `rotate(${rotation}deg)` }}
+                    />
+                </div>
+              </div>
+            </div>
           </>
         );
       case 'visualizing':
@@ -1147,12 +1185,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black flex">
-      {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white transform transition-transform duration-300 ease-in-out ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0 ${activePage === 'about' ? '' : 'bg-black/20 backdrop-blur-md'}`}>
-        
-        <div className="flex h-full">
+      {/* Sidebar for Desktop */}
+      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white hidden lg:flex ${activePage === 'about' ? '' : 'bg-black/20 backdrop-blur-md'}`}>
+        <div className="flex h-full w-full">
           {/* Left Column */}
           <div className="w-28 h-full border-r border-white flex flex-col justify-center relative">
             <nav>
@@ -1216,41 +1251,78 @@ function App() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Mobile close button */}
-        <button
-          onClick={() => setSidebarOpen(false)}
-          className="lg:hidden absolute top-4 right-4 text-white hover:text-gray-300 z-10"
-        >
-          <X className="h-6 w-6" />
+      {/* Global Mobile Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 w-full px-6 py-4 flex justify-between items-center z-20 text-white">
+        <span className="text-sm">{pageIndicator} - scroll ↓</span>
+        <div className="absolute left-1/2 -translate-x-1/2 top-2 w-20 h-20">
+            <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
+        </div>
+        <button onClick={() => setSidebarOpen(true)} className="z-10">
+            <Menu className="h-8 w-8" />
         </button>
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Mobile Nav Menu */}
       {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black z-50 text-white flex flex-col lg:hidden">
+          <header className="relative flex justify-end items-center p-6 h-28">
+            <div className="absolute left-1/2 -translate-x-1/2 top-8">
+                <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" className="w-20"/>
+            </div>
+            <button onClick={() => setSidebarOpen(false)}>
+                <X className="h-8 w-8" />
+            </button>
+          </header>
+
+          <nav className="flex-grow flex flex-col items-center justify-center space-y-6">
+            {navigationItems.map((item) => (
+              <button 
+                key={item.name}
+                onClick={() => {
+                  setActivePage(item.page);
+                  setView('main');
+                  setSelectedCar(null);
+                  if (item.page === 'visualizing') {
+                    setActiveVisualizingIndex(0);
+                  }
+                  setSidebarOpen(false);
+                }}
+                className={`w-72 rounded-full px-12 py-3 text-lg font-medium transition-colors ${
+                  activePage === item.page
+                    ? 'bg-white text-black'
+                    : 'border border-white text-white'
+                }`}
+              >
+                {item.name.toLowerCase()}
+              </button>
+            ))}
+          </nav>
+          
+          <div className="mt-auto mb-10">
+            <div className="flex justify-center mb-16">
+              <button className="border border-white rounded-full px-10 py-3 text-lg font-medium">
+                get in touch
+              </button>
+            </div>
+            
+            <div className="px-6">
+              <p className="text-gray-400">socials</p>
+              <div className="border-b border-white w-full mt-1"></div>
+              <div className="flex justify-between items-center mt-4 text-lg">
+                <a href="#" className="hover:text-gray-300">inst</a>
+                <a href="#" className="hover:text-gray-300">X</a>
+                <a href="#" className="hover:text-gray-300">tg</a>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
+
 
       {/* Main content */}
       <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto">
-        {/* Top bar */}
-        <div className="bg-black border-b border-white/20 px-6 py-4 flex items-center justify-between lg:hidden">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="text-white hover:text-gray-300"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-          <div className="flex items-center space-x-2">
-            <Globe2 className="h-8 w-8 text-white" />
-            <span className="text-xl font-bold text-white">CompanyName</span>
-          </div>
-          <div></div>
-        </div>
-
         {view === 'detail' && selectedCar ? renderCarDetailPage() : renderContent()}
 
       </div>
