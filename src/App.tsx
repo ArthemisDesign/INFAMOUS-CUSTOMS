@@ -661,7 +661,24 @@ function App() {
               </div>
               
               {carData.interior.sliders?.map((slider, sliderIndex) => (
-                <div key={sliderIndex} className="space-y-8 text-center">
+                <div key={sliderIndex} className="space-y-8">
+                  {selectedCar === 'rr-bolshoi' ? (
+                    slider.left_title ? (
+                      <div className="grid grid-cols-4 gap-8 items-start pb-8">
+                        <div className="col-span-1">
+                          <h3 className="text-2xl font-semibold">{slider.left_title}</h3>
+                        </div>
+                        <div className="col-span-3">
+                          <p className={`text-xl text-gray-300 leading-relaxed ${ slider.textAlign === 'right' ? 'text-right' : '' }`}>
+                            {slider.text}
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-lg text-gray-300 text-center pb-8">{slider.text}</p>
+                    )
+                  ) : null}
+
                   <div className="relative w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
                     {slider.images ? (
                       slider.images.map((imageSrc, imageIndex) => (
@@ -698,20 +715,23 @@ function App() {
                       ))}
                     </div>
                   </div>
-                  {slider.left_title ? (
-                    <div className="grid grid-cols-4 gap-8 items-start pt-8">
-                      <div className="col-span-1">
-                        <h3 className="text-2xl font-semibold">{slider.left_title}</h3>
+
+                  {selectedCar !== 'rr-bolshoi' ? (
+                    slider.left_title ? (
+                      <div className="grid grid-cols-4 gap-8 items-start pt-8">
+                        <div className="col-span-1">
+                          <h3 className="text-2xl font-semibold">{slider.left_title}</h3>
+                        </div>
+                        <div className="col-span-3">
+                          <p className={`text-xl text-gray-300 leading-relaxed ${ slider.textAlign === 'right' ? 'text-right' : '' }`}>
+                            {slider.text}
+                          </p>
+                        </div>
                       </div>
-                      <div className="col-span-3">
-                        <p className={`text-xl text-gray-300 leading-relaxed ${ slider.textAlign === 'right' ? 'text-right' : '' }`}>
-                          {slider.text}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-lg text-gray-300 text-center">{slider.text}</p>
-                  )}
+                    ) : (
+                      <p className="text-lg text-gray-300 text-center">{slider.text}</p>
+                    )
+                  ) : null}
                 </div>
               ))}
             </main>
