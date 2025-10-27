@@ -913,79 +913,140 @@ function App() {
               </div>
               {/* "gallery" subsection */}
               <section id="gallery" className="h-screen bg-transparent text-white flex flex-col items-center justify-center relative overflow-hidden">
-                <div className="text-center z-30 mb-8">
-                    <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
-                        {galleryItems[activeGallerySlide]?.title}
+                {/* Desktop Version */}
+                <div className="hidden lg:flex flex-col items-center justify-center">
+                  <div className="text-center z-30 mb-8">
+                      <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
+                          {galleryItems[activeGallerySlide]?.title}
+                      </h2>
+                      <p className="text-lg mt-2">{galleryItems[activeGallerySlide]?.subtitle}</p>
+                  </div>
+                  <div className="w-full h-[60vh] relative flex items-center justify-center">
+                      <div className="absolute w-[25%] h-full">
+                          {galleryItems.map((item, index) => {
+                              const isActive = index === activeGallerySlide;
+                              const isPrev = index === (activeGallerySlide - 1 + galleryItems.length) % galleryItems.length;
+                              const isNext = index === (activeGallerySlide + 1) % galleryItems.length;
+                              
+                              let classes = 'absolute inset-0 transition-all duration-700 ease-in-out ';
+                              let styles = {};
+  
+                              if (isActive) {
+                                  classes += 'opacity-100 z-20';
+                                  styles.transform = 'translateX(0) scale(1)';
+                                  styles.filter = 'grayscale(0%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
+                              } else if (isPrev) {
+                                  classes += 'opacity-75 z-10';
+                                  styles.transform = 'translateX(-80%) scale(0.8)';
+                                  styles.filter = 'drop-shadow(0 8px 12px rgba(0,0,0,0.4)) saturate(0.5)';
+                              } else if (isNext) {
+                                  classes += 'opacity-75 z-10';
+                                  styles.transform = 'translateX(80%) scale(0.8)';
+                                  styles.filter = 'drop-shadow(0 8px 12px rgba(0,0,0,0.4)) saturate(0.5)';
+                              } else {
+                                  classes += 'opacity-0 z-0';
+                                  styles.transform = 'scale(0.7)';
+                              }
+  
+                              return (
+                                  <div key={item.key} className={classes} style={styles}>
+                                      <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
+                                  </div>
+                              );
+                          })}
+                      </div>
+                  </div>
+                  <div className="text-center z-30 mt-8">
+                      <button 
+                          className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
+                          onClick={() => handleCarSelect(galleryItems[activeGallerySlide]?.key)}
+                      >
+                          learn more
+                      </button>
+                      <div className="flex justify-center items-end space-x-4 mt-6">
+                          {galleryItems.map((_, index) => {
+                              const isActive = index === activeGallerySlide;
+                              return (
+                                  <div
+                                      key={index}
+                                      className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'bg-gray-700' : 'bg-gray-600'}`}
+                                      style={{
+                                          height: isActive ? '2.5rem' : '1.5rem',
+                                          width: '3px',
+                                      }}
+                                  >
+                                      {isActive && (
+                                          <div
+                                              key={activeGallerySlide}
+                                              className="absolute bottom-0 left-0 w-full bg-white"
+                                              style={{ animation: 'fill-up 3s linear' }}
+                                          />
+                                      )}
+                                  </div>
+                              );
+                          })}
+                      </div>
+                  </div>
+                </div>
+
+                {/* Mobile Version */}
+                <div className="lg:hidden flex flex-col items-center justify-between w-full h-full pt-20 pb-28">
+                  <div className="flex justify-center items-end space-x-2">
+                    {galleryItems.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`w-1 rounded-full transition-all duration-500 ${index === activeGallerySlide ? 'h-8 bg-white' : 'h-4 bg-gray-600'}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="w-full h-[65vh] relative flex items-center justify-center">
+                    <div className="absolute w-full h-full">
+                      {galleryItems.map((item, index) => {
+                        const isActive = index === activeGallerySlide;
+                        const isPrev = index === (activeGallerySlide - 1 + galleryItems.length) % galleryItems.length;
+                        const isNext = index === (activeGallerySlide + 1) % galleryItems.length;
+
+                        let classes = 'absolute inset-0 transition-all duration-700 ease-in-out flex justify-center items-center ';
+                        let styles = {};
+
+                        if (isActive) {
+                          classes += 'opacity-100 z-20';
+                          styles.transform = 'translateX(0) scale(1)';
+                        } else if (isPrev) {
+                          classes += 'opacity-0 z-10';
+                          styles.transform = 'translateX(-100%) scale(0.8)';
+                        } else if (isNext) {
+                          classes += 'opacity-0 z-10';
+                          styles.transform = 'translateX(100%) scale(0.8)';
+                        } else {
+                          classes += 'opacity-0 z-0';
+                          styles.transform = 'scale(0.7)';
+                        }
+
+                        return (
+                          <div key={item.key} className={classes} style={styles}>
+                            <div className="w-9/12 h-full">
+                              <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="text-center z-30">
+                    <h2 className="text-5xl font-bold tracking-tighter text-white leading-none">
+                      {galleryItems[activeGallerySlide]?.title}
                     </h2>
-                    <p className="text-lg mt-2">{galleryItems[activeGallerySlide]?.subtitle}</p>
-                </div>
-
-                <div className="w-full h-[60vh] relative flex items-center justify-center">
-                    <div className="absolute w-[25%] h-full">
-                        {galleryItems.map((item, index) => {
-                            const isActive = index === activeGallerySlide;
-                            const isPrev = index === (activeGallerySlide - 1 + galleryItems.length) % galleryItems.length;
-                            const isNext = index === (activeGallerySlide + 1) % galleryItems.length;
-                            
-                            let classes = 'absolute inset-0 transition-all duration-700 ease-in-out ';
-                            let styles = {};
-
-                            if (isActive) {
-                                classes += 'opacity-100 z-20';
-                                styles.transform = 'translateX(0) scale(1)';
-                                styles.filter = 'grayscale(0%) drop-shadow(0 8px 12px rgba(0,0,0,0.4))';
-                            } else if (isPrev) {
-                                classes += 'opacity-75 z-10';
-                                styles.transform = 'translateX(-80%) scale(0.8)';
-                                styles.filter = 'drop-shadow(0 8px 12px rgba(0,0,0,0.4)) saturate(0.5)';
-                            } else if (isNext) {
-                                classes += 'opacity-75 z-10';
-                                styles.transform = 'translateX(80%) scale(0.8)';
-                                styles.filter = 'drop-shadow(0 8px 12px rgba(0,0,0,0.4)) saturate(0.5)';
-                            } else {
-                                classes += 'opacity-0 z-0';
-                                styles.transform = 'scale(0.7)';
-                            }
-
-                            return (
-                                <div key={item.key} className={classes} style={styles}>
-                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                
-                <div className="text-center z-30 mt-8">
-                    <button 
-                        className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
-                        onClick={() => handleCarSelect(galleryItems[activeGallerySlide]?.key)}
+                    <p className="text-md mt-2 text-gray-300">{galleryItems[activeGallerySlide]?.subtitle}</p>
+                    <button
+                      className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors mt-4"
+                      onClick={() => handleCarSelect(galleryItems[activeGallerySlide]?.key)}
                     >
-                        learn more
+                      learn more
                     </button>
-                    <div className="flex justify-center items-end space-x-4 mt-6">
-                        {galleryItems.map((_, index) => {
-                            const isActive = index === activeGallerySlide;
-                            return (
-                                <div
-                                    key={index}
-                                    className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'bg-gray-700' : 'bg-gray-600'}`}
-                                    style={{
-                                        height: isActive ? '2.5rem' : '1.5rem',
-                                        width: '3px',
-                                    }}
-                                >
-                                    {isActive && (
-                                        <div
-                                            key={activeGallerySlide}
-                                            className="absolute bottom-0 left-0 w-full bg-white"
-                                            style={{ animation: 'fill-up 3s linear' }}
-                                        />
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
+                  </div>
                 </div>
               </section>
               {/* "videos" subsection */}
@@ -1253,16 +1314,13 @@ function App() {
         </div>
       </div>
 
-      {/* Global Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 w-full px-6 py-4 flex justify-between items-center z-20 text-white">
-        <span className="text-sm">{pageIndicator} - scroll ↓</span>
-        <div className="absolute left-1/2 -translate-x-1/2 top-2 w-20 h-20">
-            <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
-        </div>
-        <button onClick={() => setSidebarOpen(true)} className="z-10">
-            <Menu className="h-8 w-8" />
-        </button>
-      </div>
+      {/* Fixed Mobile Burger Menu */}
+      <button 
+        onClick={() => setSidebarOpen(true)} 
+        className="lg:hidden fixed top-4 right-6 z-30 text-white"
+      >
+        <Menu className="h-8 w-8" />
+      </button>
 
       {/* Mobile Nav Menu */}
       {sidebarOpen && (
@@ -1322,7 +1380,15 @@ function App() {
 
 
       {/* Main content */}
-      <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto">
+      <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto relative">
+        {/* Scrollable Mobile Header Content */}
+        <div className="lg:hidden absolute top-0 left-0 right-0 w-full px-6 py-4 flex items-center z-20 text-white pointer-events-none">
+          <span className="text-sm pointer-events-auto">{pageIndicator} - scroll ↓</span>
+          <div className="absolute left-1/2 -translate-x-1/2 top-2 w-20 h-20">
+              <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
+          </div>
+        </div>
+
         {view === 'detail' && selectedCar ? renderCarDetailPage() : renderContent()}
 
       </div>
