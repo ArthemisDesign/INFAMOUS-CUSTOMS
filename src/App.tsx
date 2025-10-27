@@ -233,18 +233,6 @@ function App() {
       titleClassName: 'text-8xl',
       detailNumber: '03/',
       detailTotal: '/04',
-      look: {
-        title: 'THE LOOK',
-        page: '01/',
-        subtitle: 'THE look',
-        totalPages: '/02',
-        description1_title: 'RR-Bolshoi',
-        description1_text: 'Placeholder text for RR-Bolshoi look description.',
-        description2_title: 'RR-Bolshoi',
-        description2_text: 'Placeholder text for RR-Bolshoi look description.',
-        description3_title: 'RR-Bolshoi',
-        description3_text: 'Placeholder text for RR-Bolshoi look description.'
-      },
       exterior: {
         title: 'Exterior',
         page: '01/',
