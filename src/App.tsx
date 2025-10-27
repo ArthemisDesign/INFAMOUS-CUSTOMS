@@ -64,42 +64,48 @@ function App() {
         page: '01/',
         subtitle: 'Interior',
         totalPages: '/03',
-        description_title: '',
+        description_title: 'SPYDER',
         description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
+        textPosition: 'above',
         sliders: [
           {
             images: [
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.1.png`,
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.2.png`
             ],
-            text: 'Карбон как материя, тактильность как задача'
+            text: 'Карбон как материя, тактильность как задача',
+            left_title: 'SPYDER'
           },
           {
             images: [
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.1.png`,
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.2.png`
             ],
-            text: 'Руль полностью перешит — добавлены элементы из кованого карбона и кожи, собранные в заводскую геометрию'
+            text: 'Руль полностью перешит — добавлены элементы из кованого карбона и кожи, собранные в заводскую геометрию',
+            left_title: 'SPYDER'
           },
           {
             images: [
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.1.png`,
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.2.png`
             ],
-            text: 'Коврики выполнены в миксе карбона и кастомного рисунка под фирменную эстетику проекта, покрытый в защитную пленку'
+            text: 'Коврики выполнены в миксе карбона и кастомного рисунка под фирменную эстетику проекта, покрытый в защитную пленку',
+            left_title: 'SPYDER'
           },
           {
             images: [
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.1.png`,
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.2.png`
             ],
-            text: 'Панель приборов — пластик заменён на кованный карбон с точной подгонкой под заводской стандарт'
+            text: 'Панель приборов — пластик заменён на кованный карбон с точной подгонкой под заводской стандарт',
+            left_title: 'SPYDER'
           },
           {
             images: [
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/6.png`
             ],
-            text: 'Ремни были подобраны в цвет кузова'
+            text: 'Ремни были подобраны в цвет кузова',
+            left_title: 'SPYDER'
           }
         ]
       },
@@ -152,6 +158,7 @@ function App() {
         totalPages: '/06',
         description_title: '',
         description_text: '',
+        textPosition: 'above',
         sliders: [
           {
             images: [
@@ -159,7 +166,8 @@ function App() {
               `${import.meta.env.BASE_URL}SV/SV_details/4.1.png`,
               `${import.meta.env.BASE_URL}SV/SV_details/4.2.png`
             ],
-            text: 'Hermes pattern'
+            text: 'Hermes pattern',
+            left_title: 'Салон'
           },
           {
             images: [
@@ -167,8 +175,7 @@ function App() {
               `${import.meta.env.BASE_URL}SV/SV_details/3.2.png`
             ],
             text: 'Заменили оконтовку руля в белый гляне, задача была сделать фон под белую керамику на всех деталях (в интерьере уже были белые керамические элементы, ручка КПП).',
-            left_title: 'Руль',
-            textAlign: 'right'
+            left_title: 'Руль'
           },
           {
             images: [
@@ -212,8 +219,8 @@ function App() {
         totalPages: '/02',
         description_title: '',
         descriptions: [
-          { text: 'Оригинальный цвет глянца затянут в матовый', image: `${import.meta.env.BASE_URL}SV/SV_details/1.png` },
-          { text: 'Вверх обклеен белой глянцевой пленкой', image: `${import.meta.env.BASE_URL}SV/SV_details/2.png` }
+          { text: 'Оригинальный цвет глянца затянут в матовый', image: `${import.meta.env.BASE_URL}SV/SV_details/1.png`, left_title: 'Кузов' },
+          { text: 'Вверх обклеен белой глянцевой пленкой', image: `${import.meta.env.BASE_URL}SV/SV_details/2.png`, left_title: 'Кузов' }
         ]
       },
       accessories: {
@@ -268,6 +275,7 @@ function App() {
         totalPages: '/05',
         description_title: '',
         description_text: '',
+        textPosition: 'above',
         sliders: [
           {
             images: [
@@ -662,7 +670,7 @@ function App() {
               
               {carData.interior.sliders?.map((slider, sliderIndex) => (
                 <div key={sliderIndex} className="space-y-8">
-                  {selectedCar === 'rr-bolshoi' ? (
+                  {carData.interior.textPosition === 'above' ? (
                     slider.left_title ? (
                       <div className="grid grid-cols-4 gap-8 items-start pb-8">
                         <div className="col-span-1">
@@ -716,7 +724,7 @@ function App() {
                     </div>
                   </div>
 
-                  {selectedCar !== 'rr-bolshoi' ? (
+                  {!carData.interior.textPosition || carData.interior.textPosition !== 'above' ? (
                     slider.left_title ? (
                       <div className="grid grid-cols-4 gap-8 items-start pt-8">
                         <div className="col-span-1">
