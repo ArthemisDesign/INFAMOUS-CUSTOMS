@@ -32,6 +32,8 @@ function App() {
   const galleryDirectionRef = useRef(1);
   const galleryTouchStartXRef = useRef(null);
   const galleryTouchStartYRef = useRef(null);
+  const interiorTouchRefs = useRef({});
+  const exteriorTouchRefs = useRef({});
   const aboutTitleRef = useRef(null);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
@@ -427,6 +429,110 @@ function App() {
     galleryTouchStartXRef.current = null;
     galleryTouchStartYRef.current = null;
     setGalleryIsTouching(false);
+  };
+
+  const handleInteriorTouchStart = (event, sliderIndex, slider) => {
+    const touch = event.touches[0];
+    if (!touch || !slider) return;
+
+    const length = slider.images?.length || slider.colors?.length || 0;
+    if (length <= 1) return;
+
+    interiorTouchRefs.current[sliderIndex] = {
+      startX: touch.clientX,
+      startY: touch.clientY,
+      length,
+    };
+  };
+
+  const handleInteriorTouchMove = (event, sliderIndex) => {
+    const data = interiorTouchRefs.current[sliderIndex];
+    if (!data) return;
+
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    const deltaX = touch.clientX - data.startX;
+    const deltaY = touch.clientY - data.startY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      event.preventDefault();
+    }
+  };
+
+  const handleInteriorTouchEnd = (event, sliderIndex) => {
+    const data = interiorTouchRefs.current[sliderIndex];
+    if (!data) return;
+
+    const touch = event.changedTouches[0];
+    const touchEndX = touch ? touch.clientX : data.startX;
+    const deltaX = touchEndX - data.startX;
+    const swipeThreshold = 40;
+
+    if (Math.abs(deltaX) > swipeThreshold) {
+      const direction = deltaX > 0 ? -1 : 1;
+      setActiveInteriorSlides(prev => {
+        if (!Array.isArray(prev) || prev.length === 0) return prev;
+        const newSlides = [...prev];
+        const current = newSlides[sliderIndex] ?? 0;
+        newSlides[sliderIndex] = (current + direction + data.length) % data.length;
+        return newSlides;
+      });
+    }
+
+    delete interiorTouchRefs.current[sliderIndex];
+  };
+
+  const handleExteriorTouchStart = (event, itemIndex, item) => {
+    const touch = event.touches[0];
+    if (!touch || !item) return;
+
+    const length = item.images?.length || 0;
+    if (length <= 1) return;
+
+    exteriorTouchRefs.current[itemIndex] = {
+      startX: touch.clientX,
+      startY: touch.clientY,
+      length,
+    };
+  };
+
+  const handleExteriorTouchMove = (event, itemIndex) => {
+    const data = exteriorTouchRefs.current[itemIndex];
+    if (!data) return;
+
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    const deltaX = touch.clientX - data.startX;
+    const deltaY = touch.clientY - data.startY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      event.preventDefault();
+    }
+  };
+
+  const handleExteriorTouchEnd = (event, itemIndex) => {
+    const data = exteriorTouchRefs.current[itemIndex];
+    if (!data) return;
+
+    const touch = event.changedTouches[0];
+    const touchEndX = touch ? touch.clientX : data.startX;
+    const deltaX = touchEndX - data.startX;
+    const swipeThreshold = 40;
+
+    if (Math.abs(deltaX) > swipeThreshold) {
+      const direction = deltaX > 0 ? -1 : 1;
+      setActiveExteriorSlides(prev => {
+        if (!Array.isArray(prev) || prev.length === 0) return prev;
+        const newSlides = [...prev];
+        const current = newSlides[itemIndex] ?? 0;
+        newSlides[itemIndex] = (current + direction + data.length) % data.length;
+        return newSlides;
+      });
+    }
+
+    delete exteriorTouchRefs.current[itemIndex];
   };
 
   const updateMobileVirtualIndex = useCallback((delta) => {
@@ -968,7 +1074,13 @@ function App() {
                       )
                     ) : null}
 
-                    <div className="relative w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl overflow-hidden">
+                    <div
+                      className="relative w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl overflow-hidden"
+                      onTouchStart={(e) => handleInteriorTouchStart(e, sliderIndex, slider)}
+                      onTouchMove={(e) => handleInteriorTouchMove(e, sliderIndex)}
+                      onTouchEnd={(e) => handleInteriorTouchEnd(e, sliderIndex)}
+                      onTouchCancel={(e) => handleInteriorTouchEnd(e, sliderIndex)}
+                    >
                       {slider.images ? (
                         slider.images.map((imageSrc, imageIndex) => (
                           <img
@@ -1055,7 +1167,13 @@ function App() {
                           </p>
                         </div>
                       </div>
-                      <div className="w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl overflow-hidden relative">
+                      <div
+                        className="w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl overflow-hidden relative"
+                        onTouchStart={images?.length > 1 ? (e) => handleExteriorTouchStart(e, index, item) : undefined}
+                        onTouchMove={images?.length > 1 ? (e) => handleExteriorTouchMove(e, index) : undefined}
+                        onTouchEnd={images?.length > 1 ? (e) => handleExteriorTouchEnd(e, index) : undefined}
+                        onTouchCancel={images?.length > 1 ? (e) => handleExteriorTouchEnd(e, index) : undefined}
+                      >
                         {images ? (
                           <>
                             {images.map((imageSrc, imageIndex) => (
