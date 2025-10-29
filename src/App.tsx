@@ -1065,34 +1065,59 @@ function App() {
                 </div>
               </section>
               {/* "videos" subsection */}
-              <section id="videos" className="h-screen bg-transparent text-white flex flex-col items-center justify-center p-8">
-                <div className="w-full max-w-5xl mx-auto text-center">
-                  <p className="text-sm tracking-[0.3em] uppercase mb-4">INFAMOUS CUSTOMS backstage</p>
-                  <h2 className="text-7xl md:text-8xl font-bold mb-12">COMING SOON</h2>
-                  
-                  <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-3xl aspect-video w-full relative flex items-center justify-center p-6">
-                    <button className="text-white">
-                      <Play className="w-16 h-16 fill-white" />
-                    </button>
-                    
-                    <div className="absolute bottom-6 left-6 right-6 flex items-center space-x-4">
-                      <span className="text-sm font-mono">00:00</span>
-                      <div className="flex-grow bg-white/20 h-1 rounded-full relative">
-                        <div className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full" style={{ left: '0%' }}></div>
+              <section id="videos" className="h-screen bg-transparent text-white">
+                {/* Desktop */}
+                <div className="hidden lg:flex h-full flex-col items-center justify-center p-8">
+                  <div className="w-full max-w-5xl mx-auto text-center">
+                    <p className="text-sm tracking-[0.3em] uppercase mb-4">INFAMOUS CUSTOMS backstage</p>
+                    <h2 className="text-7xl md:text-8xl font-bold mb-12">COMING SOON</h2>
+                    <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-3xl aspect-video w-full relative flex items-center justify-center p-6">
+                      <button className="text-white">
+                        <Play className="w-16 h-16 fill-white" />
+                      </button>
+                      <div className="absolute bottom-6 left-6 right-6 flex items-center space-x-4">
+                        <span className="text-sm font-mono">00:00</span>
+                        <div className="flex-grow bg-white/20 h-1 rounded-full relative">
+                          <div className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full" style={{ left: '0%' }}></div>
+                        </div>
                       </div>
                     </div>
+                    <div className="flex justify-center items-end space-x-4 mt-12">
+                      {Array.from({ length: 9 }).map((_, index) => (
+                        <div key={index} 
+                          className={`transition-all duration-500 ease-in-out ${index === 4 ? 'bg-white' : 'bg-gray-600'}`}
+                          style={{
+                            height: index === 4 ? '2.5rem' : '1.5rem',
+                            width: '3px',
+                          }}
+                        />
+                      ))}
+                    </div>
                   </div>
-
-                  <div className="flex justify-center items-end space-x-4 mt-12">
-                    {Array.from({ length: 9 }).map((_, index) => (
-                      <div key={index} 
-                        className={`transition-all duration-500 ease-in-out ${index === 4 ? 'bg-white' : 'bg-gray-600'}`}
-                        style={{
-                          height: index === 4 ? '2.5rem' : '1.5rem',
-                          width: '3px',
-                        }}
-                      />
-                    ))}
+                </div>
+                {/* Mobile */}
+                <div className="lg:hidden h-full flex flex-col justify-center items-center text-center p-6 space-y-10">
+                  <div className="flex justify-center items-end space-x-4">
+                    <div className="w-1 h-4 bg-gray-600 rounded-full"></div>
+                    <div className="w-1 h-8 bg-white rounded-full"></div>
+                    <div className="w-1 h-4 bg-gray-600 rounded-full"></div>
+                  </div>
+                  <div className="w-full max-w-sm">
+                      <div className="bg-black rounded-3xl aspect-video w-full relative flex items-center justify-center">
+                          <button className="text-white absolute">
+                            <Play className="w-12 h-12 fill-white" />
+                          </button>
+                          <div className="absolute bottom-4 left-4 right-4 flex items-center space-x-2">
+                            <span className="text-xs font-mono">00:00</span>
+                            <div className="flex-grow bg-white/20 h-0.5 rounded-full relative">
+                              <div className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" style={{ left: '10%' }}></div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="w-full max-w-sm">
+                      <h2 className="text-5xl font-bold leading-none">HALOWEEN<br/>PARTY</h2>
+                      <p className="mt-4 text-lg tracking-wider">INFAMOUS CUSTOMS X GREATS</p>
                   </div>
                 </div>
               </section>
@@ -1395,7 +1420,7 @@ function App() {
 
 
       {/* Main content */}
-      <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto relative">
+      <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto relative overflow-x-hidden">
         {/* Scrollable Mobile Header Content */}
         <div className="lg:hidden absolute top-0 left-0 right-0 w-full px-6 py-4 flex items-center z-20 text-white pointer-events-none">
           <span className="text-sm pointer-events-auto">{pageIndicator} - scroll ↓</span>
