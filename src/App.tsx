@@ -1291,11 +1291,38 @@ function App() {
         );
       case 'contact':
         return (
-          <section id="contact">
-            <div id="client-form" className="h-screen bg-black text-white flex items-center justify-center">
-              <h2 className="text-5xl md:text-7xl font-bold">Client Form</h2>
+          <>
+            <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
+              <img
+                src={`${import.meta.env.BASE_URL}background.png`}
+                alt="Background"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 w-full h-full bg-black/75" />
+              <div 
+                className="absolute inset-0 w-full h-full opacity-20"
+                style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
+              />
             </div>
-          </section>
+            <section id="contact" className="relative z-10 h-screen bg-transparent text-white">
+              <div id="client-form" className="h-full flex flex-col items-center justify-center text-center p-8">
+                <div className="flex-grow flex flex-col items-center justify-center space-y-8">
+                  <p className="tracking-[0.2em] text-sm">GOT A PROJECT IN MIND?</p>
+                  <h2 className="text-6xl md:text-8xl font-bold leading-none">LET'S<br/>CONNECT</h2>
+                </div>
+                <div className="flex-shrink-0 py-8">
+                  <a 
+                    href="https://t.me/infamouscustoms" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-40 h-40 rounded-full border border-white flex items-center justify-center text-center hover:bg-white hover:text-black transition-colors duration-300"
+                  >
+                    <span className="text-sm leading-tight">WRITE A<br/>MESSAGE</span>
+                  </a>
+                </div>
+              </div>
+            </section>
+          </>
         );
       default:
         return null;
