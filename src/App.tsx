@@ -1258,15 +1258,22 @@ function App() {
                   const isActive = index === activeVisualizingIndex;
                   return (
                     <button
-                        key={item.href}
-                        onClick={() => setActiveVisualizingIndex(index)}
-                        className={`w-1 transition-all duration-500 ease-in-out ${
-                            isActive
-                                ? 'h-8 bg-white'
-                                : 'h-4 bg-gray-600'
-                        }`}
-                    />
-                  )
+                      key={item.href}
+                      onClick={() => setActiveVisualizingIndex(index)}
+                      className={`relative w-1 rounded-full overflow-hidden transition-all duration-500 ease-in-out ${
+                        isActive
+                          ? 'h-8 bg-gray-700'
+                          : 'h-4 bg-gray-600 hover:bg-gray-500'
+                      }`}
+                    >
+                      {isActive ? (
+                        <div
+                          className="absolute bottom-0 left-0 w-full bg-white h-full"
+                          style={{ animation: `fill-up ${VISUALIZING_SLIDESHOW_DURATION}ms linear forwards` }}
+                        />
+                      ) : null}
+                    </button>
+                  );
                 })}
               </div>
 
@@ -1475,12 +1482,6 @@ function App() {
           </nav>
           
           <div className="mt-auto mb-10">
-            <div className="flex justify-center mb-16">
-              <button className="border border-white rounded-full px-10 py-3 text-lg font-medium">
-                get in touch
-              </button>
-            </div>
-            
             <div className="px-6">
               <p className="text-gray-400">socials</p>
               <div className="border-b border-white w-full mt-1"></div>
@@ -1497,11 +1498,10 @@ function App() {
 
       {/* Main content */}
       <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto relative overflow-x-hidden">
-        {/* Scrollable Mobile Header Content */}
-        <div className="lg:hidden absolute top-0 left-0 right-0 w-full px-6 py-4 flex items-center z-20 text-white pointer-events-none">
-          <span className="text-sm pointer-events-auto">{pageIndicator} - scroll ↓</span>
-          <div className="absolute left-1/2 -translate-x-1/2 top-2 w-10 h-10">
-              <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
+        {/* Mobile Header Logo */}
+        <div className="lg:hidden absolute top-0 left-0 right-0 w-full px-6 py-4 flex items-center justify-center z-20 pointer-events-none">
+          <div className="w-10 h-10 pointer-events-auto">
+            <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
           </div>
         </div>
 
