@@ -613,7 +613,7 @@ function App() {
                     <span>{carData.look.totalPages}</span>
                   </div>
                 </header>
-                <main className="py-8 md:py-16 space-y-16 md:space-y-24">
+                <main className="pb-8 md:pb-16 space-y-16 md:space-y-24">
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
                     <div className="md:col-span-1">
                       <h3 className="text-xl md:text-2xl font-semibold">{carData.look.description1_title}</h3>
@@ -668,17 +668,19 @@ function App() {
                   <span>{carData.interior.totalPages}</span>
                 </div>
               </header>
-              <main className="py-8 md:py-16 space-y-16 md:space-y-24">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
-                  <div className="md:col-span-1">
-                    <h3 className="text-xl md:text-2xl font-semibold">{carData.interior.description_title}</h3>
+              <main className="pb-8 md:pb-16 space-y-16 md:space-y-24">
+                {(carData.interior.description_title || carData.interior.description_text) && (
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                    <div className="md:col-span-1">
+                      <h3 className="text-xl md:text-2xl font-semibold">{carData.interior.description_title}</h3>
+                    </div>
+                    <div className="md:col-span-3">
+                      <p className="text-base md:text-xl text-gray-300 leading-relaxed">
+                        {carData.interior.description_text}
+                      </p>
+                    </div>
                   </div>
-                  <div className="md:col-span-3">
-                    <p className="text-base md:text-xl text-gray-300 leading-relaxed">
-                      {carData.interior.description_text}
-                    </p>
-                  </div>
-                </div>
+                )}
                 
                 {carData.interior.sliders?.map((slider, sliderIndex) => (
                   <div key={sliderIndex} className="space-y-8">
@@ -768,7 +770,7 @@ function App() {
                   <span>{carData.exterior.totalPages}</span>
                 </div>
               </header>
-              <main className="py-8 md:py-16 space-y-16 md:space-y-24">
+              <main className="pb-8 md:pb-16 space-y-16 md:space-y-24">
                 {(carData.exterior.descriptions || (carData.exterior.description_text ? [carData.exterior.description_text] : [])).map((item, index) => {
                   const text = typeof item === 'string' ? item : item.text;
                   const image = typeof item === 'string' ? null : item.image;
@@ -838,7 +840,7 @@ function App() {
                   <span>{carData.wheels.totalPages}</span>
                 </div>
               </header>
-              <main className="py-8 md:py-16 space-y-16 md:space-y-24">
+              <main className="pb-8 md:pb-16 space-y-16 md:space-y-24">
                 {(carData.wheels.descriptions).map((item, index) => {
                   const text = typeof item === 'string' ? item : item.text;
                   const image = typeof item === 'string' ? null : item.image;
