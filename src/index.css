@@ -30,11 +30,11 @@
   to { width: 100%; }
 }
 
-@keyframes mobile-text-slide-up {
+@keyframes slider-text-slide-up {
   from {
     opacity: 0;
-    transform: translateY(40%) scale(0.98);
-    filter: blur(8px);
+    transform: translateY(12%) scale(0.99);
+    filter: blur(4px);
   }
   to {
     opacity: 1;
@@ -43,11 +43,11 @@
   }
 }
 
-@keyframes mobile-text-slide-down {
+@keyframes slider-text-slide-down {
   from {
     opacity: 0;
-    transform: translateY(-40%) scale(0.98);
-    filter: blur(8px);
+    transform: translateY(-12%) scale(0.99);
+    filter: blur(4px);
   }
   to {
     opacity: 1;
@@ -56,15 +56,15 @@
   }
 }
 
-.mobile-text-enter-up {
-  animation: mobile-text-slide-up 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.slider-text-enter-up {
+  animation: slider-text-slide-up 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.mobile-text-enter-down {
-  animation: mobile-text-slide-down 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.slider-text-enter-down {
+  animation: slider-text-slide-down 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.mobile-text-card {
+.slider-text-card {
   position: absolute;
   inset: 0;
   display: flex;
@@ -74,6 +74,7 @@
   gap: 0.75rem;
   text-align: center;
   will-change: transform, opacity;
+  padding: 1.5rem 0;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

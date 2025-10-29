@@ -14,6 +14,7 @@ function App() {
   const [activeInteriorSlides, setActiveInteriorSlides] = useState([]);
   const [activeExteriorSlides, setActiveExteriorSlides] = useState([]);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [galleryIsTouching, setGalleryIsTouching] = useState(false);
   const [mobileSwipeOffset, setMobileSwipeOffset] = useState(0);
   const [mobileIsTouching, setMobileIsTouching] = useState(false);
   const [mobileSliderWidth, setMobileSliderWidth] = useState(0);
@@ -27,6 +28,9 @@ function App() {
   const mobileSliderRef = useRef(null);
   const mobileDirectionRef = useRef(1);
   const mobileVirtualInitializedRef = useRef(false);
+  const galleryDirectionRef = useRef(1);
+  const galleryTouchStartXRef = useRef(null);
+  const galleryTouchStartYRef = useRef(null);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
@@ -355,6 +359,74 @@ function App() {
     image: car.image,
   }));
 
+  const advanceGallerySlide = useCallback((delta) => {
+    const length = galleryItems.length;
+    if (length === 0) return;
+
+    setActiveGallerySlide(prev => {
+      if (delta === 0) {
+        return prev;
+      }
+
+      const next = ((prev + delta) % length + length) % length;
+
+      if (next !== prev) {
+        const forwardDistance = (next - prev + length) % length;
+        const backwardDistance = (prev - next + length) % length;
+        galleryDirectionRef.current = forwardDistance <= backwardDistance ? 1 : -1;
+      }
+
+      return next;
+    });
+  }, [galleryItems.length]);
+
+  const handleGalleryTouchStart = (event) => {
+    if (activePage !== 'about') return;
+
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    galleryTouchStartXRef.current = touch.clientX;
+    galleryTouchStartYRef.current = touch.clientY;
+    setGalleryIsTouching(true);
+  };
+
+  const handleGalleryTouchMove = (event) => {
+    if (galleryTouchStartXRef.current === null) return;
+
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    const deltaX = touch.clientX - galleryTouchStartXRef.current;
+    const deltaY = galleryTouchStartYRef.current !== null ? touch.clientY - galleryTouchStartYRef.current : 0;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      event.preventDefault();
+    }
+  };
+
+  const handleGalleryTouchEnd = (event) => {
+    if (galleryTouchStartXRef.current === null) {
+      setGalleryIsTouching(false);
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const touchEndX = touch ? touch.clientX : galleryTouchStartXRef.current;
+    const deltaX = touchEndX - galleryTouchStartXRef.current;
+    const swipeThreshold = 40;
+
+    if (deltaX > swipeThreshold) {
+      advanceGallerySlide(-1);
+    } else if (deltaX < -swipeThreshold) {
+      advanceGallerySlide(1);
+    }
+
+    galleryTouchStartXRef.current = null;
+    galleryTouchStartYRef.current = null;
+    setGalleryIsTouching(false);
+  };
+
   const updateMobileVirtualIndex = useCallback((delta) => {
     if (visualizingTotal === 0) return;
 
@@ -374,13 +446,13 @@ function App() {
   }, [visualizingTotal, activeVisualizingIndex]);
 
   useEffect(() => {
-    if (activePage === 'about') {
+    if (activePage === 'about' && !galleryIsTouching) {
         const timer = setTimeout(() => {
-            setActiveGallerySlide(prev => (prev + 1) % galleryItems.length);
+            advanceGallerySlide(1);
         }, 3000); // Change slide every 3 seconds
         return () => clearTimeout(timer);
     }
-  }, [activeGallerySlide, activePage, galleryItems.length]);
+  }, [activeGallerySlide, activePage, advanceGallerySlide, galleryIsTouching]);
 
   useEffect(() => {
     if (!mobileVirtualInitializedRef.current) {
@@ -1053,6 +1125,9 @@ function App() {
     switch (activePage) {
       case 'about':
         const currentSubsectionInfo = currentSubsections.find(item => item.href === activeSubsection);
+        const galleryTextAnimationClass = galleryDirectionRef.current >= 0 ? 'slider-text-enter-up' : 'slider-text-enter-down';
+        const galleryDesktopTextKey = `gallery-desktop-text-${activeGallerySlide}`;
+        const galleryMobileTextKey = `gallery-mobile-text-${activeGallerySlide}`;
         return (
           <>
             <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
@@ -1111,14 +1186,28 @@ function App() {
                 </div>
               </div>
               {/* "gallery" subsection */}
-              <section id="gallery" className="h-screen bg-transparent text-white flex flex-col items-center justify-center relative overflow-hidden">
+              <section
+                id="gallery"
+                className="h-screen bg-transparent text-white flex flex-col items-center justify-center relative overflow-hidden"
+                onTouchStart={handleGalleryTouchStart}
+                onTouchMove={handleGalleryTouchMove}
+                onTouchEnd={handleGalleryTouchEnd}
+                onTouchCancel={handleGalleryTouchEnd}
+              >
                 {/* Desktop Version */}
                 <div className="hidden lg:flex flex-col items-center justify-center">
-                  <div className="text-center z-30 mb-8">
-                      <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
-                          {galleryItems[activeGallerySlide]?.title}
-                      </h2>
-                      <p className="text-lg mt-2">{galleryItems[activeGallerySlide]?.subtitle}</p>
+                  <div className="text-center z-30 mb-8 w-full flex flex-col items-center space-y-6">
+                      <div className="relative overflow-hidden w-full max-w-md min-h-[150px] px-4">
+                        <div
+                          key={galleryDesktopTextKey}
+                          className={`slider-text-card ${galleryTextAnimationClass}`}
+                        >
+                          <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
+                              {galleryItems[activeGallerySlide]?.title}
+                          </h2>
+                          <p className="text-lg text-gray-300">{galleryItems[activeGallerySlide]?.subtitle}</p>
+                        </div>
+                      </div>
                   </div>
                   <div className="w-full h-[60vh] relative flex items-center justify-center">
                       <div className="absolute w-[45vh] h-[45vh]">
@@ -1234,13 +1323,20 @@ function App() {
                     </div>
                   </div>
 
-                  <div className="text-center z-30 mt-4">
-                    <h2 className="text-5xl font-bold tracking-tighter text-white leading-none">
-                      {galleryItems[activeGallerySlide]?.title}
-                    </h2>
-                    <p className="text-md mt-2 text-gray-300">{galleryItems[activeGallerySlide]?.subtitle}</p>
+                  <div className="text-center z-30 mt-4 w-full flex flex-col items-center space-y-4">
+                    <div className="relative overflow-hidden w-full max-w-xs min-h-[135px] px-2">
+                      <div
+                        key={galleryMobileTextKey}
+                        className={`slider-text-card ${galleryTextAnimationClass}`}
+                      >
+                        <h2 className="text-5xl font-bold tracking-tighter text-white leading-none">
+                          {galleryItems[activeGallerySlide]?.title}
+                        </h2>
+                        <p className="text-md text-gray-300">{galleryItems[activeGallerySlide]?.subtitle}</p>
+                      </div>
+                    </div>
                     <button
-                      className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors mt-4"
+                      className="border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
                       onClick={() => handleCarSelect(galleryItems[activeGallerySlide]?.key)}
                     >
                       learn more
@@ -1344,7 +1440,7 @@ function App() {
         const trackTransition = shouldAnimateTrack ? 'transform 650ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
         const trackWidthPx = mobileSliderWidth ? visualizingKeys.length * mobileSliderWidth : null;
         const trackTranslatePx = mobileSliderWidth ? (-activeMobileIndex * mobileSliderWidth) + mobileSwipeOffset : mobileSwipeOffset;
-        const mobileTextAnimationClass = mobileDirectionRef.current >= 0 ? 'mobile-text-enter-up' : 'mobile-text-enter-down';
+        const mobileTextAnimationClass = mobileDirectionRef.current >= 0 ? 'slider-text-enter-up' : 'slider-text-enter-down';
         const mobileTextKey = `${activeContentKeyForRender}-text-${activeVisualizingIndex}`;
 
         return (
@@ -1520,7 +1616,7 @@ function App() {
                 <div className="relative overflow-hidden w-full max-w-xs min-h-[110px]">
                   <div
                     key={mobileTextKey}
-                    className={`mobile-text-card ${mobileTextAnimationClass}`}
+                    className={`slider-text-card ${mobileTextAnimationClass}`}
                   >
                     <h2 className="text-4xl font-bold tracking-tighter text-white leading-none">{activeContent.title}</h2>
                     <p className="text-md text-gray-400">{activeContent.subtitle}</p>
