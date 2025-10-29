@@ -1406,7 +1406,7 @@ function App() {
         <div className="fixed inset-0 bg-black z-50 text-white flex flex-col lg:hidden">
           <header className="relative flex justify-end items-center p-6 h-28">
             <div className="absolute left-1/2 -translate-x-1/2 top-8">
-                <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" className="w-20"/>
+                <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" className="w-10"/>
             </div>
             <button onClick={() => setSidebarOpen(false)}>
                 <X className="h-8 w-8" />
@@ -1463,7 +1463,7 @@ function App() {
         {/* Scrollable Mobile Header Content */}
         <div className="lg:hidden absolute top-0 left-0 right-0 w-full px-6 py-4 flex items-center z-20 text-white pointer-events-none">
           <span className="text-sm pointer-events-auto">{pageIndicator} - scroll ↓</span>
-          <div className="absolute left-1/2 -translate-x-1/2 top-2 w-20 h-20">
+          <div className="absolute left-1/2 -translate-x-1/2 top-2 w-10 h-10">
               <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
           </div>
         </div>
