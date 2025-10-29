@@ -1171,18 +1171,14 @@ function App() {
               />
             </div>
 
-            {/* Main Content */}
-            <div className="h-full w-full flex items-stretch py-8 z-10">
-              
-              {/* Left Column: Number and Line */}
-              <div className="w-[12.5%] flex-shrink-0 flex flex-col items-center justify-start pt-64 pointer-events-auto">
+            {/* Desktop Content */}
+            <div className="hidden lg:flex h-full w-full items-stretch py-16 z-10">
+              <div className="w-[12.5%] flex-shrink-0 flex-col items-center justify-start pt-64 pointer-events-auto">
                 <div className="w-full text-center pb-1 border-b border-white">
                     <span className="text-lg">{activeContent.number}</span>
                 </div>
               </div>
-
-              {/* Center Column: Photo and Content */}
-              <div className="w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center relative">
+              <div className="flex-grow w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center relative px-0">
                 <div className="w-full h-full flex flex-col items-center justify-center">
                     <div className="w-full flex-grow relative">
                         {Object.entries(visualizingContent).map(([key, content]) => (
@@ -1191,13 +1187,13 @@ function App() {
                                 className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out cursor-pointer ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
                                 onClick={() => handleCarSelect(key)}
                             >
-                                <figure className="relative max-w-full max-h-full">
+                                <figure className="relative w-full h-full">
                                     <img 
                                         src={content.image}
                                         alt={content.title} 
-                                        className="block max-w-full max-h-full object-contain rounded-3xl" 
+                                        className="block w-full h-full object-contain rounded-3xl" 
                                     />
-                                    <figcaption className="absolute bottom-8 left-8 pointer-events-none">
+                                    <figcaption className="absolute bottom-8 lg:left-8 pointer-events-none">
                                         <h2 className={`${content.titleClassName} font-bold tracking-tighter text-white leading-none`}>
                                             {content.title}
                                         </h2>
@@ -1207,8 +1203,7 @@ function App() {
                         ))}
                     </div>
                 </div>
-                {/* Subtitle and Button Below */}
-                <div className="absolute bottom-24 inset-x-0 text-center pointer-events-auto">
+                <div className="text-center pointer-events-auto absolute bottom-24 inset-x-0 p-0">
                     <p className="text-lg">{activeContent.subtitle}</p>
                     <button 
                       onClick={() => handleCarSelect(activeContentKeyForRender)}
@@ -1218,9 +1213,7 @@ function App() {
                     </button>
                 </div>
               </div>
-
-              {/* Right Column: Selector */}
-              <div className="w-[12.5%] flex-shrink-0 flex items-center justify-center pointer-events-auto">
+              <div className="w-[12.5%] flex-shrink-0 flex items-center justify-center pointer-events-auto py-0">
                 <div className="flex flex-col space-y-4">
                   {pageSubsections.visualizing.map((item, index) => {
                       const isActive = index === activeVisualizingIndex;
@@ -1246,7 +1239,53 @@ function App() {
                   })}
                 </div>
               </div>
+            </div>
 
+            {/* Mobile Content */}
+            <div className="lg:hidden h-full w-full flex flex-col items-center justify-center z-10 p-6 space-y-6">
+              <div className="flex flex-row items-end space-x-4">
+                {pageSubsections.visualizing.map((item, index) => {
+                  const isActive = index === activeVisualizingIndex;
+                  return (
+                    <button
+                        key={item.href}
+                        onClick={() => setActiveVisualizingIndex(index)}
+                        className={`w-1 transition-all duration-500 ease-in-out ${
+                            isActive
+                                ? 'h-8 bg-white'
+                                : 'h-4 bg-gray-600'
+                        }`}
+                    />
+                  )
+                })}
+              </div>
+
+              <div className="w-full max-w-sm aspect-square relative">
+                {Object.entries(visualizingContent).map(([key, content]) => (
+                    <div 
+                        key={key} 
+                        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
+                    >
+                      <img 
+                          src={content.image}
+                          alt={content.title} 
+                          className="block w-full h-full object-cover rounded-3xl" 
+                      />
+                    </div>
+                ))}
+              </div>
+
+              <div className="text-center">
+                <h2 className="text-4xl font-bold tracking-tighter text-white leading-none">{activeContent.title}</h2>
+                <p className="text-md mt-2 text-gray-400">{activeContent.subtitle}</p>
+              </div>
+
+              <button 
+                onClick={() => handleCarSelect(activeContentKeyForRender)}
+                className="border border-white rounded-full px-8 py-2 text-sm font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
+              >
+                  learn more
+              </button>
             </div>
           </section>
         );
