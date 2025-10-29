@@ -1180,37 +1180,35 @@ function App() {
               </div>
               <div className="flex-grow w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center relative px-0">
                 <div className="w-full h-full flex flex-col items-center justify-center">
-                    <div className="w-full flex-grow relative">
-                        {Object.entries(visualizingContent).map(([key, content]) => (
-                            <div 
-                                key={key} 
-                                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out cursor-pointer ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
-                                onClick={() => handleCarSelect(key)}
+                  <div className="w-full flex-grow relative">
+                    {Object.entries(visualizingContent).map(([key, content]) => (
+                      <div
+                        key={key}
+                        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out cursor-pointer ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
+                        onClick={() => handleCarSelect(key)}
+                      >
+                        <figure className="relative w-full h-full">
+                          <img
+                            src={content.image}
+                            alt={content.title}
+                            className="block w-full h-full object-contain rounded-3xl"
+                          />
+                          <figcaption className="absolute inset-x-0 bottom-0 p-8 text-center text-white">
+                            <h2 className={`${content.titleClassName} font-bold tracking-tighter text-white leading-none`}>
+                              {content.title}
+                            </h2>
+                            <p className="text-lg mt-2">{content.subtitle}</p>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); handleCarSelect(key); }}
+                              className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
                             >
-                                <figure className="relative w-full h-full">
-                                    <img 
-                                        src={content.image}
-                                        alt={content.title} 
-                                        className="block w-full h-full object-contain rounded-3xl" 
-                                    />
-                                    <figcaption className="absolute bottom-8 lg:left-8 pointer-events-none">
-                                        <h2 className={`${content.titleClassName} font-bold tracking-tighter text-white leading-none`}>
-                                            {content.title}
-                                        </h2>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="text-center pointer-events-auto absolute bottom-24 inset-x-0 p-0">
-                    <p className="text-lg">{activeContent.subtitle}</p>
-                    <button 
-                      onClick={() => handleCarSelect(activeContentKeyForRender)}
-                      className="mt-4 border border-white rounded-full px-6 py-2 text-xs font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
-                    >
-                        LEARN MORE
-                    </button>
+                              learn more
+                            </button>
+                          </figcaption>
+                        </figure>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="w-[12.5%] flex-shrink-0 flex items-center justify-center pointer-events-auto py-0">
