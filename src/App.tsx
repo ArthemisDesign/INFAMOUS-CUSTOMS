@@ -1170,19 +1170,46 @@ function App() {
                   </div>
                 </header>
               </div>
-              <div className="md:hidden bg-transparent text-white py-20 px-6">
-                <div className="max-w-md mx-auto text-left text-sm space-y-4">
-                  <p>
-                    Мы — INFAMOUS CUSTOMS, первая компания в СНГ, специализирующаяся на модификации и кастомизации автомобилей класса люкс.
-                  </p>
-                  <div className="border-b border-white/50"></div>
-                  <p>
-                    Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря "у наших партнеров дешевле" и мы не только предоставляем но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично чтобы вы убидились в качестве.
-                  </p>
-                  <div className="border-b border-white/50"></div>
-                  <p>
-                    [p.s ваш бюджет который вы предоставляете служит вашей же гарантией на все установленные дивайсы включающие технику].
-                  </p>
+              <div className="md:hidden bg-transparent text-white py-16 px-6">
+                <div className="max-w-md mx-auto w-full">
+                  <div className="flex flex-col space-y-4 mb-8">
+                    <h2 className="text-3xl font-semibold text-white" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>Описание</h2>
+                    <div className="border-b border-white"></div>
+                    <div className="flex items-center justify-between text-sm tracking-[0.35em] uppercase text-white" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>
+                      <span>01//</span>
+                      <span>о нас</span>
+                      <span>03//</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-10 text-sm leading-7 text-white/85">
+                    <div className="flex flex-col space-y-2">
+                      <div className="text-xs font-mono tracking-[0.35em] uppercase text-white/40">мы</div>
+                      <div className="border-t border-white/15 pt-6">
+                        <p>
+                          Мы — INFAMOUS CUSTOMS, первая компания в СНГ, специализирующаяся на модификации и кастомизации автомобилей класса люкс.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col space-y-2">
+                      <div className="text-xs font-mono tracking-[0.35em] uppercase text-white/40">экспертиза</div>
+                      <div className="border-t border-white/15 pt-6">
+                        <p>
+                          Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря «у наших партнеров дешевле» и мы не только предоставляем, но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично, чтобы вы убедились в качестве.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col space-y-2">
+                      <div className="text-xs font-mono tracking-[0.35em] uppercase text-white/40">гарантия</div>
+                      <div className="border-t border-b border-white/15 py-6">
+                        <p>
+                          Ваш бюджет, который вы предоставляете, служит вашей же гарантией на все установленные дивайсы, включая технику.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               {/* "gallery" subsection */}
@@ -1396,8 +1423,8 @@ function App() {
                       </div>
                   </div>
                   <div className="w-full max-w-sm">
-                      <h2 className="text-5xl font-bold leading-none">HALOWEEN<br/>PARTY</h2>
-                      <p className="mt-4 text-lg tracking-wider">INFAMOUS CUSTOMS X GREATS</p>
+                      <h2 className="text-5xl font-bold leading-none">COOMING<br/>SOON</h2>
+                      <p className="mt-4 text-lg tracking-wider">stay tuned</p>
                   </div>
                 </div>
               </section>
