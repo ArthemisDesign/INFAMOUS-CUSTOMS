@@ -561,307 +561,317 @@ function App() {
     const carData = visualizingContent[selectedCar];
 
     return (
-      <section id="car-detail">
-        <div id="intro" className="h-screen bg-black text-white flex flex-col p-8 relative">
+      <>
+        <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
+          <img
+            src={`${import.meta.env.BASE_URL}background.png`}
+            alt="Backstage background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 w-full h-full bg-black/75" />
           <div 
-            className="absolute inset-0 w-full h-full opacity-5 pointer-events-none"
+            className="absolute inset-0 w-full h-full opacity-20"
             style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
           />
-          <div className="w-full flex flex-col h-full z-10 flex-grow">
-            <header className="w-full flex justify-end pt-16 flex-shrink-0">
-              <div className="w-full max-w-4xl">
-                <h1 className="text-9xl font-bold tracking-tighter text-left">{carData.title}</h1>
-                <div className="border-b border-white my-4"></div>
-                <div className="flex justify-between items-center text-lg text-gray-300">
-                  <span>{carData.detailNumber}</span>
-                  <span className="text-white">{carData.subtitle}</span>
-                  <span>{carData.detailTotal}</span>
-                </div>
-              </div>
-            </header>
-            <main className="flex-grow flex items-center justify-center py-8 min-h-0">
-              <div className="w-full h-full max-w-6xl max-h-[119vh] rounded-3xl overflow-hidden">
-                {carData.introImage ? (
-                  <img src={carData.introImage} alt={`${carData.title} intro`} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="bg-white w-full h-full">
-                    {/* Image placeholder */}
-                  </div>
-                )}
-              </div>
-            </main>
-          </div>
         </div>
-        {carData.look && (
-          <div id="look" className="min-h-screen bg-black text-white p-8">
-            <div className="container mx-auto">
-              <header className="py-8">
-                <h1 className="text-8xl font-bold tracking-tighter">{carData.look.title}</h1>
-                <div className="border-b border-white mt-4"></div>
-                <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
-                  <span>{carData.look.page}</span>
-                  <span className='text-white'>{carData.look.subtitle}</span>
-                  <span>{carData.look.totalPages}</span>
+        <section id="car-detail" className="relative z-10">
+          <div id="intro" className="h-screen bg-transparent text-white flex flex-col p-4 md:p-8 relative">
+            <div className="w-full flex flex-col h-full z-10 flex-grow">
+              <header className="w-full flex justify-end pt-24 md:pt-16 flex-shrink-0">
+                <div className="w-full max-w-4xl px-4 md:px-0">
+                  <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-left">{carData.title}</h1>
+                  <div className="border-b border-white my-4"></div>
+                  <div className="flex justify-between items-center text-sm md:text-lg text-gray-300">
+                    <span>{carData.detailNumber}</span>
+                    <span className="text-white text-center">{carData.subtitle}</span>
+                    <span>{carData.detailTotal}</span>
+                  </div>
                 </div>
               </header>
-              <main className="py-16 space-y-24">
-                <div className="grid grid-cols-4 gap-8 items-start">
-                  <div className="col-span-1">
-                    <h3 className="text-2xl font-semibold">{carData.look.description1_title}</h3>
-                  </div>
-                  <div className="col-span-3">
-                    <p className="text-xl text-gray-300 leading-relaxed">
-                      {carData.look.description1_text}
-                    </p>
-                  </div>
-                </div>
-                <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                  {/* Image placeholder */}
-                </div>
-                <div className="grid grid-cols-4 gap-8 items-start">
-                  <div className="col-span-1">
-                    <h3 className="text-2xl font-semibold">{carData.look.description2_title}</h3>
-                  </div>
-                  <div className="col-span-3">
-                    <p className="text-xl text-gray-300 leading-relaxed">
-                      {carData.look.description2_text}
-                    </p>
-                  </div>
-                </div>
-                <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                  {/* Image placeholder */}
-                </div>
-                <div className="grid grid-cols-4 gap-8 items-start">
-                  <div className="col-span-1">
-                    <h3 className="text-2xl font-semibold">{carData.look.description3_title}</h3>
-                  </div>
-                  <div className="col-span-3">
-                    <p className="text-xl text-gray-300 leading-relaxed">
-                      {carData.look.description3_text}
-                    </p>
-                  </div>
-                </div>
-                <div className="bg-white w-full max-w-6xl mx-auto h-[60vh] rounded-3xl">
-                  {/* Image placeholder */}
+              <main className="flex-grow flex items-center justify-center py-4 md:py-8 min-h-0">
+                <div className="w-full h-full max-w-6xl md:max-h-[119vh] rounded-2xl md:rounded-3xl overflow-hidden">
+                  {carData.introImage ? (
+                    <img src={carData.introImage} alt={`${carData.title} intro`} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="bg-white w-full h-full">
+                      {/* Image placeholder */}
+                    </div>
+                  )}
                 </div>
               </main>
             </div>
           </div>
-        )}
-        {carData.interior && <div id="interior" className="min-h-screen bg-black text-white p-8">
-          <div className="container mx-auto">
-            <header className="py-8">
-              <h1 className="text-8xl font-bold tracking-tighter">{carData.interior.title}</h1>
-              <div className="border-b border-white mt-4"></div>
-              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
-                <span>{carData.interior.page}</span>
-                <span className='text-white'>{carData.interior.subtitle}</span>
-                <span>{carData.interior.totalPages}</span>
-              </div>
-            </header>
-            <main className="py-16 space-y-24">
-              <div className="grid grid-cols-4 gap-8 items-start">
-                <div className="col-span-1">
-                  <h3 className="text-2xl font-semibold">{carData.interior.description_title}</h3>
-                </div>
-                <div className="col-span-3">
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    {carData.interior.description_text}
-                  </p>
-                </div>
-              </div>
-              
-              {carData.interior.sliders?.map((slider, sliderIndex) => (
-                <div key={sliderIndex} className="space-y-8">
-                  {carData.interior.textPosition === 'above' ? (
-                    slider.left_title ? (
-                      <div className="grid grid-cols-4 gap-8 items-start pb-8">
-                        <div className="col-span-1">
-                          <h3 className="text-2xl font-semibold">{slider.left_title}</h3>
-                        </div>
-                        <div className="col-span-3">
-                          <p className={`text-xl text-gray-300 leading-relaxed ${ slider.textAlign === 'right' ? 'text-right' : '' }`}>
-                            {slider.text}
-                          </p>
-                        </div>
-                      </div>
-                    ) : (
-                      <p className="text-lg text-gray-300 text-center pb-8">{slider.text}</p>
-                    )
-                  ) : null}
-
-                  <div className="relative w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
-                    {slider.images ? (
-                      slider.images.map((imageSrc, imageIndex) => (
-                        <img
-                          key={imageIndex}
-                          src={imageSrc}
-                          alt={`${slider.text} ${imageIndex + 1}`}
-                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
-                            activeInteriorSlides[sliderIndex] === imageIndex ? 'opacity-100' : 'opacity-0'
-                          }`}
-                        />
-                      ))
-                    ) : (
-                      slider.colors.map((colorClass, colorIndex) => (
-                        <div
-                          key={colorIndex}
-                          className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${colorClass} ${
-                            activeInteriorSlides[sliderIndex] === colorIndex ? 'opacity-100' : 'opacity-0'
-                          }`}
-                        />
-                      ))
-                    )}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
-                      {(slider.images?.length > 1 || slider.colors?.length > 1) && (slider.images || slider.colors).map((_, itemIndex) => (
-                        <button 
-                          key={itemIndex}
-                          onClick={() => {
-                            const newSlides = [...activeInteriorSlides];
-                            newSlides[sliderIndex] = itemIndex;
-                            setActiveInteriorSlides(newSlides);
-                          }} 
-                          className={`w-3 h-3 rounded-full transition-colors ${activeInteriorSlides[sliderIndex] === itemIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
-                        />
-                      ))}
+          {carData.look && (
+            <div id="look" className="min-h-screen bg-transparent text-white p-4 md:p-8">
+              <div className="container mx-auto">
+                <header className="py-8">
+                  <h1 className="text-6xl md:text-8xl font-bold tracking-tighter">{carData.look.title}</h1>
+                  <div className="border-b border-white mt-4"></div>
+                  <div className="flex justify-between items-center text-sm md:text-lg mt-2 text-gray-400">
+                    <span>{carData.look.page}</span>
+                    <span className='text-white'>{carData.look.subtitle}</span>
+                    <span>{carData.look.totalPages}</span>
+                  </div>
+                </header>
+                <main className="py-8 md:py-16 space-y-16 md:space-y-24">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                    <div className="md:col-span-1">
+                      <h3 className="text-xl md:text-2xl font-semibold">{carData.look.description1_title}</h3>
+                    </div>
+                    <div className="md:col-span-3">
+                      <p className="text-base md:text-xl text-gray-300 leading-relaxed">
+                        {carData.look.description1_text}
+                      </p>
                     </div>
                   </div>
-
-                  {!carData.interior.textPosition || carData.interior.textPosition !== 'above' ? (
-                    slider.left_title ? (
-                      <div className="grid grid-cols-4 gap-8 items-start pt-8">
-                        <div className="col-span-1">
-                          <h3 className="text-2xl font-semibold">{slider.left_title}</h3>
+                  <div className="bg-white w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl">
+                    {/* Image placeholder */}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                    <div className="md:col-span-1">
+                      <h3 className="text-xl md:text-2xl font-semibold">{carData.look.description2_title}</h3>
+                    </div>
+                    <div className="md:col-span-3">
+                      <p className="text-base md:text-xl text-gray-300 leading-relaxed">
+                        {carData.look.description2_text}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-white w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl">
+                    {/* Image placeholder */}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                    <div className="md:col-span-1">
+                      <h3 className="text-xl md:text-2xl font-semibold">{carData.look.description3_title}</h3>
+                    </div>
+                    <div className="md:col-span-3">
+                      <p className="text-base md:text-xl text-gray-300 leading-relaxed">
+                        {carData.look.description3_text}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-white w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl">
+                    {/* Image placeholder */}
+                  </div>
+                </main>
+              </div>
+            </div>
+          )}
+          {carData.interior && <div id="interior" className="min-h-screen bg-transparent text-white p-4 md:p-8">
+            <div className="container mx-auto">
+              <header className="py-8">
+                <h1 className="text-6xl md:text-8xl font-bold tracking-tighter">{carData.interior.title}</h1>
+                <div className="border-b border-white mt-4"></div>
+                <div className="flex justify-between items-center text-sm md:text-lg mt-2 text-gray-400">
+                  <span>{carData.interior.page}</span>
+                  <span className='text-white'>{carData.interior.subtitle}</span>
+                  <span>{carData.interior.totalPages}</span>
+                </div>
+              </header>
+              <main className="py-8 md:py-16 space-y-16 md:space-y-24">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                  <div className="md:col-span-1">
+                    <h3 className="text-xl md:text-2xl font-semibold">{carData.interior.description_title}</h3>
+                  </div>
+                  <div className="md:col-span-3">
+                    <p className="text-base md:text-xl text-gray-300 leading-relaxed">
+                      {carData.interior.description_text}
+                    </p>
+                  </div>
+                </div>
+                
+                {carData.interior.sliders?.map((slider, sliderIndex) => (
+                  <div key={sliderIndex} className="space-y-8">
+                    {carData.interior.textPosition === 'above' ? (
+                      slider.left_title ? (
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start pb-8">
+                          <div className="md:col-span-1">
+                            <h3 className="text-xl md:text-2xl font-semibold">{slider.left_title}</h3>
+                          </div>
+                          <div className="md:col-span-3">
+                            <p className={`text-base md:text-xl text-gray-300 leading-relaxed ${ slider.textAlign === 'right' ? 'text-right' : '' }`}>
+                              {slider.text}
+                            </p>
+                          </div>
                         </div>
-                        <div className="col-span-3">
-                          <p className={`text-xl text-gray-300 leading-relaxed ${ slider.textAlign === 'right' ? 'text-right' : '' }`}>
-                            {slider.text}
+                      ) : (
+                        <p className="text-base md:text-lg text-gray-300 text-center pb-8">{slider.text}</p>
+                      )
+                    ) : null}
+
+                    <div className="relative w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl overflow-hidden">
+                      {slider.images ? (
+                        slider.images.map((imageSrc, imageIndex) => (
+                          <img
+                            key={imageIndex}
+                            src={imageSrc}
+                            alt={`${slider.text} ${imageIndex + 1}`}
+                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+                              activeInteriorSlides[sliderIndex] === imageIndex ? 'opacity-100' : 'opacity-0'
+                            }`}
+                          />
+                        ))
+                      ) : (
+                        slider.colors.map((colorClass, colorIndex) => (
+                          <div
+                            key={colorIndex}
+                            className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${colorClass} ${
+                              activeInteriorSlides[sliderIndex] === colorIndex ? 'opacity-100' : 'opacity-0'
+                            }`}
+                          />
+                        ))
+                      )}
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
+                        {(slider.images?.length > 1 || slider.colors?.length > 1) && (slider.images || slider.colors).map((_, itemIndex) => (
+                          <button 
+                            key={itemIndex}
+                            onClick={() => {
+                              const newSlides = [...activeInteriorSlides];
+                              newSlides[sliderIndex] = itemIndex;
+                              setActiveInteriorSlides(newSlides);
+                            }} 
+                            className={`w-3 h-3 rounded-full transition-colors ${activeInteriorSlides[sliderIndex] === itemIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {!carData.interior.textPosition || carData.interior.textPosition !== 'above' ? (
+                      slider.left_title ? (
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start pt-8">
+                          <div className="md:col-span-1">
+                            <h3 className="text-xl md:text-2xl font-semibold">{slider.left_title}</h3>
+                          </div>
+                          <div className="md:col-span-3">
+                            <p className={`text-base md:text-xl text-gray-300 leading-relaxed ${ slider.textAlign === 'right' ? 'text-right' : '' }`}>
+                              {slider.text}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-base md:text-lg text-gray-300 text-center">{slider.text}</p>
+                      )
+                    ) : null}
+                  </div>
+                ))}
+              </main>
+            </div>
+          </div>}
+          {carData.exterior && <div id="exterior" className="min-h-screen bg-transparent text-white p-4 md:p-8">
+            <div className="container mx-auto">
+              <header className="py-8">
+                <h1 className="text-6xl md:text-8xl font-bold tracking-tighter">{carData.exterior.title}</h1>
+                <div className="border-b border-white mt-4"></div>
+                <div className="flex justify-between items-center text-sm md:text-lg mt-2 text-gray-400">
+                  <span>{carData.exterior.page}</span>
+                  <span className='text-white'>{carData.exterior.subtitle}</span>
+                  <span>{carData.exterior.totalPages}</span>
+                </div>
+              </header>
+              <main className="py-8 md:py-16 space-y-16 md:space-y-24">
+                {(carData.exterior.descriptions || (carData.exterior.description_text ? [carData.exterior.description_text] : [])).map((item, index) => {
+                  const text = typeof item === 'string' ? item : item.text;
+                  const image = typeof item === 'string' ? null : item.image;
+                  const images = typeof item === 'object' ? item.images : null;
+
+                  return (
+                    <React.Fragment key={index}>
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                        <div className="md:col-span-1">
+                          <h3 className="text-xl md:text-2xl font-semibold">{typeof item === 'object' && item.left_title ? item.left_title : carData.exterior.description_title}</h3>
+                        </div>
+                        <div className="md:col-span-3">
+                          <p className="text-base md:text-xl text-gray-300 leading-relaxed whitespace-pre-line">
+                            {text}
                           </p>
                         </div>
                       </div>
-                    ) : (
-                      <p className="text-lg text-gray-300 text-center">{slider.text}</p>
-                    )
-                  ) : null}
-                </div>
-              ))}
-            </main>
-          </div>
-        </div>}
-        {carData.exterior && <div id="exterior" className="min-h-screen bg-black text-white p-8">
-          <div className="container mx-auto">
-            <header className="py-8">
-              <h1 className="text-8xl font-bold tracking-tighter">{carData.exterior.title}</h1>
-              <div className="border-b border-white mt-4"></div>
-              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
-                <span>{carData.exterior.page}</span>
-                <span className='text-white'>{carData.exterior.subtitle}</span>
-                <span>{carData.exterior.totalPages}</span>
-              </div>
-            </header>
-            <main className="py-16 space-y-24">
-              {(carData.exterior.descriptions || (carData.exterior.description_text ? [carData.exterior.description_text] : [])).map((item, index) => {
-                const text = typeof item === 'string' ? item : item.text;
-                const image = typeof item === 'string' ? null : item.image;
-                const images = typeof item === 'object' ? item.images : null;
-
-                return (
-                  <React.Fragment key={index}>
-                    <div className="grid grid-cols-4 gap-8 items-start">
-                      <div className="col-span-1">
-                        <h3 className="text-2xl font-semibold">{typeof item === 'object' && item.left_title ? item.left_title : carData.exterior.description_title}</h3>
-                      </div>
-                      <div className="col-span-3">
-                        <p className="text-xl text-gray-300 leading-relaxed whitespace-pre-line">
-                          {text}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden relative">
-                      {images ? (
-                        <>
-                          {images.map((imageSrc, imageIndex) => (
-                            <img
-                              key={imageIndex}
-                              src={imageSrc}
-                              alt={`${text} ${imageIndex + 1}`}
-                              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
-                                activeExteriorSlides[index] === imageIndex ? 'opacity-100' : 'opacity-0'
-                              }`}
-                            />
-                          ))}
-                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
-                            {images.length > 1 && images.map((_, itemIndex) => (
-                              <button
-                                key={itemIndex}
-                                onClick={() => {
-                                  const newSlides = [...activeExteriorSlides];
-                                  newSlides[index] = itemIndex;
-                                  setActiveExteriorSlides(newSlides);
-                                }}
-                                className={`w-3 h-3 rounded-full transition-colors ${activeExteriorSlides[index] === itemIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
+                      <div className="w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl overflow-hidden relative">
+                        {images ? (
+                          <>
+                            {images.map((imageSrc, imageIndex) => (
+                              <img
+                                key={imageIndex}
+                                src={imageSrc}
+                                alt={`${text} ${imageIndex + 1}`}
+                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+                                  activeExteriorSlides[index] === imageIndex ? 'opacity-100' : 'opacity-0'
+                                }`}
                               />
                             ))}
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
+                              {images.length > 1 && images.map((_, itemIndex) => (
+                                <button
+                                  key={itemIndex}
+                                  onClick={() => {
+                                    const newSlides = [...activeExteriorSlides];
+                                    newSlides[index] = itemIndex;
+                                    setActiveExteriorSlides(newSlides);
+                                  }}
+                                  className={`w-3 h-3 rounded-full transition-colors ${activeExteriorSlides[index] === itemIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/75'}`}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        ) : image ? (
+                          <img src={image} alt={`Exterior detail ${index + 1}`} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="bg-white w-full h-full">
+                            {/* Image placeholder */}
                           </div>
-                        </>
-                      ) : image ? (
-                        <img src={image} alt={`Exterior detail ${index + 1}`} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="bg-white w-full h-full">
-                          {/* Image placeholder */}
-                        </div>
-                      )}
-                    </div>
-                  </React.Fragment>
-                );
-              })}
-            </main>
+                        )}
+                      </div>
+                    </React.Fragment>
+                  );
+                })}
+              </main>
+            </div>
+          </div>}
+          {carData.wheels && <div id="wheels" className="min-h-screen bg-transparent text-white p-4 md:p-8">
+            <div className="container mx-auto">
+              <header className="py-8">
+                <h1 className="text-6xl md:text-8xl font-bold tracking-tighter">{carData.wheels.title}</h1>
+                <div className="border-b border-white mt-4"></div>
+                <div className="flex justify-between items-center text-sm md:text-lg mt-2 text-gray-400">
+                  <span>{carData.wheels.page}</span>
+                  <span className='text-white'>{carData.wheels.subtitle}</span>
+                  <span>{carData.wheels.totalPages}</span>
                 </div>
-                </div>}
-        {carData.wheels && <div id="wheels" className="min-h-screen bg-black text-white p-8">
-          <div className="container mx-auto">
-            <header className="py-8">
-              <h1 className="text-8xl font-bold tracking-tighter">{carData.wheels.title}</h1>
-              <div className="border-b border-white mt-4"></div>
-              <div className="flex justify-between items-center text-lg mt-2 text-gray-400">
-                <span>{carData.wheels.page}</span>
-                <span className='text-white'>{carData.wheels.subtitle}</span>
-                <span>{carData.wheels.totalPages}</span>
-              </div>
-            </header>
-            <main className="py-16 space-y-24">
-              {(carData.wheels.descriptions).map((item, index) => {
-                const text = typeof item === 'string' ? item : item.text;
-                const image = typeof item === 'string' ? null : item.image;
+              </header>
+              <main className="py-8 md:py-16 space-y-16 md:space-y-24">
+                {(carData.wheels.descriptions).map((item, index) => {
+                  const text = typeof item === 'string' ? item : item.text;
+                  const image = typeof item === 'string' ? null : item.image;
 
-                return (
-                  <React.Fragment key={index}>
-                    <div className="grid grid-cols-4 gap-8 items-start">
-                      <div className="col-span-1">
-                            <h3 className="text-2xl font-semibold">{carData.wheels.description_title}</h3>
-                      </div>
-                      <div className="col-span-3">
-                            <p className="text-xl text-gray-300 leading-relaxed whitespace-pre-line">
-                              {text}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="w-full max-w-6xl mx-auto h-[60vh] rounded-3xl overflow-hidden">
-                      {image ? (
-                        <img src={image} alt={`Wheels detail ${index + 1}`} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="bg-white w-full h-full">
-                          {/* Image placeholder */}
+                  return (
+                    <React.Fragment key={index}>
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                        <div className="md:col-span-1">
+                              <h3 className="text-xl md:text-2xl font-semibold">{carData.wheels.description_title}</h3>
                         </div>
-                      )}
-                    </div>
-                  </React.Fragment>
-                );
-              })}
-            </main>
-          </div>
-        </div>}
-      </section>
+                        <div className="md:col-span-3">
+                              <p className="text-base md:text-xl text-gray-300 leading-relaxed whitespace-pre-line">
+                                {text}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="w-full max-w-6xl mx-auto h-[40vh] md:h-[60vh] rounded-2xl md:rounded-3xl overflow-hidden">
+                        {image ? (
+                          <img src={image} alt={`Wheels detail ${index + 1}`} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="bg-white w-full h-full">
+                            {/* Image placeholder */}
+                          </div>
+                        )}
+                      </div>
+                    </React.Fragment>
+                  );
+                })}
+              </main>
+            </div>
+          </div>}
+        </section>
+      </>
     );
   };
 
