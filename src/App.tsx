@@ -15,6 +15,7 @@ function App() {
   const [activeExteriorSlides, setActiveExteriorSlides] = useState([]);
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [galleryIsTouching, setGalleryIsTouching] = useState(false);
+  const [aboutTitleVisible, setAboutTitleVisible] = useState(false);
   const [mobileSwipeOffset, setMobileSwipeOffset] = useState(0);
   const [mobileIsTouching, setMobileIsTouching] = useState(false);
   const [mobileSliderWidth, setMobileSliderWidth] = useState(0);
@@ -31,6 +32,7 @@ function App() {
   const galleryDirectionRef = useRef(1);
   const galleryTouchStartXRef = useRef(null);
   const galleryTouchStartYRef = useRef(null);
+  const aboutTitleRef = useRef(null);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
@@ -453,6 +455,27 @@ function App() {
         return () => clearTimeout(timer);
     }
   }, [activeGallerySlide, activePage, advanceGallerySlide, galleryIsTouching]);
+
+  useEffect(() => {
+    const target = aboutTitleRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          setAboutTitleVisible(entry.isIntersecting);
+        });
+      },
+      {
+        root: mainContentRef.current ?? undefined,
+        threshold: 0.4,
+      }
+    );
+
+    observer.observe(target);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!mobileVirtualInitializedRef.current) {
@@ -1149,7 +1172,10 @@ function App() {
                   
                   <div className="container mx-auto px-6 flex-1 flex items-center justify-center">
                     <div className="text-center">
-                      <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold">
+                      <h1
+                        ref={aboutTitleRef}
+                        className={`about-title ${aboutTitleVisible ? 'about-title-animate' : ''} text-5xl sm:text-6xl md:text-8xl font-bold`}
+                      >
                         INFAMOUS<br className="md:hidden" /> CUSTOMS
                       </h1>
                     </div>
@@ -1184,7 +1210,7 @@ function App() {
 
                   <div className="space-y-10 text-sm leading-7 text-white/85">
                     <div className="flex flex-col space-y-2">
-                      <div className="text-xs font-mono tracking-[0.35em] uppercase text-white/40">мы</div>
+                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>мы</div>
                       <div className="border-t border-white/15 pt-6">
                         <p>
                           Мы — INFAMOUS CUSTOMS, первая компания в СНГ, специализирующаяся на модификации и кастомизации автомобилей класса люкс.
@@ -1193,7 +1219,7 @@ function App() {
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                      <div className="text-xs font-mono tracking-[0.35em] uppercase text-white/40">экспертиза</div>
+                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>экспертиза</div>
                       <div className="border-t border-white/15 pt-6">
                         <p>
                           Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря «у наших партнеров дешевле» и мы не только предоставляем, но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично, чтобы вы убедились в качестве.
@@ -1202,7 +1228,7 @@ function App() {
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                      <div className="text-xs font-mono tracking-[0.35em] uppercase text-white/40">гарантия</div>
+                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>гарантия</div>
                       <div className="border-t border-b border-white/15 py-6">
                         <p>
                           Ваш бюджет, который вы предоставляете, служит вашей же гарантией на все установленные дивайсы, включая технику.
