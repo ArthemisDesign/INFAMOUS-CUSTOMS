@@ -14,12 +14,15 @@ function App() {
   const [activeInteriorSlides, setActiveInteriorSlides] = useState([]);
   const [activeExteriorSlides, setActiveExteriorSlides] = useState([]);
   const [showComingSoon, setShowComingSoon] = useState(false);
-  const [mobileSwipeDirection, setMobileSwipeDirection] = useState(1);
-  const [previousVisualizingKey, setPreviousVisualizingKey] = useState('spyder');
+  const [mobileSwipeOffset, setMobileSwipeOffset] = useState(0);
+  const [mobileIsTouching, setMobileIsTouching] = useState(false);
+  const [mobileSliderWidth, setMobileSliderWidth] = useState(0);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
   const touchStartXRef = useRef(null);
+  const touchStartYRef = useRef(null);
+  const mobileSliderRef = useRef(null);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
@@ -355,15 +358,32 @@ function App() {
   }, [activeGallerySlide, activePage, galleryItems.length]);
 
   useEffect(() => {
-    if (activePage === 'visualizing' && view === 'main') {
+    if (activePage === 'visualizing' && view === 'main' && !mobileIsTouching) {
       const timer = setTimeout(() => {
-        setMobileSwipeDirection(1);
-        recordCurrentVisualizingKey();
         setActiveVisualizingIndex(prev => (prev + 1) % pageSubsections.visualizing.length);
+        setMobileSwipeOffset(0);
       }, VISUALIZING_SLIDESHOW_DURATION);
       return () => clearTimeout(timer);
     }
-  }, [activeVisualizingIndex, activePage, view, pageSubsections.visualizing.length, activeSubsection]);
+  }, [activeVisualizingIndex, activePage, view, mobileIsTouching, pageSubsections.visualizing.length]);
+
+  useEffect(() => {
+    const updateMobileSliderWidth = () => {
+      if (mobileSliderRef.current) {
+        setMobileSliderWidth(mobileSliderRef.current.offsetWidth);
+      }
+    };
+
+    updateMobileSliderWidth();
+    window.addEventListener('resize', updateMobileSliderWidth);
+    return () => window.removeEventListener('resize', updateMobileSliderWidth);
+  }, []);
+
+  useEffect(() => {
+    if (activePage === 'visualizing' && view === 'main' && mobileSliderRef.current) {
+      setMobileSliderWidth(mobileSliderRef.current.offsetWidth);
+    }
+  }, [activePage, view]);
 
   useEffect(() => {
     if (activePage === 'visualizing' && view === 'main') {
@@ -448,13 +468,6 @@ function App() {
     };
   }, [showComingSoon]);
 
-  const recordCurrentVisualizingKey = () => {
-    const currentKeyRaw = activeSubsection.startsWith('#') ? activeSubsection.substring(1) : activeSubsection;
-    if (visualizingContent[currentKeyRaw]) {
-      setPreviousVisualizingKey(currentKeyRaw);
-    }
-  };
-
   const handleCarSelect = (carKey) => {
     lenisRef.current?.scrollTo(0, { immediate: true });
     setSelectedCar(carKey);
@@ -464,18 +477,45 @@ function App() {
   const handleVisualizingNavigation = (direction) => {
     if (activePage !== 'visualizing' || view !== 'main') return;
 
-    setMobileSwipeDirection(direction);
-    recordCurrentVisualizingKey();
-
     setActiveVisualizingIndex(prevIndex => {
       const total = pageSubsections.visualizing.length;
       return (prevIndex + direction + total) % total;
     });
+    setMobileIsTouching(false);
+    setMobileSwipeOffset(0);
   };
 
   const handleVisualizingTouchStart = (event) => {
+    if (activePage !== 'visualizing' || view !== 'main') return;
+
     const touch = event.touches[0];
-    touchStartXRef.current = touch ? touch.clientX : null;
+    if (!touch) return;
+
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+    setMobileIsTouching(true);
+    setMobileSwipeOffset(0);
+    if (mobileSliderRef.current) {
+      setMobileSliderWidth(mobileSliderRef.current.offsetWidth);
+    }
+  };
+
+  const handleVisualizingTouchMove = (event) => {
+    if (touchStartXRef.current === null) return;
+
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    const deltaX = touch.clientX - touchStartXRef.current;
+    const deltaY = touchStartYRef.current !== null ? touch.clientY - touchStartYRef.current : 0;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      event.preventDefault();
+    }
+
+    const maxOffset = mobileSliderWidth || (mobileSliderRef.current ? mobileSliderRef.current.offsetWidth : window.innerWidth);
+    const limitedDelta = Math.max(Math.min(deltaX, maxOffset), -maxOffset);
+    setMobileSwipeOffset(limitedDelta);
   };
 
   const handleVisualizingTouchEnd = (event) => {
@@ -486,21 +526,24 @@ function App() {
     const deltaX = touchEndX - touchStartXRef.current;
     const swipeThreshold = 40;
 
+    setMobileIsTouching(false);
+
     if (deltaX > swipeThreshold) {
       handleVisualizingNavigation(-1);
     } else if (deltaX < -swipeThreshold) {
       handleVisualizingNavigation(1);
     }
 
+    setMobileSwipeOffset(0);
     touchStartXRef.current = null;
+    touchStartYRef.current = null;
   };
 
   const handleVisualizingIndicatorClick = (index) => {
     if (index === activeVisualizingIndex) return;
 
-    const direction = index > activeVisualizingIndex ? 1 : -1;
-    setMobileSwipeDirection(direction);
-    recordCurrentVisualizingKey();
+    setMobileIsTouching(false);
+    setMobileSwipeOffset(0);
     setActiveVisualizingIndex(index);
   };
 
@@ -538,13 +581,6 @@ function App() {
     // Set initial subsection
     const subsection = currentSubsections[0];
     setActiveSubsection(subsection ? subsection.href : '');
-
-    if (activePage === 'visualizing' && view === 'main') {
-      const initialKey = subsection ? subsection.href.substring(1) : '';
-      if (visualizingContent[initialKey]) {
-        setPreviousVisualizingKey(initialKey);
-      }
-    }
 
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
@@ -1226,6 +1262,11 @@ function App() {
             activeContentKeyForRender = 'spyder';
         }
         const activeContent = visualizingContent[activeContentKeyForRender];
+        const visualizingKeys = possibleKeys;
+        const activeMobileIndex = Math.max(0, visualizingKeys.indexOf(activeContentKeyForRender));
+        const trackTransition = mobileIsTouching ? 'none' : 'transform 650ms cubic-bezier(0.22, 1, 0.36, 1)';
+        const trackWidthPx = mobileSliderWidth ? visualizingKeys.length * mobileSliderWidth : null;
+        const trackTranslatePx = mobileSliderWidth ? (-activeMobileIndex * mobileSliderWidth) + mobileSwipeOffset : mobileSwipeOffset;
 
         return (
           <section id="visualizing" className="bg-black text-white h-screen flex flex-col">
@@ -1340,35 +1381,59 @@ function App() {
               </div>
 
               <div
-                className="w-full max-w-sm aspect-square relative"
+                ref={mobileSliderRef}
+                className="w-full max-w-sm aspect-square relative overflow-hidden"
                 onTouchStart={handleVisualizingTouchStart}
+                onTouchMove={handleVisualizingTouchMove}
                 onTouchEnd={handleVisualizingTouchEnd}
                 onTouchCancel={handleVisualizingTouchEnd}
               >
-                {Object.entries(visualizingContent).map(([key, content]) => {
-                  const isActive = activeContentKeyForRender === key;
-                  const isPrevious = previousVisualizingKey === key && !isActive;
-                  const animationClass = isActive
-                    ? (mobileSwipeDirection === 1 ? 'mobile-slide-in-right' : 'mobile-slide-in-left')
-                    : isPrevious
-                      ? (mobileSwipeDirection === 1 ? 'mobile-slide-out-left' : 'mobile-slide-out-right')
-                      : '';
-                  const opacityClass = isActive || isPrevious ? 'opacity-100' : 'opacity-0';
-                  const zIndexClass = isActive ? 'z-20' : isPrevious ? 'z-10' : 'z-0';
+                <div
+                  className="flex h-full"
+                  style={{
+                    width: trackWidthPx ? `${trackWidthPx}px` : 'auto',
+                    transform: `translateX(${trackTranslatePx}px)`,
+                    transition: trackTransition,
+                  }}
+                >
+                  {visualizingKeys.map((key, index) => {
+                    const content = visualizingContent[key];
+                    const distanceFromActive = Math.abs(index - activeMobileIndex);
+                    const isActive = index === activeMobileIndex;
+                    const slideParallax = mobileSliderWidth > 0 ? (mobileSwipeOffset / mobileSliderWidth) * (isActive ? 24 : 12) : 0;
+                    const scale = isActive ? 1 : distanceFromActive === 1 ? 0.94 : 0.9;
+                    const opacity = isActive ? 1 : 0.55;
 
-                  return (
-                    <div
-                      key={key}
-                      className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out pointer-events-none ${opacityClass} ${zIndexClass} ${animationClass}`}
-                    >
-                      <img
-                        src={content.image}
-                        alt={content.title}
-                        className="block w-full h-full object-cover rounded-3xl"
-                      />
-                    </div>
-                  );
-                })}
+                    return (
+                      <div
+                        key={key}
+                        className="h-full flex-shrink-0 flex items-center justify-center px-1"
+                        style={{ width: mobileSliderWidth ? `${mobileSliderWidth}px` : '100%' }}
+                      >
+                        <div
+                          className="w-full h-full rounded-3xl overflow-hidden"
+                          style={{
+                            transform: `translateX(${slideParallax}px) scale(${scale})`,
+                            opacity,
+                            transition: mobileIsTouching
+                              ? 'transform 120ms linear, opacity 120ms linear, box-shadow 160ms linear, filter 160ms linear'
+                              : 'transform 650ms cubic-bezier(0.22, 1, 0.36, 1), opacity 480ms ease, box-shadow 700ms ease, filter 700ms ease',
+                            boxShadow: isActive
+                              ? '0 24px 45px rgba(0, 0, 0, 0.35)'
+                              : '0 18px 36px rgba(0, 0, 0, 0.2)',
+                            filter: isActive ? 'saturate(1)' : 'saturate(0.75)'
+                          }}
+                        >
+                          <img
+                            src={content.image}
+                            alt={content.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="text-center">
