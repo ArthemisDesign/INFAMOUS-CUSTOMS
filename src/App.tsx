@@ -17,12 +17,15 @@ function App() {
   const [mobileSwipeOffset, setMobileSwipeOffset] = useState(0);
   const [mobileIsTouching, setMobileIsTouching] = useState(false);
   const [mobileSliderWidth, setMobileSliderWidth] = useState(0);
+  const [mobileVirtualIndex, setMobileVirtualIndex] = useState(0);
+  const [mobileTrackShouldAnimate, setMobileTrackShouldAnimate] = useState(true);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
   const touchStartXRef = useRef(null);
   const touchStartYRef = useRef(null);
   const mobileSliderRef = useRef(null);
+  const mobileVirtualInitializedRef = useRef(false);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
@@ -38,9 +41,9 @@ function App() {
       { name: 'videos', href: '#videos' }
     ],
     visualizing: [
-      { name: 'RR-Bolshoi', href: '#rr-bolshoi' },
-      { name: 'sv-hermes', href: '#sv-hermes' },
-      { name: 'spyder', href: '#spyder' }
+      { name: 'SPYDER', href: '#spyder' },
+      { name: 'SV-HERMES', href: '#sv-hermes' },
+      { name: 'RR-BOLSHOI', href: '#rr-bolshoi' }
     ],
     contact: [
       { name: 'client form', href: '#client-form' }
@@ -341,12 +344,29 @@ function App() {
     },
   };
 
+  const visualizingKeyOrder = Object.keys(visualizingContent);
+  const visualizingTotal = visualizingKeyOrder.length;
+
   const galleryItems = Object.values(visualizingContent).map(car => ({
     key: car.title.toLowerCase().replace(/ /g, '-'),
     title: car.title,
     subtitle: car.subtitle,
     image: car.image,
   }));
+
+  const updateMobileVirtualIndex = (delta) => {
+    if (visualizingTotal === 0) return;
+
+    setMobileVirtualIndex(prev => {
+      const base = mobileVirtualInitializedRef.current && prev !== 0
+        ? prev
+        : visualizingTotal + activeVisualizingIndex;
+      const next = base + delta;
+      mobileVirtualInitializedRef.current = true;
+      return next;
+    });
+    setMobileTrackShouldAnimate(true);
+  };
 
   useEffect(() => {
     if (activePage === 'about') {
@@ -358,14 +378,34 @@ function App() {
   }, [activeGallerySlide, activePage, galleryItems.length]);
 
   useEffect(() => {
+    if (!mobileVirtualInitializedRef.current) {
+      if (visualizingTotal > 0) {
+        setMobileVirtualIndex(visualizingTotal + activeVisualizingIndex);
+        mobileVirtualInitializedRef.current = true;
+        setMobileTrackShouldAnimate(true);
+      }
+    }
+  }, [activeVisualizingIndex, visualizingTotal]);
+
+  useEffect(() => {
     if (activePage === 'visualizing' && view === 'main' && !mobileIsTouching) {
       const timer = setTimeout(() => {
         setActiveVisualizingIndex(prev => (prev + 1) % pageSubsections.visualizing.length);
+        updateMobileVirtualIndex(1);
         setMobileSwipeOffset(0);
       }, VISUALIZING_SLIDESHOW_DURATION);
       return () => clearTimeout(timer);
     }
-  }, [activeVisualizingIndex, activePage, view, mobileIsTouching, pageSubsections.visualizing.length]);
+  }, [activeVisualizingIndex, activePage, view, mobileIsTouching, pageSubsections.visualizing.length, updateMobileVirtualIndex, visualizingTotal]);
+
+  useEffect(() => {
+    if (!mobileTrackShouldAnimate && mobileVirtualInitializedRef.current) {
+      const id = requestAnimationFrame(() => {
+        setMobileTrackShouldAnimate(true);
+      });
+      return () => cancelAnimationFrame(id);
+    }
+  }, [mobileTrackShouldAnimate]);
 
   useEffect(() => {
     const updateMobileSliderWidth = () => {
@@ -481,6 +521,7 @@ function App() {
       const total = pageSubsections.visualizing.length;
       return (prevIndex + direction + total) % total;
     });
+    updateMobileVirtualIndex(direction);
     setMobileIsTouching(false);
     setMobileSwipeOffset(0);
   };
@@ -542,9 +583,37 @@ function App() {
   const handleVisualizingIndicatorClick = (index) => {
     if (index === activeVisualizingIndex) return;
 
+    const total = pageSubsections.visualizing.length;
+    const forwardSteps = (index - activeVisualizingIndex + total) % total;
+    const backwardSteps = (activeVisualizingIndex - index + total) % total;
+    const delta = forwardSteps <= backwardSteps ? forwardSteps : -backwardSteps;
+
+    updateMobileVirtualIndex(delta);
     setMobileIsTouching(false);
     setMobileSwipeOffset(0);
     setActiveVisualizingIndex(index);
+  };
+
+  const handleVisualizingTrackTransitionEnd = () => {
+    if (!mobileVirtualInitializedRef.current || visualizingTotal === 0) return;
+
+    const minIndex = visualizingTotal;
+    const maxIndex = visualizingTotal * 2 - 1;
+
+    setMobileVirtualIndex(prev => {
+      let adjusted = prev;
+      if (prev < minIndex) {
+        adjusted = prev + visualizingTotal;
+      } else if (prev > maxIndex) {
+        adjusted = prev - visualizingTotal;
+      }
+
+      if (adjusted !== prev) {
+        setMobileTrackShouldAnimate(false);
+      }
+
+      return adjusted;
+    });
   };
 
   const currentSubsections =
@@ -1256,15 +1325,18 @@ function App() {
       case 'visualizing':
         const activeContentKey = activeSubsection.substring(1) as keyof typeof visualizingContent;
         
-        const possibleKeys = Object.keys(visualizingContent);
+        const possibleKeys = visualizingKeyOrder;
         let activeContentKeyForRender = activeContentKey;
         if (!possibleKeys.includes(activeContentKeyForRender)) {
             activeContentKeyForRender = 'spyder';
         }
         const activeContent = visualizingContent[activeContentKeyForRender];
-        const visualizingKeys = possibleKeys;
-        const activeMobileIndex = Math.max(0, visualizingKeys.indexOf(activeContentKeyForRender));
-        const trackTransition = mobileIsTouching ? 'none' : 'transform 650ms cubic-bezier(0.22, 1, 0.36, 1)';
+        const originalVisualizingKeys = possibleKeys;
+        const visualizingKeys = [...originalVisualizingKeys, ...originalVisualizingKeys, ...originalVisualizingKeys];
+        const fallbackMobileIndex = visualizingTotal + activeVisualizingIndex;
+        const activeMobileIndex = mobileVirtualInitializedRef.current ? mobileVirtualIndex : fallbackMobileIndex;
+        const shouldAnimateTrack = mobileTrackShouldAnimate && !mobileIsTouching;
+        const trackTransition = shouldAnimateTrack ? 'transform 650ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
         const trackWidthPx = mobileSliderWidth ? visualizingKeys.length * mobileSliderWidth : null;
         const trackTranslatePx = mobileSliderWidth ? (-activeMobileIndex * mobileSliderWidth) + mobileSwipeOffset : mobileSwipeOffset;
 
@@ -1395,6 +1467,7 @@ function App() {
                     transform: `translateX(${trackTranslatePx}px)`,
                     transition: trackTransition,
                   }}
+                  onTransitionEnd={handleVisualizingTrackTransitionEnd}
                 >
                   {visualizingKeys.map((key, index) => {
                     const content = visualizingContent[key];
@@ -1406,7 +1479,7 @@ function App() {
 
                     return (
                       <div
-                        key={key}
+                        key={`${key}-${index}`}
                         className="h-full flex-shrink-0 flex items-center justify-center px-1"
                         style={{ width: mobileSliderWidth ? `${mobileSliderWidth}px` : '100%' }}
                       >
