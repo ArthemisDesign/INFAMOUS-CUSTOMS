@@ -13,7 +13,7 @@ function App() {
   const [activeVisualizingIndex, setActiveVisualizingIndex] = useState(0);
   const [activeInteriorSlides, setActiveInteriorSlides] = useState([]);
   const [activeExteriorSlides, setActiveExteriorSlides] = useState([]);
-  const [showComingSoon, setShowComingSoon] = useState(true);
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
@@ -142,7 +142,7 @@ function App() {
         subtitle: 'Accessories',
         totalPages: '/02',
         description_title: '',
-        description_text: 'Being able to adapt to the car’s original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.'
+        description_text: `Being able to adapt to the car's original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.`
       }
     },
     'sv-hermes': {
@@ -918,7 +918,7 @@ function App() {
                   </p>
                   <div className="border-b border-white/50"></div>
                   <p>
-                    Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря “у наших партнеров дешевле” и мы не только предоставляем но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично чтобы вы убидились в качестве.
+                    Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря "у наших партнеров дешевле" и мы не только предоставляем но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично чтобы вы убидились в качестве.
                   </p>
                   <div className="border-b border-white/50"></div>
                   <p>
