@@ -14,9 +14,12 @@ function App() {
   const [activeInteriorSlides, setActiveInteriorSlides] = useState([]);
   const [activeExteriorSlides, setActiveExteriorSlides] = useState([]);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [mobileSwipeDirection, setMobileSwipeDirection] = useState(1);
+  const [previousVisualizingKey, setPreviousVisualizingKey] = useState('spyder');
   const mainContentRef = useRef(null);
   const lenisRef = useRef(null);
   const subsectionNavRef = useRef(null);
+  const touchStartXRef = useRef(null);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
@@ -354,11 +357,13 @@ function App() {
   useEffect(() => {
     if (activePage === 'visualizing' && view === 'main') {
       const timer = setTimeout(() => {
+        setMobileSwipeDirection(1);
+        recordCurrentVisualizingKey();
         setActiveVisualizingIndex(prev => (prev + 1) % pageSubsections.visualizing.length);
       }, VISUALIZING_SLIDESHOW_DURATION);
       return () => clearTimeout(timer);
     }
-  }, [activeVisualizingIndex, activePage, view]);
+  }, [activeVisualizingIndex, activePage, view, pageSubsections.visualizing.length, activeSubsection]);
 
   useEffect(() => {
     if (activePage === 'visualizing' && view === 'main') {
@@ -443,10 +448,60 @@ function App() {
     };
   }, [showComingSoon]);
 
+  const recordCurrentVisualizingKey = () => {
+    const currentKeyRaw = activeSubsection.startsWith('#') ? activeSubsection.substring(1) : activeSubsection;
+    if (visualizingContent[currentKeyRaw]) {
+      setPreviousVisualizingKey(currentKeyRaw);
+    }
+  };
+
   const handleCarSelect = (carKey) => {
     lenisRef.current?.scrollTo(0, { immediate: true });
     setSelectedCar(carKey);
     setView('detail');
+  };
+
+  const handleVisualizingNavigation = (direction) => {
+    if (activePage !== 'visualizing' || view !== 'main') return;
+
+    setMobileSwipeDirection(direction);
+    recordCurrentVisualizingKey();
+
+    setActiveVisualizingIndex(prevIndex => {
+      const total = pageSubsections.visualizing.length;
+      return (prevIndex + direction + total) % total;
+    });
+  };
+
+  const handleVisualizingTouchStart = (event) => {
+    const touch = event.touches[0];
+    touchStartXRef.current = touch ? touch.clientX : null;
+  };
+
+  const handleVisualizingTouchEnd = (event) => {
+    if (touchStartXRef.current === null) return;
+
+    const touch = event.changedTouches[0];
+    const touchEndX = touch ? touch.clientX : touchStartXRef.current;
+    const deltaX = touchEndX - touchStartXRef.current;
+    const swipeThreshold = 40;
+
+    if (deltaX > swipeThreshold) {
+      handleVisualizingNavigation(-1);
+    } else if (deltaX < -swipeThreshold) {
+      handleVisualizingNavigation(1);
+    }
+
+    touchStartXRef.current = null;
+  };
+
+  const handleVisualizingIndicatorClick = (index) => {
+    if (index === activeVisualizingIndex) return;
+
+    const direction = index > activeVisualizingIndex ? 1 : -1;
+    setMobileSwipeDirection(direction);
+    recordCurrentVisualizingKey();
+    setActiveVisualizingIndex(index);
   };
 
   const currentSubsections =
@@ -483,6 +538,13 @@ function App() {
     // Set initial subsection
     const subsection = currentSubsections[0];
     setActiveSubsection(subsection ? subsection.href : '');
+
+    if (activePage === 'visualizing' && view === 'main') {
+      const initialKey = subsection ? subsection.href.substring(1) : '';
+      if (visualizingContent[initialKey]) {
+        setPreviousVisualizingKey(initialKey);
+      }
+    }
 
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
@@ -1230,7 +1292,7 @@ function App() {
                       return (
                           <button
                               key={item.href}
-                              onClick={() => setActiveVisualizingIndex(index)}
+                              onClick={() => handleVisualizingIndicatorClick(index)}
                               className={`relative h-1 rounded-full overflow-hidden transition-all duration-500 ease-in-out ${
                                   isActive
                                       ? 'w-16 bg-gray-700'
@@ -1259,7 +1321,7 @@ function App() {
                   return (
                     <button
                       key={item.href}
-                      onClick={() => setActiveVisualizingIndex(index)}
+                        onClick={() => handleVisualizingIndicatorClick(index)}
                       className={`relative w-1 rounded-full overflow-hidden transition-all duration-500 ease-in-out ${
                         isActive
                           ? 'h-8 bg-gray-700'
@@ -1277,19 +1339,36 @@ function App() {
                 })}
               </div>
 
-              <div className="w-full max-w-sm aspect-square relative">
-                {Object.entries(visualizingContent).map(([key, content]) => (
-                    <div 
-                        key={key} 
-                        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-100' : 'opacity-0'}`}
+              <div
+                className="w-full max-w-sm aspect-square relative"
+                onTouchStart={handleVisualizingTouchStart}
+                onTouchEnd={handleVisualizingTouchEnd}
+                onTouchCancel={handleVisualizingTouchEnd}
+              >
+                {Object.entries(visualizingContent).map(([key, content]) => {
+                  const isActive = activeContentKeyForRender === key;
+                  const isPrevious = previousVisualizingKey === key && !isActive;
+                  const animationClass = isActive
+                    ? (mobileSwipeDirection === 1 ? 'mobile-slide-in-right' : 'mobile-slide-in-left')
+                    : isPrevious
+                      ? (mobileSwipeDirection === 1 ? 'mobile-slide-out-left' : 'mobile-slide-out-right')
+                      : '';
+                  const opacityClass = isActive || isPrevious ? 'opacity-100' : 'opacity-0';
+                  const zIndexClass = isActive ? 'z-20' : isPrevious ? 'z-10' : 'z-0';
+
+                  return (
+                    <div
+                      key={key}
+                      className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out pointer-events-none ${opacityClass} ${zIndexClass} ${animationClass}`}
                     >
-                      <img 
-                          src={content.image}
-                          alt={content.title} 
-                          className="block w-full h-full object-cover rounded-3xl" 
+                      <img
+                        src={content.image}
+                        alt={content.title}
+                        className="block w-full h-full object-cover rounded-3xl"
                       />
                     </div>
-                ))}
+                  );
+                })}
               </div>
 
               <div className="text-center">
