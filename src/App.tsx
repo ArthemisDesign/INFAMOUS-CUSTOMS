@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Globe2, Menu, X, Play } from 'lucide-react';
 import Lenis from 'lenis';
 
@@ -25,6 +25,7 @@ function App() {
   const touchStartXRef = useRef(null);
   const touchStartYRef = useRef(null);
   const mobileSliderRef = useRef(null);
+  const mobileDirectionRef = useRef(1);
   const mobileVirtualInitializedRef = useRef(false);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
@@ -354,8 +355,12 @@ function App() {
     image: car.image,
   }));
 
-  const updateMobileVirtualIndex = (delta) => {
+  const updateMobileVirtualIndex = useCallback((delta) => {
     if (visualizingTotal === 0) return;
+
+    if (delta !== 0) {
+      mobileDirectionRef.current = delta > 0 ? 1 : -1;
+    }
 
     setMobileVirtualIndex(prev => {
       const base = mobileVirtualInitializedRef.current && prev !== 0
@@ -366,7 +371,7 @@ function App() {
       return next;
     });
     setMobileTrackShouldAnimate(true);
-  };
+  }, [visualizingTotal, activeVisualizingIndex]);
 
   useEffect(() => {
     if (activePage === 'about') {
@@ -1339,6 +1344,8 @@ function App() {
         const trackTransition = shouldAnimateTrack ? 'transform 650ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
         const trackWidthPx = mobileSliderWidth ? visualizingKeys.length * mobileSliderWidth : null;
         const trackTranslatePx = mobileSliderWidth ? (-activeMobileIndex * mobileSliderWidth) + mobileSwipeOffset : mobileSwipeOffset;
+        const mobileTextAnimationClass = mobileDirectionRef.current >= 0 ? 'mobile-text-enter-up' : 'mobile-text-enter-down';
+        const mobileTextKey = `${activeContentKeyForRender}-text-${activeVisualizingIndex}`;
 
         return (
           <section id="visualizing" className="bg-black text-white h-screen flex flex-col">
@@ -1509,17 +1516,24 @@ function App() {
                 </div>
               </div>
 
-              <div className="text-center">
-                <h2 className="text-4xl font-bold tracking-tighter text-white leading-none">{activeContent.title}</h2>
-                <p className="text-md mt-2 text-gray-400">{activeContent.subtitle}</p>
-              </div>
+              <div className="text-center z-30 mt-4 w-full flex flex-col items-center space-y-5">
+                <div className="relative overflow-hidden w-full max-w-xs min-h-[110px]">
+                  <div
+                    key={mobileTextKey}
+                    className={`mobile-text-card ${mobileTextAnimationClass}`}
+                  >
+                    <h2 className="text-4xl font-bold tracking-tighter text-white leading-none">{activeContent.title}</h2>
+                    <p className="text-md text-gray-400">{activeContent.subtitle}</p>
+                  </div>
+                </div>
 
-              <button 
-                onClick={() => handleCarSelect(activeContentKeyForRender)}
-                className="border border-white rounded-full px-8 py-2 text-sm font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
-              >
-                  learn more
-              </button>
+                <button 
+                  onClick={() => handleCarSelect(activeContentKeyForRender)}
+                  className="border border-white rounded-full px-8 py-2 text-sm font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
+                >
+                    learn more
+                </button>
+              </div>
             </div>
           </section>
         );
