@@ -79,13 +79,13 @@ function App() {
       introImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
       number: '00.05',
       titleClassName: 'text-9xl',
-      detailNumber: '03/',
-      detailTotal: '/03',
+      detailNumber: '01/',
+      detailTotal: '/01',
       interior: {
         title: 'Interior',
-        page: '01/',
+        page: '02/',
         subtitle: 'Interior',
-        totalPages: '/01',
+        totalPages: '/02',
         description_title: 'SPYDER',
         description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
         textPosition: 'above',
@@ -133,9 +133,9 @@ function App() {
       },
       exterior: {
         title: 'Exterior',
-        page: '02/',
+        page: '03/',
         subtitle: 'Exterior',
-        totalPages: '/02',
+        totalPages: '/03',
         description_title: 'The Spyder',
         descriptions: [
           { text: 'Цвет кузова — первичен, золото — вторично', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/7.png` },
@@ -148,7 +148,7 @@ function App() {
         title: 'Wheels',
         page: '04/',
         subtitle: 'Wheels',
-        totalPages: '/02',
+        totalPages: '/04',
         description_title: 'Wheels',
         descriptions: [
           { text: 'Вдохновение Countach. \nДвухслойное золото.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/11.png` },
