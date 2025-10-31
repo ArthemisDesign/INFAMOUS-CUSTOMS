@@ -1326,9 +1326,9 @@ function App() {
                       <h2 className="text-5xl font-semibold text-white" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>Описание</h2>
                       <div className="border-b border-white mt-4"></div>
                       <div className="flex items-center justify-between text-lg tracking-[0.35em] uppercase text-white mt-2" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>
-                        <span>01//</span>
+                        <span>01/</span>
                         <span className="px-4">о нас</span>
-                        <span>03//</span>
+                        <span>03/</span>
                       </div>
                     </div>
                   </div>
@@ -1338,25 +1338,31 @@ function App() {
                       <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>мы</div>
                       <div className="border-t border-white/15 pt-8">
                         <p>
-                          Мы — INFAMOUS CUSTOMS, первая компания в СНГ, специализирующаяся на модификации и кастомизации автомобилей класса люкс.
+                          INFAMOUS CUSTOMS - это первая компания в СНГ, специализирующаяся на модификации и полностью персонализированной кастомизации автомобилей класса люкс
                         </p>
                       </div>
                     </div>
 
                     <div className="flex flex-col space-y-3">
-                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>экспертиза</div>
-                      <div className="border-t border-white/15 pt-8">
+                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ЦЕННОСТИ</div>
+                      <div className="border-t border-white/15 pt-8 space-y-4">
                         <p>
-                          Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря «у наших партнеров дешевле» и мы не только предоставляем, но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично, чтобы вы убедились в качестве.
+                          Путь в сообщество INFAMOUS CUSTOMS требует сознательных усилий, и это — признак его ценности
+                        </p>
+                        <p>
+                          Мы устанавливаем высокую планку, чтобы каждый, кто оказывается внутри, обрел не просто доступ, а исключительные возможности
+                        </p>
+                        <p>
+                          На практике это означает доступ к сети из более чем 30 проверенных мастерских и гарантию лучшего результата при честной цене. Мы лично знакомим вас с подходящими специалистами и наглядно демонстрируем качество на готовых проектах
                         </p>
                       </div>
                     </div>
 
                     <div className="flex flex-col space-y-3">
-                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>гарантия</div>
+                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ИНВЕСТИЦИИ</div>
                       <div className="border-t border-b border-white/15 py-8">
                         <p>
-                          Ваш бюджет, который вы предоставляете, служит вашей же гарантией на все установленные дивайсы, включая технику.
+                          Мы обеспечиваем полную прозрачность инвестиций. Ваш бюджет работает троекратно: на долгосрочные гарантии для вашего транспортного средства, на реализацию вашего проекта и на благотворительность. С нами ваша мечта об автомобиле обретает и уверенность и добрую цель
                         </p>
                       </div>
                     </div>
@@ -1369,9 +1375,9 @@ function App() {
                     <h2 className="text-3xl font-semibold text-white" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>Описание</h2>
                     <div className="border-b border-white"></div>
                     <div className="flex items-center justify-between text-sm tracking-[0.35em] uppercase text-white" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>
-                      <span>01//</span>
+                      <span>01/</span>
                       <span>о нас</span>
-                      <span>03//</span>
+                      <span>03/</span>
                     </div>
                   </div>
 
@@ -1380,25 +1386,31 @@ function App() {
                       <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>мы</div>
                       <div className="border-t border-white/15 pt-6">
                         <p>
-                          Мы — INFAMOUS CUSTOMS, первая компания в СНГ, специализирующаяся на модификации и кастомизации автомобилей класса люкс.
+                          INFAMOUS CUSTOMS - это первая компания в СНГ, специализирующаяся на модификации и полностью персонализированной кастомизации автомобилей класса люкс
                         </p>
                       </div>
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>экспертиза</div>
-                      <div className="border-t border-white/15 pt-6">
+                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ЦЕННОСТИ</div>
+                      <div className="border-t border-white/15 pt-6 space-y-4">
                         <p>
-                          Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря «у наших партнеров дешевле» и мы не только предоставляем, но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично, чтобы вы убедились в качестве.
+                          Путь в сообщество INFAMOUS CUSTOMS требует сознательных усилий, и это — признак его ценности
+                        </p>
+                        <p>
+                          Мы устанавливаем высокую планку, чтобы каждый, кто оказывается внутри, обрел не просто доступ, а исключительные возможности
+                        </p>
+                        <p>
+                          На практике это означает доступ к сети из более чем 30 проверенных мастерских и гарантию лучшего результата при честной цене. Мы лично знакомим вас с подходящими специалистами и наглядно демонстрируем качество на готовых проектах
                         </p>
                       </div>
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>гарантия</div>
+                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ИНВЕСТИЦИИ</div>
                       <div className="border-t border-b border-white/15 py-6">
                         <p>
-                          Ваш бюджет, который вы предоставляете, служит вашей же гарантией на все установленные дивайсы, включая технику.
+                          Мы обеспечиваем полную прозрачность инвестиций. Ваш бюджет работает троекратно: на долгосрочные гарантии для вашего транспортного средства, на реализацию вашего проекта и на благотворительность. С нами ваша мечта об автомобиле обретает и уверенность и добрую цель
                         </p>
                       </div>
                     </div>
