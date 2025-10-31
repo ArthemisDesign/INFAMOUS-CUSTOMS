@@ -708,6 +708,14 @@ function App() {
     };
   }, [showComingSoon]);
 
+  const handleGoHome = () => {
+    setActivePage('home');
+    setView('main');
+    setSelectedCar(null);
+    setSidebarOpen(false);
+    lenisRef.current?.scrollTo(0, { immediate: true });
+  };
+
   const handleCarSelect = (carKey) => {
     lenisRef.current?.scrollTo(0, { immediate: true });
     setSelectedCar(carKey);
@@ -1953,9 +1961,9 @@ function App() {
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black z-50 text-white flex flex-col lg:hidden">
           <header className="relative flex justify-end items-center p-6 h-28">
-            <div className="absolute left-1/2 -translate-x-1/2 top-8">
+            <button onClick={handleGoHome} className="absolute left-1/2 -translate-x-1/2 top-8">
                 <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" className="w-10"/>
-            </div>
+            </button>
             <button onClick={() => setSidebarOpen(false)}>
                 <X className="h-8 w-8" />
             </button>
@@ -2004,9 +2012,9 @@ function App() {
       <div ref={mainContentRef} className="flex-1 flex flex-col bg-black lg:ml-80 h-screen overflow-y-auto relative overflow-x-hidden">
         {/* Mobile Header Logo */}
         <div className="lg:hidden absolute top-0 left-0 right-0 w-full px-6 py-4 flex items-center justify-center z-20 pointer-events-none">
-          <div className="w-10 h-10 pointer-events-auto">
+          <button onClick={handleGoHome} className="w-10 h-10 pointer-events-auto">
             <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
-          </div>
+          </button>
         </div>
 
         {view === 'detail' && selectedCar ? renderCarDetailPage() : renderContent()}
