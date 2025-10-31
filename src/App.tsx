@@ -1906,7 +1906,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex cursor-custom">
+    <div className="min-h-screen bg-black flex">
       {/* Sidebar for Desktop */}
       <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white hidden lg:flex ${activePage === 'about' ? '' : 'bg-black/20 backdrop-blur-md'}`}>
         <div className="flex h-full w-full">

@@ -18,10 +18,15 @@
   body {
     font-family: 'TT Runs Trial', sans-serif;
   }
-}
-.cursor-custom, .cursor-custom * {
+  html {
     cursor: url('/cursor.svg'), auto;
+  }
+
+  a, button, [role="button"], input, select, textarea {
+    cursor: url('/cursor.svg'), auto !important;
+  }
 }
+
 @keyframes fill-up {
   from { height: 0%; }
   to { height: 100%; }

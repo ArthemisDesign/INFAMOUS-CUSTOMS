@@ -4,14 +4,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"TT Runs Trial"', ...defaultTheme.fontFamily.sans],
-      },
-      cursor: {
-        'custom': `url('/cursor.svg'), auto`,
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };
