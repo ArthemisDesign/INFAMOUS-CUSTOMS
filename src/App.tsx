@@ -260,6 +260,7 @@ function App() {
       introImage: `${import.meta.env.BASE_URL}RR/RR_details/1.png`,
       number: '00.07',
       titleClassName: 'text-8xl',
+      mobileTitleClassName: 'text-3xl',
       detailNumber: '01/',
       detailTotal: '/03',
       exterior: {
@@ -1782,7 +1783,7 @@ function App() {
                     key={mobileTextKey}
                     className={`slider-text-card ${mobileTextAnimationClass}`}
                   >
-                    <h2 className="text-4xl font-bold tracking-tighter text-white leading-none">{activeContent.title}</h2>
+                    <h2 className={`${activeContent.mobileTitleClassName || 'text-4xl'} font-bold tracking-tighter text-white leading-none`}>{activeContent.title}</h2>
                     <p className="text-md text-gray-400">{activeContent.subtitle}</p>
                   </div>
                 </div>
