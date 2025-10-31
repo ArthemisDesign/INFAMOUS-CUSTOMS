@@ -85,7 +85,7 @@ function App() {
         title: 'Interior',
         page: '01/',
         subtitle: 'Interior',
-        totalPages: '/03',
+        totalPages: '/01',
         description_title: 'SPYDER',
         description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
         textPosition: 'above',
@@ -169,16 +169,16 @@ function App() {
       subtitle: 'Range Rover SV, sunset gold, 2023',
       image: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
       mobileImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
-      introImage: `${import.meta.env.BASE_URL}SV/SV_details/intro.png`,
+      introImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
       number: '00.06',
       titleClassName: 'text-8xl',
-      detailNumber: '02/',
-      detailTotal: ' /03',
+      detailNumber: '01/',
+      detailTotal: '/01',
       interior: {
         title: 'Interior',
-        page: '01/',
+        page: '02/',
         subtitle: 'Interior',
-        totalPages: '/06',
+        totalPages: '/02',
         description_title: '',
         description_text: '',
         textPosition: 'above',
@@ -224,16 +224,16 @@ function App() {
               `${import.meta.env.BASE_URL}SV/SV_details/10.1.png`,
               `${import.meta.env.BASE_URL}SV/SV_details/10.2.png`
             ],
-            text: 'Деревянный багажный коврик -выполненный в том же стиле, что и салонные коврики, с единственным отличием — металлическая наклейка с инициалами владельца',
+            text: 'Выполненный в том же стиле, что и салонные коврики, с единственным отличием — металлическая наклейка с инициалами владельца',
             left_title: 'Багажник'
           }
         ]
       },
       exterior: {
         title: 'Exterior',
-        page: '02/',
+        page: '03/',
         subtitle: 'Exterior',
-        totalPages: '/02',
+        totalPages: '/03',
         description_title: '',
         descriptions: [
           { text: 'Оригинальный цвет глянца затянут в матовый', image: `${import.meta.env.BASE_URL}SV/SV_details/1.png`, left_title: 'Кузов' },
