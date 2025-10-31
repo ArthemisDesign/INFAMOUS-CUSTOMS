@@ -254,20 +254,21 @@ function App() {
       subtitle: 'Rolls-Royce Phantom Drophead Coupe, white, 2010',
       image: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
       mobileImage: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
-      introImage: `${import.meta.env.BASE_URL}RR/RR_details/1.png`,
+      introImage: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
       number: '00.07',
       titleClassName: 'text-8xl',
       mobileTitleClassName: 'text-3xl',
       detailNumber: '01/',
-      detailTotal: '/03',
+      detailTotal: '/01',
+      introDescription: 'При создании этого автомобиля мы обратились к эталону роскоши и точности - стилю швейцарских часов Zenith',
       exterior: {
         title: 'Exterior',
-        page: '01/',
+        page: '03/',
         subtitle: 'Exterior',
         totalPages: '/03',
         descriptions: [
           {
-            image: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
+            image: `${import.meta.env.BASE_URL}RR/RR_details/1.png`,
             text: "Кузов оформлен в светлом балансе металла и золота.\nКапот оклеен серебристой плёнкой с золотыми контрастными деталями",
             left_title: 'Кузов'
           },
@@ -289,9 +290,9 @@ function App() {
       },
       interior: {
         title: 'Interior',
-        page: '01/',
+        page: '02/',
         subtitle: 'Interior',
-        totalPages: '/05',
+        totalPages: '/02',
         description_title: '',
         description_text: '',
         textPosition: 'above',
@@ -300,13 +301,7 @@ function App() {
             images: [
               `${import.meta.env.BASE_URL}RR/RR_details/6.1.png`,
               `${import.meta.env.BASE_URL}RR/RR_details/6.2.png`,
-              `${import.meta.env.BASE_URL}RR/RR_details/6.3.png`
-            ],
-            text: 'Решено было вдохновиться стилем Zenith и подчеркнуть индивидуальность автомобиля.',
-            left_title: 'Салон'
-          },
-          {
-            images: [
+              `${import.meta.env.BASE_URL}RR/RR_details/6.3.png`,
               `${import.meta.env.BASE_URL}RR/RR_details/7.png`
             ],
             text: 'Применена оригинальная кожа, подобранная по текстуре и тактильным ощущениям. Передние сиденья перетянуты натуральной кожей с разработанной нами перфорацией.',
@@ -317,7 +312,7 @@ function App() {
               `${import.meta.env.BASE_URL}RR/RR_details/8.1.png`,
               `${import.meta.env.BASE_URL}RR/RR_details/8.2.png`
             ],
-            text: 'Руль полностью перешит, дополнен деревянными вставками и отделкой из синей кожи',
+            text: 'Полностью перешит, дополнен деревянными вставками и отделкой из синей кожи',
             left_title: 'Руль'
           },
           {
@@ -326,16 +321,15 @@ function App() {
               `${import.meta.env.BASE_URL}RR/RR_details/9.2.png`,
               `${import.meta.env.BASE_URL}RR/RR_details/9.3.png`
             ],
-            text: 'Тиковые Коврики выполнены из тикового дерева с кожаными вставками и защищены прозрачными полиуретановыми покрытиями',
-            left_title: 'Коврики'
+            text: 'Коврики выполнены из тикового дерева с кожаными вставками и защищены прозрачными полиуретановыми покрытиями',
+            left_title: 'Тиковые коврики'
           },
           {
             images: [
               `${import.meta.env.BASE_URL}RR/RR_details/10.1.png`,
-              `${import.meta.env.BASE_URL}RR/RR_details/10.2.png`,
-              `${import.meta.env.BASE_URL}RR/RR_details/10.3.png`
+              `${import.meta.env.BASE_URL}RR/RR_details/10.2.png`
             ],
-            text: 'Чехол выполнен из тикового дерева с кожаными вставками и защищены прозрачными полиуретановыми покрытиями',
+            text: 'Ангелы Большого театра выступают декоративным элементом, вышитым на защитном чехле',
             left_title: 'Чехол'
           }
         ]
@@ -970,6 +964,15 @@ function App() {
                   )}
                 </div>
               </main>
+              {carData.introDescription && (
+                <div className="w-full flex justify-end items-center flex-shrink-0">
+                  <div className="w-full max-w-4xl px-4 md:px-0 text-left">
+                    <p className="text-base md:text-xl text-gray-300 leading-relaxed py-8">
+                      {carData.introDescription}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           {carData.look && (
