@@ -554,22 +554,20 @@ function App() {
   }, [visualizingTotal, activeVisualizingIndex]);
 
   useEffect(() => {
-    if (activePage === 'about' && !galleryIsTouching) {
-        const timer = setTimeout(() => {
-            advanceGallerySlide(1);
-        }, 3000); // Change slide every 3 seconds
-        return () => clearTimeout(timer);
+    if (activePage !== 'about') {
+      setAboutTitleVisible(false);
+      return;
     }
-  }, [activeGallerySlide, activePage, advanceGallerySlide, galleryIsTouching]);
 
-  useEffect(() => {
     const target = aboutTitleRef.current;
     if (!target) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          setAboutTitleVisible(entry.isIntersecting);
+          if (entry.isIntersecting) {
+            setAboutTitleVisible(true);
+          }
         });
       },
       {
@@ -581,7 +579,7 @@ function App() {
     observer.observe(target);
 
     return () => observer.disconnect();
-  }, []);
+  }, [activePage]);
 
   useEffect(() => {
     if (!mobileVirtualInitializedRef.current) {
