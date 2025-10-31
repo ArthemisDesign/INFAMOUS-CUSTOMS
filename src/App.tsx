@@ -1335,40 +1335,16 @@ function App() {
 
                   <div className="space-y-12 text-lg leading-8 text-white/85">
                     <div className="flex flex-col space-y-3">
-                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>мы</div>
-                      <div className="border-t border-white/15 pt-8">
+                      <div className="pt-8">
                         <p>
-                          INFAMOUS CUSTOMS - это первая компания в СНГ, специализирующаяся на модификации и полностью персонализированной кастомизации автомобилей класса люкс
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col space-y-3">
-                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ЦЕННОСТИ</div>
-                      <div className="border-t border-white/15 pt-8 space-y-4">
-                        <p>
-                          Путь в сообщество INFAMOUS CUSTOMS требует сознательных усилий, и это — признак его ценности
-                        </p>
-                        <p>
-                          Мы устанавливаем высокую планку, чтобы каждый, кто оказывается внутри, обрел не просто доступ, а исключительные возможности
-                        </p>
-                        <p>
-                          На практике это означает доступ к сети из более чем 30 проверенных мастерских и гарантию лучшего результата при честной цене. Мы лично знакомим вас с подходящими специалистами и наглядно демонстрируем качество на готовых проектах
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col space-y-3">
-                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ИНВЕСТИЦИИ</div>
-                      <div className="border-t border-b border-white/15 py-8">
-                        <p>
-                          Мы обеспечиваем полную прозрачность инвестиций. Ваш бюджет работает троекратно: на долгосрочные гарантии для вашего транспортного средства, на реализацию вашего проекта и на благотворительность. С нами ваша мечта об автомобиле обретает и уверенность и добрую цель
+                          INFAMOUS CUSTOMS — это проводник от идеи к воплощению в сфере премиальной кастомизации и приватных мероприятий. Мы берём на себя ответственность за репутацию внутри формируемого сообщества и требовательно подходим к приглашению новых участников.
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              {/* Mobile Description */}
               <div className="md:hidden bg-transparent text-white py-16 px-6">
                 <div className="max-w-md mx-auto w-full">
                   <div className="flex flex-col space-y-4 mb-8">
@@ -1383,34 +1359,9 @@ function App() {
 
                   <div className="space-y-10 text-sm leading-7 text-white/85">
                     <div className="flex flex-col space-y-2">
-                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>мы</div>
-                      <div className="border-t border-white/15 pt-6">
+                      <div className="pt-6">
                         <p>
-                          INFAMOUS CUSTOMS - это первая компания в СНГ, специализирующаяся на модификации и полностью персонализированной кастомизации автомобилей класса люкс
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col space-y-2">
-                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ЦЕННОСТИ</div>
-                      <div className="border-t border-white/15 pt-6 space-y-4">
-                        <p>
-                          Путь в сообщество INFAMOUS CUSTOMS требует сознательных усилий, и это — признак его ценности
-                        </p>
-                        <p>
-                          Мы устанавливаем высокую планку, чтобы каждый, кто оказывается внутри, обрел не просто доступ, а исключительные возможности
-                        </p>
-                        <p>
-                          На практике это означает доступ к сети из более чем 30 проверенных мастерских и гарантию лучшего результата при честной цене. Мы лично знакомим вас с подходящими специалистами и наглядно демонстрируем качество на готовых проектах
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col space-y-2">
-                      <div className="text-xs tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>ИНВЕСТИЦИИ</div>
-                      <div className="border-t border-b border-white/15 py-6">
-                        <p>
-                          Мы обеспечиваем полную прозрачность инвестиций. Ваш бюджет работает троекратно: на долгосрочные гарантии для вашего транспортного средства, на реализацию вашего проекта и на благотворительность. С нами ваша мечта об автомобиле обретает и уверенность и добрую цель
+                          INFAMOUS CUSTOMS — это проводник от идеи к воплощению в сфере премиальной кастомизации и приватных мероприятий. Мы берём на себя ответственность за репутацию внутри формируемого сообщества и требовательно подходим к приглашению новых участников.
                         </p>
                       </div>
                     </div>
