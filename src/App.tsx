@@ -50,9 +50,9 @@ function App() {
       { name: 'videos', href: '#videos' }
     ],
     visualizing: [
-      { name: 'SPYDER', href: '#spyder' },
+      { name: 'RR-BOLSHOI', href: '#rr-bolshoi' },
       { name: 'SV-HERMES', href: '#sv-hermes' },
-      { name: 'RR-BOLSHOI', href: '#rr-bolshoi' }
+      { name: 'SPYDER', href: '#spyder' },
     ],
     contact: [
       { name: 'client form', href: '#client-form' }
@@ -1595,15 +1595,10 @@ function App() {
           </>
         );
       case 'visualizing':
-        const activeContentKey = activeSubsection.substring(1) as keyof typeof visualizingContent;
+        const activeContentKey = visualizingKeyOrder[activeVisualizingIndex];
+        const activeContent = visualizingContent[activeContentKey];
         
-        const possibleKeys = visualizingKeyOrder;
-        let activeContentKeyForRender = activeContentKey;
-        if (!possibleKeys.includes(activeContentKeyForRender)) {
-            activeContentKeyForRender = 'spyder';
-        }
-        const activeContent = visualizingContent[activeContentKeyForRender];
-        const originalVisualizingKeys = possibleKeys;
+        const originalVisualizingKeys = visualizingKeyOrder;
         const visualizingKeys = [...originalVisualizingKeys, ...originalVisualizingKeys, ...originalVisualizingKeys];
         const fallbackMobileIndex = visualizingTotal + activeVisualizingIndex;
         const activeMobileIndex = mobileVirtualInitializedRef.current ? mobileVirtualIndex : fallbackMobileIndex;
@@ -1612,7 +1607,7 @@ function App() {
         const trackWidthPx = mobileSliderWidth ? visualizingKeys.length * mobileSliderWidth : null;
         const trackTranslatePx = mobileSliderWidth ? (-activeMobileIndex * mobileSliderWidth) + mobileSwipeOffset : mobileSwipeOffset;
         const mobileTextAnimationClass = mobileDirectionRef.current >= 0 ? 'slider-text-enter-up' : 'slider-text-enter-down';
-        const mobileTextKey = `${activeContentKeyForRender}-text-${activeVisualizingIndex}`;
+        const mobileTextKey = `${activeContentKey}-text-${activeVisualizingIndex}`;
 
         return (
           <section id="visualizing" className="bg-black text-white h-screen flex flex-col">
@@ -1795,7 +1790,7 @@ function App() {
                 </div>
 
                 <button 
-                  onClick={() => handleCarSelect(activeContentKeyForRender)}
+                  onClick={() => handleCarSelect(activeContentKey)}
                   className="border border-white rounded-full px-8 py-2 text-sm font-semibold tracking-wider hover:bg-white hover:text-black transition-colors"
                 >
                     learn more
