@@ -75,6 +75,7 @@ function App() {
       title: 'SPYDER',
       subtitle: 'Lamborghini Huracan Spyder, turquoise, 2016',
       image: `${import.meta.env.BASE_URL}SPYDER/spyder_title.png`,
+      mobileImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
       introImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
       number: '00.05',
       titleClassName: 'text-9xl',
@@ -167,6 +168,7 @@ function App() {
       title: 'SV-HERMES',
       subtitle: 'Range Rover SV, sunset gold, 2023',
       image: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
+      mobileImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
       introImage: `${import.meta.env.BASE_URL}SV/SV_details/intro.png`,
       number: '00.06',
       titleClassName: 'text-8xl',
@@ -257,6 +259,7 @@ function App() {
       title: 'RR - TEACK DECK',
       subtitle: 'Rolls-Royce Phantom Drophead Coupe, white, 2010',
       image: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
+      mobileImage: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
       introImage: `${import.meta.env.BASE_URL}RR/RR_details/1.png`,
       number: '00.07',
       titleClassName: 'text-8xl',
@@ -362,6 +365,7 @@ function App() {
     title: car.title,
     subtitle: car.subtitle,
     image: car.image,
+    mobileImage: car.mobileImage,
     mobileTitleClassName: car.mobileTitleClassName,
   }));
 
@@ -1531,7 +1535,7 @@ function App() {
                         return (
                           <div key={item.key} className={classes} style={styles}>
                             <div className="w-9/12 h-full">
-                              <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
+                              <img src={item.mobileImage || item.image} alt={item.title} className="w-full h-full object-cover rounded-3xl" />
                             </div>
                           </div>
                         );
@@ -1812,7 +1816,7 @@ function App() {
                           }}
                         >
                           <img
-                            src={content.image}
+                            src={content.mobileImage || content.image}
                             alt={content.title}
                             className="w-full h-full object-cover"
                           />
