@@ -1313,6 +1313,51 @@ function App() {
                   </div>
                 </header>
               </div>
+              {/* Desktop Description */}
+              <div className="hidden md:block bg-transparent text-white py-24 px-8">
+                <div className="max-w-4xl w-full mx-auto">
+                  <div className="mb-16">
+                    <div>
+                      <h2 className="text-5xl font-semibold text-white" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>Описание</h2>
+                      <div className="border-b border-white mt-4"></div>
+                      <div className="flex items-center justify-between text-lg tracking-[0.35em] uppercase text-white mt-2" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>
+                        <span>01//</span>
+                        <span className="px-4">о нас</span>
+                        <span>03//</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-12 text-lg leading-8 text-white/85">
+                    <div className="flex flex-col space-y-3">
+                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>мы</div>
+                      <div className="border-t border-white/15 pt-8">
+                        <p>
+                          Мы — INFAMOUS CUSTOMS, первая компания в СНГ, специализирующаяся на модификации и кастомизации автомобилей класса люкс.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col space-y-3">
+                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>экспертиза</div>
+                      <div className="border-t border-white/15 pt-8">
+                        <p>
+                          Наш послужной список мастерских насчитывает более 30 организаций с проверенный 20 летним отточенным опытом. Наша задача предотвратить вас от ложных и завышенных цен от мастерских которые на вас наживаются. Короче говоря «у наших партнеров дешевле» и мы не только предоставляем, но и знакомим с мастерскими в случае заинтересованности. С нашими готовыми представленными машинами сможем вас ознакомить лично, чтобы вы убедились в качестве.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col space-y-3">
+                      <div className="text-sm tracking-[0.35em] uppercase text-white/40" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>гарантия</div>
+                      <div className="border-t border-b border-white/15 py-8">
+                        <p>
+                          Ваш бюджет, который вы предоставляете, служит вашей же гарантией на все установленные дивайсы, включая технику.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="md:hidden bg-transparent text-white py-16 px-6">
                 <div className="max-w-md mx-auto w-full">
                   <div className="flex flex-col space-y-4 mb-8">
