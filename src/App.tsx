@@ -50,7 +50,7 @@ function App() {
       { name: 'videos', href: '#videos' }
     ],
     visualizing: [
-      { name: 'RR-BOLSHOI', href: '#rr-bolshoi' },
+      { name: 'RR - TEACK DECK', href: '#rr-teack-deck' },
       { name: 'SV-HERMES', href: '#sv-hermes' },
       { name: 'SPYDER', href: '#spyder' },
     ],
@@ -253,9 +253,9 @@ function App() {
         description_text: 'Placeholder text for SV-Hermes accessories description.'
       }
     },
-    'rr-bolshoi': {
-      title: 'RR-BOLSHOI',
-      subtitle: 'RR-Bolshoi — Designed 08/21/2023',
+    'rr-teack-deck': {
+      title: 'RR - TEACK DECK',
+      subtitle: 'RR - Teack Deck — Designed 08/21/2023',
       image: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
       introImage: `${import.meta.env.BASE_URL}RR/RR_details/1.png`,
       number: '00.07',
