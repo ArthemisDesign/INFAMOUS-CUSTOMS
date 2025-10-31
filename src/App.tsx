@@ -73,7 +73,7 @@ function App() {
   const visualizingContent = {
     spyder: {
       title: 'SPYDER',
-      subtitle: 'Lamborghini Huracan Spyder, turquoise, 2016',
+      subtitle: 'Lamborghini Huracan Spyder, turquoise',
       image: `${import.meta.env.BASE_URL}SPYDER/spyder_title.png`,
       mobileImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
       introImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
@@ -168,7 +168,7 @@ function App() {
     },
     'sv-hermes': {
       title: 'SV-HERMES',
-      subtitle: 'Range Rover SV, sunset gold, 2023',
+      subtitle: 'Range Rover SV, sunset gold',
       image: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
       mobileImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
       introImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
@@ -253,7 +253,7 @@ function App() {
     },
     'rr-teack-deck': {
       title: 'RR - TEACK DECK',
-      subtitle: 'Rolls-Royce Phantom Drophead Coupe, white, 2010',
+      subtitle: 'Rolls-Royce Phantom Drophead Coupe, white',
       image: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
       mobileImage: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
       introImage: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
