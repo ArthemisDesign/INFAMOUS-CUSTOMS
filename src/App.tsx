@@ -362,6 +362,7 @@ function App() {
     title: car.title,
     subtitle: car.subtitle,
     image: car.image,
+    mobileTitleClassName: car.mobileTitleClassName,
   }));
 
   const advanceGallerySlide = useCallback((delta) => {
@@ -1544,7 +1545,7 @@ function App() {
                         key={galleryMobileTextKey}
                         className={`slider-text-card ${galleryTextAnimationClass}`}
                       >
-                        <h2 className="text-5xl font-bold tracking-tighter text-white leading-none">
+                        <h2 className={`${galleryItems[activeGallerySlide]?.mobileTitleClassName || 'text-4xl'} font-bold tracking-tighter text-white leading-none`}>
                           {galleryItems[activeGallerySlide]?.title}
                         </h2>
                         <p className="text-md text-gray-300">{galleryItems[activeGallerySlide]?.subtitle}</p>
