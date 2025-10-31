@@ -5,7 +5,7 @@ import Lenis from 'lenis';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rotation, setRotation] = useState(0);
-  const [activePage, setActivePage] = useState('about');
+  const [activePage, setActivePage] = useState('home');
   const [activeSubsection, setActiveSubsection] = useState('');
   const [view, setView] = useState('main'); // 'main' or 'detail'
   const [selectedCar, setSelectedCar] = useState(null); // e.g. 'spyder'
@@ -38,18 +38,18 @@ function App() {
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
-    { name: 'ABOUT', page: 'about', align: 'start' },
-    { name: 'VISUALIZING', page: 'visualizing', align: 'center' },
+    { name: 'HOME', page: 'home', align: 'start' },
+    { name: 'GARAGE', page: 'garage', align: 'center' },
     { name: 'CONTACT', page: 'contact', align: 'end' }
   ];
 
   const pageSubsections = {
-    about: [
+    home: [
       { name: 'about me', href: '#about-me' },
       { name: 'gallery', href: '#gallery' },
       { name: 'videos', href: '#videos' }
     ],
-    visualizing: [
+    garage: [
       { name: 'RR - TEACK DECK', href: '#rr-teack-deck' },
       { name: 'SV-HERMES', href: '#sv-hermes' },
       { name: 'SPYDER', href: '#spyder' },
@@ -387,7 +387,7 @@ function App() {
   }, [galleryItems.length]);
 
   const handleGalleryTouchStart = (event) => {
-    if (activePage !== 'about') return;
+    if (activePage !== 'home') return;
 
     const touch = event.touches[0];
     if (!touch) return;
@@ -556,7 +556,7 @@ function App() {
   }, [visualizingTotal, activeVisualizingIndex]);
 
   useEffect(() => {
-    if (activePage !== 'about') {
+    if (activePage !== 'home') {
       setAboutTitleVisible(false);
       return;
     }
@@ -594,15 +594,15 @@ function App() {
   }, [activeVisualizingIndex, visualizingTotal]);
 
   useEffect(() => {
-    if (activePage === 'visualizing' && view === 'main' && !mobileIsTouching) {
+    if (activePage === 'garage' && view === 'main' && !mobileIsTouching) {
       const timer = setTimeout(() => {
-        setActiveVisualizingIndex(prev => (prev + 1) % pageSubsections.visualizing.length);
+        setActiveVisualizingIndex(prev => (prev + 1) % pageSubsections.garage.length);
         updateMobileVirtualIndex(1);
         setMobileSwipeOffset(0);
       }, VISUALIZING_SLIDESHOW_DURATION);
       return () => clearTimeout(timer);
     }
-  }, [activeVisualizingIndex, activePage, view, mobileIsTouching, pageSubsections.visualizing.length, updateMobileVirtualIndex, visualizingTotal]);
+  }, [activeVisualizingIndex, activePage, view, mobileIsTouching, pageSubsections.garage.length, updateMobileVirtualIndex, visualizingTotal]);
 
   useEffect(() => {
     if (!mobileTrackShouldAnimate && mobileVirtualInitializedRef.current) {
@@ -626,14 +626,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (activePage === 'visualizing' && view === 'main' && mobileSliderRef.current) {
+    if (activePage === 'garage' && view === 'main' && mobileSliderRef.current) {
       setMobileSliderWidth(mobileSliderRef.current.offsetWidth);
     }
   }, [activePage, view]);
 
   useEffect(() => {
-    if (activePage === 'visualizing' && view === 'main') {
-      setActiveSubsection(pageSubsections.visualizing[activeVisualizingIndex].href);
+    if (activePage === 'garage' && view === 'main') {
+      setActiveSubsection(pageSubsections.garage[activeVisualizingIndex].href);
     }
   }, [activeVisualizingIndex, activePage, view]);
 
@@ -721,10 +721,10 @@ function App() {
   };
 
   const handleVisualizingNavigation = (direction) => {
-    if (activePage !== 'visualizing' || view !== 'main') return;
+    if (activePage !== 'garage' || view !== 'main') return;
 
     setActiveVisualizingIndex(prevIndex => {
-      const total = pageSubsections.visualizing.length;
+      const total = pageSubsections.garage.length;
       return (prevIndex + direction + total) % total;
     });
     updateMobileVirtualIndex(direction);
@@ -733,7 +733,7 @@ function App() {
   };
 
   const handleVisualizingTouchStart = (event) => {
-    if (activePage !== 'visualizing' || view !== 'main') return;
+    if (activePage !== 'garage' || view !== 'main') return;
 
     const touch = event.touches[0];
     if (!touch) return;
@@ -789,7 +789,7 @@ function App() {
   const handleVisualizingIndicatorClick = (index) => {
     if (index === activeVisualizingIndex) return;
 
-    const total = pageSubsections.visualizing.length;
+    const total = pageSubsections.garage.length;
     const forwardSteps = (index - activeVisualizingIndex + total) % total;
     const backwardSteps = (activeVisualizingIndex - index + total) % total;
     const delta = forwardSteps <= backwardSteps ? forwardSteps : -backwardSteps;
@@ -890,7 +890,7 @@ function App() {
       let currentSubsection = '';
       const threshold = window.innerHeight / 3;
 
-      if (activePage !== 'visualizing' || view === 'detail') {
+      if (activePage !== 'garage' || view === 'detail') {
         for (const subsection of currentSubsections) {
           const element = document.querySelector(subsection.href);
           if (element) {
@@ -1264,7 +1264,7 @@ function App() {
 
   const renderContent = () => {
     switch (activePage) {
-      case 'about':
+      case 'home':
         const currentSubsectionInfo = currentSubsections.find(item => item.href === activeSubsection);
         const galleryTextAnimationClass = galleryDirectionRef.current >= 0 ? 'slider-text-enter-up' : 'slider-text-enter-down';
         const galleryDesktopTextKey = `gallery-desktop-text-${activeGallerySlide}`;
@@ -1639,7 +1639,7 @@ function App() {
             </div>
           </>
         );
-      case 'visualizing':
+      case 'garage':
         const activeContentKey = visualizingKeyOrder[activeVisualizingIndex];
         const activeContent = visualizingContent[activeContentKey];
         
@@ -1714,7 +1714,7 @@ function App() {
               </div>
               <div className="w-[12.5%] flex-shrink-0 flex items-center justify-center pointer-events-auto py-0">
                 <div className="flex flex-col space-y-4">
-                  {pageSubsections.visualizing.map((item, index) => {
+                  {pageSubsections.garage.map((item, index) => {
                       const isActive = index === activeVisualizingIndex;
                       return (
                           <button
@@ -1743,7 +1743,7 @@ function App() {
             {/* Mobile Content */}
             <div className="lg:hidden h-full w-full flex flex-col items-center justify-center z-10 p-6 space-y-6">
               <div className="flex flex-row items-end space-x-4">
-                {pageSubsections.visualizing.map((item, index) => {
+                {pageSubsections.garage.map((item, index) => {
                   const isActive = index === activeVisualizingIndex;
                   return (
                     <button
@@ -1906,9 +1906,9 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex">
+    <div className="min-h-screen bg-black flex cursor-custom">
       {/* Sidebar for Desktop */}
-      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white hidden lg:flex ${activePage === 'about' ? '' : 'bg-black/20 backdrop-blur-md'}`}>
+      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white hidden lg:flex ${activePage === 'home' ? '' : 'bg-black/20 backdrop-blur-md'}`}>
         <div className="flex h-full w-full">
           {/* Left Column */}
           <div className="w-28 h-full border-r border-white flex flex-col justify-center relative">
@@ -1919,7 +1919,7 @@ function App() {
                           setActivePage(item.page);
                           setView('main');
                           setSelectedCar(null);
-                          if (item.page === 'visualizing') {
+                          if (item.page === 'garage') {
                             setActiveVisualizingIndex(0);
                           }
                         }} className={`self-${item.align} block text-xl font-medium text-white hover:text-gray-300 transition-colors duration-200 transform -rotate-90 bg-transparent border-none`}>
@@ -2003,7 +2003,7 @@ function App() {
                   setActivePage(item.page);
                   setView('main');
                   setSelectedCar(null);
-                  if (item.page === 'visualizing') {
+                  if (item.page === 'garage') {
                     setActiveVisualizingIndex(0);
                   }
                   setSidebarOpen(false);
