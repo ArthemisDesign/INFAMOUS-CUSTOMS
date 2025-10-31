@@ -19,7 +19,9 @@
     font-family: 'TT Runs Trial', sans-serif;
   }
 }
-
+.cursor-custom, .cursor-custom * {
+    cursor: url('/cursor.svg'), auto;
+}
 @keyframes fill-up {
   from { height: 0%; }
   to { height: 100%; }

@@ -8,6 +8,9 @@ export default {
       fontFamily: {
         sans: ['"TT Runs Trial"', ...defaultTheme.fontFamily.sans],
       },
+      cursor: {
+        'custom': `url('/cursor.svg'), auto`,
+      },
     },
   },
   plugins: [],
