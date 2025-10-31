@@ -81,13 +81,14 @@ function App() {
       titleClassName: 'text-9xl',
       detailNumber: '01/',
       detailTotal: '/01',
+      introDescription: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
       interior: {
         title: 'Interior',
         page: '02/',
         subtitle: 'Interior',
         totalPages: '/02',
-        description_title: 'SPYDER',
-        description_text: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
+        description_title: '',
+        description_text: '',
         textPosition: 'above',
         sliders: [
           {
@@ -95,8 +96,8 @@ function App() {
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.1.png`,
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.2.png`
             ],
-            text: 'Карбон как материя, тактильность как задача',
-            left_title: 'SPYDER'
+            text: 'Выполнен в ключе пожелания заказчика - карбон как материя, тактильность как задача',
+            left_title: 'Салон'
           },
           {
             images: [
@@ -104,7 +105,7 @@ function App() {
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.2.png`
             ],
             text: 'Руль полностью перешит — добавлены элементы из кованого карбона и кожи, собранные в заводскую геометрию',
-            left_title: 'SPYDER'
+            left_title: 'Руль'
           },
           {
             images: [
@@ -112,7 +113,7 @@ function App() {
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.2.png`
             ],
             text: 'Коврики выполнены в миксе карбона и кастомного рисунка под фирменную эстетику проекта, покрытый в защитную пленку',
-            left_title: 'SPYDER'
+            left_title: 'Коврики'
           },
           {
             images: [
@@ -120,14 +121,15 @@ function App() {
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.2.png`
             ],
             text: 'Панель приборов — пластик заменён на кованный карбон с точной подгонкой под заводской стандарт',
-            left_title: 'SPYDER'
+            left_title: 'Панель приборов'
           },
           {
             images: [
               `${import.meta.env.BASE_URL}SPYDER/spyder_details/6.png`
             ],
             text: 'Ремни были подобраны в цвет кузова',
-            left_title: 'SPYDER'
+            left_title: 'Ремни',
+            imageClassName: 'object-left'
           }
         ]
       },
@@ -136,12 +138,12 @@ function App() {
         page: '03/',
         subtitle: 'Exterior',
         totalPages: '/03',
-        description_title: 'The Spyder',
+        description_title: 'Кузов',
         descriptions: [
-          { text: 'Цвет кузова — первичен, золото — вторично', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/7.png` },
-          { text: 'Установлено аккуратное вердугдо, окрашенное в цвет кузова для визуальной цельности.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/8.png` },
-          { text: 'Золотые вставки выстроены в тон дискам — создают связку дизайна через весь силуэт.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/9.png` },
-          { text: 'От спойлера до переднего логотипа проходит итальянский флаг на белом основании — строгая осевая линия, подчёркивающая динамику.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/10.png` }
+          { text: 'Были соблюдены визуальные предпочтения - цвет кузова - первичен, золото - вторично', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/7.png` },
+          { text: 'Установлено аккуратное вердугдо, окрашенное в цвет кузова для визуальной цельности', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/8.png` },
+          { text: 'Золотые вставки сделаны в тон с дисками — создают связку дизайна через весь силуэт', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/9.png` },
+          { text: 'От спойлера до переднего логотипа проходит итальянский флаг на белом основании — строгая осевая линия, подчёркивающая динамику', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/10.png` }
         ]
       },
       wheels: {
@@ -149,10 +151,10 @@ function App() {
         page: '04/',
         subtitle: 'Wheels',
         totalPages: '/04',
-        description_title: 'Wheels',
+        description_title: 'Диски',
         descriptions: [
-          { text: 'Вдохновение Countach. \nДвухслойное золото.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/11.png` },
-          { text: 'Колёса выполнены по концепции дисков Lamborghini Countach LPI 800-4 — сложный двухслойный золотой оттенок, поданный как главный визуальный акцент проекта.', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/12.png` }
+          { text: 'Вдохновились концепцией дисков Lamborghini Countach LPI 800-4', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/11.png` },
+          { text: 'Сложный двухслойный золотой оттенок выступает главным визуальным акцентом проекта', left_title: 'Цвет и оттенки', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/12.png` }
         ]
       },
       accessories: {
@@ -1090,7 +1092,7 @@ function App() {
                             alt={`${slider.text} ${imageIndex + 1}`}
                             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
                               activeInteriorSlides[sliderIndex] === imageIndex ? 'opacity-100' : 'opacity-0'
-                            }`}
+                            } ${slider.imageClassName || ''}`}
                           />
                         ))
                       ) : (
@@ -1235,7 +1237,7 @@ function App() {
                     <React.Fragment key={index}>
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
                         <div className="md:col-span-1">
-                              <h3 className="text-xl md:text-2xl font-semibold">{carData.wheels.description_title}</h3>
+                              <h3 className="text-xl md:text-2xl font-semibold">{typeof item === 'object' && item.left_title ? item.left_title : carData.wheels.description_title}</h3>
                         </div>
                         <div className="md:col-span-3">
                               <p className="text-base md:text-xl text-gray-300 leading-relaxed whitespace-pre-line">
