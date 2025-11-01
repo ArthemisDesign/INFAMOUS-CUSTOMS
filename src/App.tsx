@@ -72,186 +72,6 @@ function App() {
   ];
 
   const visualizingContent = useMemo(() => ({
-    spyder: {
-      title: 'SPYDER',
-      subtitle: 'Lamborghini Huracan Spyder, turquoise',
-      image: `${import.meta.env.BASE_URL}SPYDER/spyder_title.png`,
-      mobileImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
-      introImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
-      number: '00.05',
-      titleClassName: 'text-9xl',
-      detailNumber: '01/',
-      detailTotal: '/01',
-      introDescription: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
-      interior: {
-        title: 'Interior',
-        page: '02/',
-        subtitle: 'Interior',
-        totalPages: '/02',
-        description_title: '',
-        description_text: '',
-        textPosition: 'above',
-        sliders: [
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.1.png`,
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.2.png`
-            ],
-            text: 'Выполнен в ключе пожелания заказчика - карбон как материя, тактильность как задача',
-            left_title: 'Салон'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.1.png`,
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.2.png`
-            ],
-            text: 'Руль полностью перешит — добавлены элементы из кованого карбона и кожи, собранные в заводскую геометрию',
-            left_title: 'Руль'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.1.png`,
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.2.png`
-            ],
-            text: 'Коврики выполнены в миксе карбона и кастомного рисунка под фирменную эстетику проекта, покрытый в защитную пленку',
-            left_title: 'Коврики'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.1.png`,
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.2.png`
-            ],
-            text: 'Панель приборов — пластик заменён на кованный карбон с точной подгонкой под заводской стандарт',
-            left_title: 'Панель приборов'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SPYDER/spyder_details/6.png`
-            ],
-            text: 'Ремни были подобраны в цвет кузова',
-            left_title: 'Ремни',
-            imageClassName: 'object-left'
-          }
-        ]
-      },
-      exterior: {
-        title: 'Exterior',
-        page: '03/',
-        subtitle: 'Exterior',
-        totalPages: '/03',
-        description_title: 'Кузов',
-        descriptions: [
-          { text: 'Были соблюдены визуальные предпочтения - цвет кузова - первичен, золото - вторично', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/7.png` },
-          { text: 'Установлено аккуратное вердугдо, окрашенное в цвет кузова для визуальной цельности', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/8.png` },
-          { text: 'Золотые вставки сделаны в тон с дисками — создают связку дизайна через весь силуэт', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/9.png` },
-          { text: 'От спойлера до переднего логотипа проходит итальянский флаг на белом основании — строгая осевая линия, подчёркивающая динамику', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/10.png` }
-        ]
-      },
-      wheels: {
-        title: 'Wheels',
-        page: '04/',
-        subtitle: 'Wheels',
-        totalPages: '/04',
-        description_title: 'Диски',
-        descriptions: [
-          { text: 'Вдохновились концепцией дисков Lamborghini Countach LPI 800-4', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/11.png` },
-          { text: 'Сложный двухслойный золотой оттенок выступает главным визуальным акцентом проекта', left_title: 'Цвет и оттенки', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/12.png` }
-        ]
-      },
-      accessories: {
-        title: 'Accessories',
-        page: '01/',
-        subtitle: 'Accessories',
-        totalPages: '/02',
-        description_title: '',
-        description_text: `Being able to adapt to the car's original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.`
-      }
-    },
-    'sv-hermes': {
-      title: 'SV-HERMES',
-      subtitle: 'Range Rover SV, sunset gold',
-      image: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
-      mobileImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
-      introImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
-      number: '00.06',
-      titleClassName: 'text-8xl',
-      detailNumber: '01/',
-      detailTotal: '/01',
-      interior: {
-        title: 'Interior',
-        page: '02/',
-        subtitle: 'Interior',
-        totalPages: '/02',
-        description_title: '',
-        description_text: '',
-        textPosition: 'above',
-        sliders: [
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SV/SV_details/3.1.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/4.1.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/4.2.png`
-            ],
-            text: 'Выполнили в цветах, тонах, роскоши и утонченности французского дома моды Hermes',
-            left_title: 'Салон'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SV/SV_details/5.1.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/3.2.png`
-            ],
-            text: 'Заменили оконтовку руля в белый глянец - задача была сделать фон под белую керамику на всех деталях (в интерьере уже были белые керамические элементы, ручка КПП)',
-            left_title: 'Руль'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SV/SV_details/6.1.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/6.2.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/6.3.png`
-            ],
-            text: 'Деревянные двухцветные в защитном лаке - в сочетании с салоном - точечно вырезанные для всех посадочных мест индивидуально',
-            left_title: 'Коврики'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SV/SV_details/7.1.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/7.2.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/8.1.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/8.2.png`
-            ],
-            text: 'Эксклюзивный интерьер в стиле Hermes, паттерн. Лошадок сделали под серебро, чтобы они переливались, появлялись и исчезали в зависимости от освещения и угла зрения. Все под глянцевым лаком',
-            left_title: 'Hermes лошади'
-          },
-          {
-            images: [
-              `${import.meta.env.BASE_URL}SV/SV_details/10.1.png`,
-              `${import.meta.env.BASE_URL}SV/SV_details/10.2.png`
-            ],
-            text: 'Выполненный в том же стиле, что и салонные коврики, с единственным отличием — металлическая наклейка с инициалами владельца',
-            left_title: 'Багажник'
-          }
-        ]
-      },
-      exterior: {
-        title: 'Exterior',
-        page: '03/',
-        subtitle: 'Exterior',
-        totalPages: '/03',
-        description_title: '',
-        descriptions: [
-          { text: 'Оригинальный цвет глянца затянут в матовый', image: `${import.meta.env.BASE_URL}SV/SV_details/1.png`, left_title: 'Кузов' },
-          { text: 'Вверх обклеен белой глянцевой пленкой', image: `${import.meta.env.BASE_URL}SV/SV_details/2.png`, left_title: 'Кузов' }
-        ]
-      },
-      accessories: {
-        title: 'Accessories',
-        page: '01/',
-        subtitle: 'Accessories',
-        totalPages: '/02',
-        description_title: '',
-        description_text: 'Placeholder text for SV-Hermes accessories description.'
-      }
-    },
     'rr-teack-deck': {
       title: 'RR - TEACK DECK',
       subtitle: 'Rolls-Royce Phantom Drophead Coupe, white',
@@ -346,6 +166,186 @@ function App() {
         description_text: 'Placeholder text for RR-Bolshoi accessories description.'
       }
     },
+    'sv-hermes': {
+      title: 'SV-HERMES',
+      subtitle: 'Range Rover SV, sunset gold',
+      image: `${import.meta.env.BASE_URL}SV/SV_Title.png`,
+      mobileImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
+      introImage: `${import.meta.env.BASE_URL}SV/SV_details/arthemis edit 10.png`,
+      number: '00.06',
+      titleClassName: 'text-8xl',
+      detailNumber: '01/',
+      detailTotal: '/01',
+      interior: {
+        title: 'Interior',
+        page: '02/',
+        subtitle: 'Interior',
+        totalPages: '/02',
+        description_title: '',
+        description_text: '',
+        textPosition: 'above',
+        sliders: [
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/3.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/4.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/4.2.png`
+            ],
+            text: 'Выполнили в цветах, тонах, роскоши и утонченности французского дома моды Hermes',
+            left_title: 'Салон'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/5.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/3.2.png`
+            ],
+            text: 'Заменили оконтовку руля в белый глянец - задача была сделать фон под белую керамику на всех деталях (в интерьере уже были белые керамические элементы, ручка КПП)',
+            left_title: 'Руль'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/6.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/6.2.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/6.3.png`
+            ],
+            text: 'Деревянные двухцветные в защитном лаке - в сочетании с салоном - точечно вырезанные для всех посадочных мест индивидуально',
+            left_title: 'Коврики'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/7.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/7.2.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/8.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/8.2.png`
+            ],
+            text: 'Эксклюзивный интерьер в стиле Hermes, паттерн. Лошадок сделали под серебро, чтобы они переливались, появлялись и исчезали в зависимости от освещения и угла зрения. Все под глянцевым лаком',
+            left_title: 'Hermes лошади'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SV/SV_details/10.1.png`,
+              `${import.meta.env.BASE_URL}SV/SV_details/10.2.png`
+            ],
+            text: 'Выполненный в том же стиле, что и салонные коврики, с единственным отличием — металлическая наклейка с инициалами владельца',
+            left_title: 'Багажник'
+          }
+        ]
+      },
+      exterior: {
+        title: 'Exterior',
+        page: '03/',
+        subtitle: 'Exterior',
+        totalPages: '/03',
+        description_title: '',
+        descriptions: [
+          { text: 'Оригинальный цвет глянца затянут в матовый', image: `${import.meta.env.BASE_URL}SV/SV_details/1.png`, left_title: 'Кузов' },
+          { text: 'Вверх обклеен белой глянцевой пленкой', image: `${import.meta.env.BASE_URL}SV/SV_details/2.png`, left_title: 'Кузов' }
+        ]
+      },
+      accessories: {
+        title: 'Accessories',
+        page: '01/',
+        subtitle: 'Accessories',
+        totalPages: '/02',
+        description_title: '',
+        description_text: 'Placeholder text for SV-Hermes accessories description.'
+      }
+    },
+    spyder: {
+      title: 'SPYDER',
+      subtitle: 'Lamborghini Huracan Spyder, turquoise',
+      image: `${import.meta.env.BASE_URL}SPYDER/spyder_title.png`,
+      mobileImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
+      introImage: `${import.meta.env.BASE_URL}SPYDER/spyder_details/1.png`,
+      number: '00.05',
+      titleClassName: 'text-9xl',
+      detailNumber: '01/',
+      detailTotal: '/01',
+      introDescription: 'С самого начала интерьер был ключевым элементом в дизайне автомобиля. Быстро стало ясно, что работа только с технической составляющей недостаточна. Каждый элемент — от руля и ремней безопасности до ковриков и декоративных вставок — должен был быть выполнен в едином стиле, чтобы создать целостный образ.',
+      interior: {
+        title: 'Interior',
+        page: '02/',
+        subtitle: 'Interior',
+        totalPages: '/02',
+        description_title: '',
+        description_text: '',
+        textPosition: 'above',
+        sliders: [
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/2.2.png`
+            ],
+            text: 'Выполнен в ключе пожелания заказчика - карбон как материя, тактильность как задача',
+            left_title: 'Салон'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/3.2.png`
+            ],
+            text: 'Руль полностью перешит — добавлены элементы из кованого карбона и кожи, собранные в заводскую геометрию',
+            left_title: 'Руль'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/4.2.png`
+            ],
+            text: 'Коврики выполнены в миксе карбона и кастомного рисунка под фирменную эстетику проекта, покрытый в защитную пленку',
+            left_title: 'Коврики'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.1.png`,
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/5.2.png`
+            ],
+            text: 'Панель приборов — пластик заменён на кованный карбон с точной подгонкой под заводской стандарт',
+            left_title: 'Панель приборов'
+          },
+          {
+            images: [
+              `${import.meta.env.BASE_URL}SPYDER/spyder_details/6.png`
+            ],
+            text: 'Ремни были подобраны в цвет кузова',
+            left_title: 'Ремни',
+            imageClassName: 'object-left'
+          }
+        ]
+      },
+      exterior: {
+        title: 'Exterior',
+        page: '03/',
+        subtitle: 'Exterior',
+        totalPages: '/03',
+        description_title: 'Кузов',
+        descriptions: [
+          { text: 'Были соблюдены визуальные предпочтения - цвет кузова - первичен, золото - вторично', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/7.png` },
+          { text: 'Установлено аккуратное вердугдо, окрашенное в цвет кузова для визуальной цельности', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/8.png` },
+          { text: 'Золотые вставки сделаны в тон с дисками — создают связку дизайна через весь силуэт', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/9.png` },
+          { text: 'От спойлера до переднего логотипа проходит итальянский флаг на белом основании — строгая осевая линия, подчёркивающая динамику', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/10.png` }
+        ]
+      },
+      wheels: {
+        title: 'Wheels',
+        page: '04/',
+        subtitle: 'Wheels',
+        totalPages: '/04',
+        description_title: 'Диски',
+        descriptions: [
+          { text: 'Вдохновились концепцией дисков Lamborghini Countach LPI 800-4', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/11.png` },
+          { text: 'Сложный двухслойный золотой оттенок выступает главным визуальным акцентом проекта', left_title: 'Цвет и оттенки', image: `${import.meta.env.BASE_URL}SPYDER/spyder_details/12.png` }
+        ]
+      },
+      accessories: {
+        title: 'Accessories',
+        page: '01/',
+        subtitle: 'Accessories',
+        totalPages: '/02',
+        description_title: '',
+        description_text: `Being able to adapt to the car's original body colorways is one of our key strengths. Rather than completely altering the overall look, We focus on adding subtle details that complement and enhance the existing design.`
+      }
+    }
   }), []);
 
   const visualizingKeyOrder = Object.keys(visualizingContent);
@@ -374,6 +374,8 @@ function App() {
       if (car && visualizingContent[car]) {
         newView = 'detail';
         newSelectedCar = car;
+      } else {
+        setActiveVisualizingIndex(0);
       }
     } else if (page === 'contact') {
       newPage = 'contact';
