@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Globe2, Menu, X, Play } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { ArrowRight, Globe2, Menu, X, Play, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
 import Lenis from 'lenis';
 
 function App() {
@@ -35,6 +35,7 @@ function App() {
   const interiorTouchRefs = useRef({});
   const exteriorTouchRefs = useRef({});
   const aboutTitleRef = useRef(null);
+  const isInitialLoad = useRef(true);
   const VISUALIZING_SLIDESHOW_DURATION = 5000;
 
   const navigationItems = [
@@ -70,7 +71,7 @@ function App() {
     { name: 'Wheels', href: '#wheels' },
   ];
 
-  const visualizingContent = {
+  const visualizingContent = useMemo(() => ({
     spyder: {
       title: 'SPYDER',
       subtitle: 'Lamborghini Huracan Spyder, turquoise',
@@ -345,7 +346,7 @@ function App() {
         description_text: 'Placeholder text for RR-Bolshoi accessories description.'
       }
     },
-  };
+  }), []);
 
   const visualizingKeyOrder = Object.keys(visualizingContent);
   const visualizingTotal = visualizingKeyOrder.length;
@@ -358,6 +359,59 @@ function App() {
     mobileImage: car.mobileImage,
     mobileTitleClassName: car.mobileTitleClassName,
   }));
+
+  const handleUrlChange = useCallback(() => {
+    const path = window.location.pathname;
+    const parts = path.split('/').filter(Boolean);
+    const [page, car] = parts;
+
+    let newPage = 'home';
+    let newView = 'main';
+    let newSelectedCar = null;
+
+    if (page === 'garage') {
+      newPage = 'garage';
+      if (car && visualizingContent[car]) {
+        newView = 'detail';
+        newSelectedCar = car;
+      }
+    } else if (page === 'contact') {
+      newPage = 'contact';
+    }
+    
+    setActivePage(newPage);
+    setView(newView);
+    setSelectedCar(newSelectedCar);
+  }, [visualizingContent]);
+  
+  useEffect(() => {
+    handleUrlChange();
+    
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
+  }, [handleUrlChange]);
+  
+  useEffect(() => {
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
+
+    let path;
+    if (activePage === 'home') {
+        path = '/';
+    } else {
+        path = `/${activePage}`;
+    }
+
+    if (activePage === 'garage' && view === 'detail' && selectedCar) {
+      path = `/garage/${selectedCar}`;
+    }
+    
+    if (window.location.pathname !== path) {
+        window.history.pushState({ activePage, view, selectedCar }, '', path);
+    }
+  }, [activePage, view, selectedCar]);
 
   const advanceGallerySlide = useCallback((delta) => {
     const length = galleryItems.length;
@@ -1858,6 +1912,10 @@ function App() {
     }
   };
 
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   if (showComingSoon) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center relative">
@@ -1920,6 +1978,19 @@ function App() {
             <div className="absolute top-24 left-1/2 -translate-x-1/2 w-24 h-24 text-white">
                 <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
             </div>
+            {view === 'detail' && (
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center space-x-4">
+                <button onClick={handleGoBack} className="text-white hover:text-gray-400">
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button onClick={() => window.history.forward()} className="text-white hover:text-gray-400">
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+                <button onClick={() => window.location.reload()} className="text-white hover:text-gray-400">
+                  <RefreshCw className="w-5 h-5" />
+                </button>
+              </div>
+            )}
             <div ref={subsectionNavRef} className="space-y-6 overflow-y-auto scrollbar-hide py-12" style={{ maxHeight: 'calc(100% - 12rem)'}}>
               {currentSubsections.map((item) => (
                 <a 
