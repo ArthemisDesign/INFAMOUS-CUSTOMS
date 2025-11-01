@@ -1634,7 +1634,7 @@ function App() {
                           <div className="absolute bottom-4 left-4 right-4 flex items-center space-x-2">
                             <span className="text-xs font-mono">00:00</span>
                             <div className="flex-grow bg-white/20 h-0.5 rounded-full relative">
-                              <div className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" style={{ left: '10%' }}></div>
+                              <div className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" style={{ left: '0%' }}></div>
                             </div>
                           </div>
                       </div>
