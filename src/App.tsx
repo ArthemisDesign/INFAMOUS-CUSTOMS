@@ -2041,18 +2041,22 @@ function App() {
               </div>
             )}
             <div ref={subsectionNavRef} className="space-y-6 overflow-y-auto scrollbar-hide py-12" style={{ maxHeight: 'calc(100% - 12rem)'}}>
-              {currentSubsections.map((item) => (
+              {currentSubsections.map((item, index) => (
                 <a 
                   key={item.name} 
                   href={item.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    const element = document.querySelector(item.href);
-                    if (element) {
-                      lenisRef.current?.scrollTo(element, { 
-                        duration: 1.2,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                      });
+                    if (activePage === 'garage' && view === 'main') {
+                      handleVisualizingIndicatorClick(index);
+                    } else {
+                      const element = document.querySelector(item.href);
+                      if (element) {
+                        lenisRef.current?.scrollTo(element, { 
+                          duration: 1.2,
+                          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                        });
+                      }
                     }
                   }}
                   className={`block transition-all duration-300 pb-1 border-b-2 ${
