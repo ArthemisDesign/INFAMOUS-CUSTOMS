@@ -483,6 +483,51 @@ function App() {
     setGalleryIsTouching(false);
   };
 
+  const handleGalleryMouseDown = (event) => {
+    if (activePage !== 'home' || event.button !== 0) return;
+    event.preventDefault();
+    galleryTouchStartXRef.current = event.clientX;
+    galleryTouchStartYRef.current = event.clientY;
+    setGalleryIsTouching(true);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      if (!galleryIsTouching || galleryTouchStartXRef.current === null) return;
+      event.preventDefault();
+    };
+
+    const handleMouseUp = (event) => {
+      if (!galleryIsTouching || galleryTouchStartXRef.current === null) {
+        return;
+      }
+
+      const touchEndX = event.clientX;
+      const deltaX = touchEndX - galleryTouchStartXRef.current;
+      const swipeThreshold = 40;
+
+      if (deltaX > swipeThreshold) {
+        advanceGallerySlide(-1);
+      } else if (deltaX < -swipeThreshold) {
+        advanceGallerySlide(1);
+      }
+
+      galleryTouchStartXRef.current = null;
+      galleryTouchStartYRef.current = null;
+      setGalleryIsTouching(false);
+    };
+
+    if (galleryIsTouching && activePage === 'home') {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [galleryIsTouching, activePage, advanceGallerySlide]);
+
   const handleInteriorTouchStart = (event, sliderIndex, slider) => {
     const touch = event.touches[0];
     if (!touch || !slider) return;
@@ -1440,9 +1485,10 @@ function App() {
                 onTouchMove={handleGalleryTouchMove}
                 onTouchEnd={handleGalleryTouchEnd}
                 onTouchCancel={handleGalleryTouchEnd}
+                onMouseDown={handleGalleryMouseDown}
               >
                 {/* Desktop Version */}
-                <div className="hidden lg:flex flex-col items-center justify-center">
+                <div className={`hidden lg:flex flex-col items-center justify-center ${galleryIsTouching ? 'cursor-grabbing' : 'cursor-grab'}`}>
                   <div className="text-center z-30 mb-4 w-full flex flex-col items-center space-y-6">
                       <div className="relative w-full max-w-5xl mx-auto text-center min-h-[200px] flex items-center justify-center">
                         <div
