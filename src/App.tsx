@@ -351,8 +351,8 @@ function App() {
   const visualizingKeyOrder = Object.keys(visualizingContent);
   const visualizingTotal = visualizingKeyOrder.length;
 
-  const galleryItems = Object.values(visualizingContent).map(car => ({
-    key: car.title.toLowerCase().replace(/ /g, '-'),
+  const galleryItems = Object.entries(visualizingContent).map(([key, car]) => ({
+    key: key,
     title: car.title,
     subtitle: car.subtitle,
     image: car.image,
@@ -774,6 +774,7 @@ function App() {
 
   const handleCarSelect = (carKey) => {
     lenisRef.current?.scrollTo(0, { immediate: true });
+    setActivePage('garage');
     setSelectedCar(carKey);
     setView('detail');
   };
@@ -1382,7 +1383,7 @@ function App() {
                 </header>
               </div>
               {/* Desktop Description */}
-              <div className="hidden md:block bg-transparent text-white py-24 px-8">
+              <div className="hidden md:block bg-transparent text-white py-24 px-8 mb-32">
                 <div className="max-w-4xl w-full mx-auto">
                   <div className="mb-16">
                     <div>
@@ -1408,7 +1409,7 @@ function App() {
                 </div>
               </div>
               {/* Mobile Description */}
-              <div className="md:hidden bg-transparent text-white py-16 px-6">
+              <div className="md:hidden bg-transparent text-white py-16 px-6 mb-32">
                 <div className="max-w-md mx-auto w-full">
                   <div className="flex flex-col space-y-4 mb-8">
                     <h2 className="text-3xl font-semibold text-white" style={{ fontFamily: 'TT Runs Trial, sans-serif' }}>Описание</h2>
@@ -1442,16 +1443,16 @@ function App() {
               >
                 {/* Desktop Version */}
                 <div className="hidden lg:flex flex-col items-center justify-center">
-                  <div className="text-center z-30 mb-8 w-full flex flex-col items-center space-y-6">
-                      <div className="relative overflow-hidden w-full max-w-md min-h-[150px] px-4">
+                  <div className="text-center z-30 mb-4 w-full flex flex-col items-center space-y-6">
+                      <div className="relative w-full max-w-5xl mx-auto text-center min-h-[200px] flex items-center justify-center">
                         <div
                           key={galleryDesktopTextKey}
                           className={`slider-text-card ${galleryTextAnimationClass}`}
                         >
-                          <h2 className="text-7xl font-bold tracking-tighter text-white leading-none">
-                              {galleryItems[activeGallerySlide]?.title}
+                          <h2 className="text-7xl font-bold tracking-tighter text-white leading-none whitespace-nowrap">
+                            {galleryItems[activeGallerySlide]?.title}
                           </h2>
-                          <p className="text-lg text-gray-300">{galleryItems[activeGallerySlide]?.subtitle}</p>
+                          <p className="text-lg text-gray-300 mt-2 whitespace-nowrap">{galleryItems[activeGallerySlide]?.subtitle}</p>
                         </div>
                       </div>
                   </div>
