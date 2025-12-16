@@ -2025,15 +2025,15 @@ function App() {
           {/* Rightmost Column */}
           <div className="flex-1 h-full border-r border-white flex flex-col items-center justify-center text-center relative py-24">
             <div className="absolute top-24 left-1/2 -translate-x-1/2 w-24 h-24 text-white">
-                <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
+                <img src={`${import.meta.env.BASE_URL}Logo2.svg`} alt="Infamous Customs Logo" />
             </div>
             {view === 'detail' && (
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center space-x-4">
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center space-x-8">
                 <button onClick={handleGoBack} className="text-white hover:text-gray-400">
-                  <ChevronLeft className="w-6 h-6" />
+                  previous
                 </button>
                 <button onClick={() => window.history.forward()} className="text-white hover:text-gray-400">
-                  <ChevronRight className="w-6 h-6" />
+                  next
                 </button>
                 <button onClick={() => window.location.reload()} className="text-white hover:text-gray-400">
                   <RefreshCw className="w-5 h-5" />
@@ -2086,7 +2086,7 @@ function App() {
         <div className="fixed inset-0 bg-black z-50 text-white flex flex-col lg:hidden">
           <header className="relative flex justify-end items-center p-6 h-28">
             <button onClick={handleGoHome} className="absolute left-1/2 -translate-x-1/2 top-8">
-                <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" className="w-10"/>
+                <img src={`${import.meta.env.BASE_URL}Logo2.svg`} alt="Infamous Customs Logo" className="w-10"/>
             </button>
             <button onClick={() => setSidebarOpen(false)}>
                 <X className="h-8 w-8" />
@@ -2137,7 +2137,7 @@ function App() {
         {/* Mobile Header Logo */}
         <div className="lg:hidden absolute top-0 left-0 right-0 w-full px-6 py-4 flex items-center justify-center z-20 pointer-events-none">
           <button onClick={handleGoHome} className="w-10 h-10 pointer-events-auto">
-            <img src={`${import.meta.env.BASE_URL}Loggo.svg`} alt="Infamous Customs Logo" />
+            <img src={`${import.meta.env.BASE_URL}Logo2.svg`} alt="Infamous Customs Logo" />
           </button>
         </div>
 
