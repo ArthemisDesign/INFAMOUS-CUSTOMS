@@ -51,9 +51,9 @@ function App() {
       { name: 'videos', href: '#videos' }
     ],
     garage: [
-      { name: 'RR - TEACK DECK', href: '#rr-teack-deck' },
-      { name: 'SV-HERMES', href: '#sv-hermes' },
-      { name: 'SPYDER', href: '#spyder' },
+      { name: 'rolls royce', href: '#rolls-royce' },
+      { name: 'sv-hermes', href: '#sv-hermes' },
+      { name: 'spyder', href: '#spyder' },
     ],
     contact: [
       { name: 'client form', href: '#client-form' }
@@ -72,8 +72,8 @@ function App() {
   ];
 
   const visualizingContent = useMemo(() => ({
-    'rr-teack-deck': {
-      title: 'RR - TEACK DECK',
+    'rolls-royce': {
+      title: 'ROLLS ROYCE',
       subtitle: 'Rolls-Royce Phantom Drophead Coupe, white',
       image: `${import.meta.env.BASE_URL}RR/RR_Title.png`,
       mobileImage: `${import.meta.env.BASE_URL}RR/RR_details/2.png`,
@@ -1045,11 +1045,7 @@ function App() {
             alt="Backstage background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 w-full h-full bg-black/75" />
-          <div 
-            className="absolute inset-0 w-full h-full opacity-20"
-            style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
-          />
+          <div className="absolute inset-0 w-full h-full bg-black/75 backdrop-blur-md" />
         </div>
         <section id="car-detail" className="relative z-10">
           <div id="intro" className="h-screen bg-transparent text-white flex flex-col p-4 md:p-8 relative">
@@ -1390,11 +1386,7 @@ function App() {
                 alt="Backstage background"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 w-full h-full bg-black/75" />
-              <div 
-                className="absolute inset-0 w-full h-full opacity-20"
-                style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
-              />
+              <div className="absolute inset-0 w-full h-full bg-black/75 backdrop-blur-md" />
             </div>
             <section id="about" className="relative z-10">
               {/* "about me" subsection */}
@@ -1544,29 +1536,6 @@ function App() {
                       >
                           learn more
                       </button>
-                      <div className="flex justify-center items-end space-x-4 mt-6">
-                          {galleryItems.map((_, index) => {
-                              const isActive = index === activeGallerySlide;
-                              return (
-                                  <div
-                                      key={index}
-                                      className={`relative overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'bg-gray-700' : 'bg-gray-600'}`}
-                                      style={{
-                                          height: isActive ? '2.5rem' : '1.5rem',
-                                          width: '3px',
-                                      }}
-                                  >
-                                      {isActive && (
-                                          <div
-                                              key={activeGallerySlide}
-                                              className="absolute bottom-0 left-0 w-full bg-white"
-                                              style={{ animation: 'fill-up 3s linear' }}
-                                          />
-                                      )}
-                                  </div>
-                              );
-                          })}
-                      </div>
                   </div>
                 </div>
 
@@ -1733,30 +1702,20 @@ function App() {
 
         return (
           <section id="visualizing" className="bg-black text-white h-screen flex flex-col">
-            {/* Fading Background Images & Noise */}
-            <div className="fixed inset-0 w-full h-full">
-              {Object.entries(visualizingContent).map(([key, content]) => (
-                <img 
-                  key={key} 
-                  src={content.image} 
-                  alt=""
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${activeSubsection === `#${key}` ? 'opacity-20' : 'opacity-0'} blur-sm grayscale`}
-                />
-              ))}
-              <div 
-                className="absolute inset-0 w-full h-full opacity-10 pointer-events-none"
-                style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
+            {/* Static blurred background */}
+            <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
+              <img
+                src={`${import.meta.env.BASE_URL}background.png`}
+                alt="Backstage background"
+                className="w-full h-full object-cover"
               />
+              <div className="absolute inset-0 w-full h-full bg-black/75 backdrop-blur-md" />
             </div>
 
             {/* Desktop Content */}
             <div className="hidden lg:flex h-full w-full items-stretch py-16 z-10">
-              <div className="w-[12.5%] flex-shrink-0 flex-col items-center justify-start pt-64 pointer-events-auto">
-                <div className="w-full text-center pb-1 border-b border-white">
-                    <span className="text-lg">{activeContent.number}</span>
-                </div>
-              </div>
-              <div className="flex-grow w-3/4 flex-shrink-0 h-full flex flex-col items-center justify-center relative px-0">
+              <div className="w-1/12 flex-shrink-0"></div>
+              <div className="flex-grow w-10/12 flex-shrink-0 h-full flex flex-col items-center justify-center relative px-0">
                 <div className="w-full h-full flex flex-col items-center justify-center">
                   <div className="w-full flex-grow relative">
                     {Object.entries(visualizingContent).map(([key, content]) => (
@@ -1789,7 +1748,7 @@ function App() {
                   </div>
                 </div>
               </div>
-              <div className="w-[12.5%] flex-shrink-0 flex items-center justify-center pointer-events-auto py-0">
+              <div className="w-1/12 flex-shrink-0 flex items-center justify-center pointer-events-auto py-0">
                 <div className="flex flex-col space-y-4">
                   {pageSubsections.garage.map((item, index) => {
                       const isActive = index === activeVisualizingIndex;
@@ -1930,11 +1889,7 @@ function App() {
                 alt="Background"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 w-full h-full bg-black/75" />
-              <div 
-                className="absolute inset-0 w-full h-full opacity-20"
-                style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
-              />
+              <div className="absolute inset-0 w-full h-full bg-black/75 backdrop-blur-md" />
             </div>
             <section id="contact" className="relative z-10 h-screen bg-transparent text-white">
               <div id="client-form" className="h-full flex flex-col items-center justify-center text-center p-8">
@@ -1972,12 +1927,9 @@ function App() {
           <img
             src={`${import.meta.env.BASE_URL}background.png`}
             alt="Coming soon background"
-            className="w-full h-full object-cover blur-sm"
+            className="w-full h-full object-cover"
           />
-          <div 
-            className="absolute inset-0 w-full h-full opacity-20"
-            style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxmaWx0ZXIgaWQ9ImEiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjc1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')" }}
-          />
+          <div className="absolute inset-0 w-full h-full bg-black/75 backdrop-blur-md" />
         </div>
         <div className="relative z-10 text-center">
           <h1 className="text-6xl md:text-8xl font-bold text-white">Coming Soon</h1>
@@ -1989,7 +1941,7 @@ function App() {
   return (
     <div className="min-h-screen bg-black flex cursor-custom">
       {/* Sidebar for Desktop */}
-      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white hidden lg:flex ${activePage === 'home' ? '' : 'bg-black/20 backdrop-blur-md'}`}>
+      <div className={`fixed inset-y-0 left-0 z-50 h-screen w-80 text-white hidden lg:flex bg-black/20 backdrop-blur-md`}>
         <div className="flex h-full w-full">
           {/* Left Column */}
           <div className="w-28 h-full border-r border-white flex flex-col justify-center relative">
@@ -2028,15 +1980,15 @@ function App() {
                 <img src={`${import.meta.env.BASE_URL}Logo2.svg`} alt="Infamous Customs Logo" />
             </div>
             {view === 'detail' && (
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center space-x-8">
-                <button onClick={handleGoBack} className="text-white hover:text-gray-400">
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-4">
+                <button onClick={handleGoBack} className="text-sm text-white hover:text-gray-400">
                   previous
                 </button>
-                <button onClick={() => window.history.forward()} className="text-white hover:text-gray-400">
+                <button onClick={() => window.history.forward()} className="text-sm text-white hover:text-gray-400">
                   next
                 </button>
-                <button onClick={() => window.location.reload()} className="text-white hover:text-gray-400">
-                  <RefreshCw className="w-5 h-5" />
+                <button onClick={() => window.location.reload()} className="text-sm text-white hover:text-gray-400">
+                  refresh
                 </button>
               </div>
             )}
@@ -2059,10 +2011,10 @@ function App() {
                       }
                     }
                   }}
-                  className={`block transition-all duration-300 pb-1 border-b-2 ${
+                  className={`block transition-all duration-300 ${
                     item.href === activeSubsection 
-                      ? 'active-subsection text-lg font-semibold text-white border-white' 
-                      : 'text-md text-gray-400 hover:text-white border-transparent'
+                      ? 'active-subsection text-md font-semibold text-white' 
+                      : 'text-sm text-gray-400 hover:text-white'
                   }`}
                 >
                   {item.name}
